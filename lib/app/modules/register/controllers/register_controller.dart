@@ -78,7 +78,10 @@ class RegisterController extends GetxController {
       );
 
       if (response.statusCode == 201) {
+        await box.put('token', response.data['token']);
+        await box.put('user', response.data['user']);
         print(json.encode(response.data));
+        Get.offAllNamed('/home');
       } else {
         print(response.statusMessage);
       }
