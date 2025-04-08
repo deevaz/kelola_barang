@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -19,7 +21,9 @@ class UserController extends GetxController {
   void fetchUserData() {
     final data = box.values.toList();
     user.assignAll(
-      data.map((e) => UserModel.fromJson(Map<String, dynamic>.from(e))),
+      data.map(
+        (e) => UserModel.fromJson(Map<String, dynamic>.from(jsonDecode(e))),
+      ),
     );
   }
 

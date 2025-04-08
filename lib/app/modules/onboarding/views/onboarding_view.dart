@@ -18,7 +18,7 @@ class OnboardingView extends GetView<OnboardingController> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: 320.h,
+                height: 330.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(

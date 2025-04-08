@@ -19,6 +19,7 @@ void main() async {
       builder: (context, child) {
         return GetMaterialApp(
           title: "Application",
+          defaultTransition: Transition.downToUp,
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
         );

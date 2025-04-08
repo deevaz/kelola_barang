@@ -26,7 +26,7 @@ class HomeView extends GetView<HomeController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('Tambah Barang');
-          Get.toNamed('/tambah_barang');
+          // Get.toNamed('/tambah_barang');
         },
         backgroundColor: ColorStyle.primary,
         shape: const CircleBorder(),

@@ -31,7 +31,14 @@ class LoginController extends GetxController {
     usernameController.clear();
     passwordController.clear();
     box.clear();
-    Get.offAllNamed('/on_boarding');
+    Get.snackbar(
+      'Logout Berhasil',
+      'Anda telah keluar dari aplikasi',
+      duration: const Duration(seconds: 2),
+      colorText: ColorStyle.white,
+      backgroundColor: ColorStyle.primary,
+    );
+    Get.offAllNamed('/onboarding');
   }
 
   Future<UserModel?> login(String username, String password) async {
@@ -62,6 +69,7 @@ class LoginController extends GetxController {
       print(response.data);
       print(response.statusMessage);
     }
+    return null;
     // return null;
   }
 }

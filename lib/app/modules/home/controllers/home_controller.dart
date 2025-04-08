@@ -5,7 +5,6 @@ class HomeController extends GetxController {
   final RxString name = ''.obs;
   final RxString token = ''.obs;
   final box = Hive.box('user');
-  //TODO: Implement HomeController
 
   var tabIndex = 0.obs;
 
