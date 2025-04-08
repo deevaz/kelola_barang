@@ -51,6 +51,15 @@ class LoginView extends GetView<LoginController> {
                   onPressed: () async {
                     final username = controller.usernameController.text;
                     final password = controller.passwordController.text;
+                    print('Username: $username');
+                    print('Password: $password');
+                    if (username.isEmpty || password.isEmpty) {
+                      Get.snackbar(
+                        'Error',
+                        'Username dan password tidak boleh kosong',
+                      );
+                      return;
+                    }
 
                     controller.login(username, password);
                   },

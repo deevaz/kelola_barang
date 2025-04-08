@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/history/views/history_view.dart';
+import 'package:kelola_barang/app/modules/landing/views/landing_view.dart';
+import 'package:kelola_barang/app/modules/other/views/other_view.dart';
+import 'package:kelola_barang/app/modules/product/views/product_view.dart';
+import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/c_bottom_nav_bar.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -9,18 +15,22 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Obx(
+        () => IndexedStack(
+          index: controller.tabIndex.value,
+          children: [LandingView(), ProductView(), HistoryView(), OtherView()],
+        ),
+      ),
+      bottomNavigationBar: CBottomNavBar(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          controller.getUserData();
+          print('Tambah Barang');
+          Get.toNamed('/tambah_barang');
         },
-        child: const Icon(Icons.bubble_chart),
-      ),
-      appBar: AppBar(title: const Text('HomeView'), centerTitle: true),
-      body: Center(
-        child: Text(
-          'HomeView is working ${controller.name.value}',
-          style: TextStyle(fontSize: 20),
-        ),
+        backgroundColor: ColorStyle.primary,
+        shape: const CircleBorder(),
+        child: Icon(Icons.add, color: ColorStyle.white),
       ),
     );
   }

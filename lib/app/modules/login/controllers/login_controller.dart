@@ -57,8 +57,11 @@ class LoginController extends GetxController {
       );
       Get.offAllNamed('/home');
     } else {
+      print('Login failed');
+      print(response.statusCode);
+      print(response.data);
       print(response.statusMessage);
     }
-    return null;
+    // return null;
   }
 }
