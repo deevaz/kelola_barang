@@ -23,41 +23,43 @@ class CustomFormTanggal extends StatelessWidget {
   Widget build(BuildContext context) {
     // String date = DateFormat('dd MMMM yyyy').format(selectedDate!);
     return Container(
-        margin: EdgeInsets.only(top: 10.h),
-        width: width ?? double.infinity,
-        height: 50.h,
-        decoration: BoxDecoration(
-            border: Border.all(color: ColorStyle.dark),
-            color: ColorStyle.white,
-            borderRadius: BorderRadius.circular(10.r),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 1,
-                offset: Offset(0, 1),
+      margin: EdgeInsets.only(top: 10.h),
+      width: width ?? double.infinity,
+      height: 50.h,
+      decoration: BoxDecoration(
+        border: Border.all(color: ColorStyle.dark),
+        color: ColorStyle.white,
+        borderRadius: BorderRadius.circular(10.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha((0.1 * 255).toInt()),
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: Offset(0, 1),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          SizedBox(width: 10.w),
+          Icon(Ionicons.calendar_outline, color: ColorStyle.dark),
+          Expanded(
+            child: TextButton(
+              onPressed: onTap,
+              child: Text(
+                // date ??
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: ColorStyle.grey,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ]),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 10.w,
             ),
-            Icon(
-              Ionicons.calendar_outline,
-              color: ColorStyle.dark,
-            ),
-            TextButton(
-                onPressed: onTap,
-                child: Text(
-                  // date ??
-                  title,
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      color: ColorStyle.grey,
-                      fontWeight: FontWeight.bold),
-                )),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

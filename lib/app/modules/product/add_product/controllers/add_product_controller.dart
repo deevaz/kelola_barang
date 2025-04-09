@@ -1,23 +1,175 @@
+import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/shared/controllers/barcode_controller.dart';
+import 'package:kelola_barang/constants/api_constant.dart';
+
+import '../../repositories/product_repository.dart';
 
 class AddProductController extends GetxController {
-  //TODO: Implement AddProductController
+  final barcodeC = Get.put(BarcodeController());
 
-  final count = 0.obs;
+  final kodeBarangC = TextEditingController();
+  final namaBarangC = TextEditingController();
+  final stokAwalC = TextEditingController();
+  final hargaBeliC = TextEditingController();
+  final hargaJualC = TextEditingController();
+  final hargaGrosirC = TextEditingController();
+  final deskripsiC = TextEditingController();
+
+  late final ProductRepository repo;
+  List<Map<String, dynamic>> get daftarKategori => repo.categories;
+
+  final selectedDate = DateTime.now().obs;
+  final selectedCategory = ''.obs;
+  var kategori = <Map<String, dynamic>>[].obs;
+
+  var selectedImage = Rxn<XFile>();
+  var imageUrl = Rxn<String>();
+
+  var apiConstant = ApiConstant();
+
+  void fetchCategories() {
+    kategori.value = repo.categories;
+  }
+
+  void addProduct(bool again) async {
+    print('Adding Product');
+    final file = selectedImage.value;
+    dio.FormData formData = dio.FormData.fromMap({
+      if (file != null)
+        'gambar': await dio.MultipartFile.fromFile(
+          file.path,
+          filename: file.name,
+        ),
+      'nama_barang': namaBarangC.text,
+      'kode_barang': kodeBarangC.text,
+      'stok_awal': int.tryParse(stokAwalC.text) ?? 0,
+      'total_stok': int.tryParse(stokAwalC.text) ?? 0,
+      'harga_beli': int.tryParse(hargaBeliC.text) ?? 0,
+      'harga_jual': int.tryParse(hargaJualC.text) ?? 0,
+      // 'harga_grosir': int.tryParse(hargaGrosirC.text) ?? 0,
+      'deskripsi': deskripsiC.text,
+      'kategori': selectedCategory.value,
+      'kadaluarsa': selectedDate.value.toIso8601String(),
+    });
+
+    postProduct(formData, again);
+  }
+
+  Future<void> postProduct(dio.FormData formData, bool again) async {
+    var headers = {
+      'Authorization':
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQ0MjE0MzE5LCJleHAiOjE3NDc4MTQzMTksIm5iZiI6MTc0NDIxNDMxOSwianRpIjoiYlA5V1pid2RDNm40N1lNYSIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.0H4tVvfGn5vHONALlRkGmaBJi0bzkMH17T_iXzv3AlQ',
+    };
+
+    try {
+      final userId = HomeController.to.userId;
+      var dio = Dio();
+      var response = await dio.request(
+        '${apiConstant.BASE_URL}/products/$userId',
+        options: Options(
+          method: 'POST',
+          headers: headers,
+          // headers:
+        ),
+        data: formData,
+      );
+      print('Success ${formData}');
+
+      if (response.statusCode == 201) {
+        print('Success ${response.data}');
+        Get.defaultDialog(
+          title: 'Success',
+          middleText: 'Product added successfully',
+          onConfirm: () {
+            Get.back();
+            if (again) {
+              Get.back();
+            } else {
+              Get.offAllNamed('/home');
+            }
+          },
+        );
+      } else {
+        print('Failed to add product: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('gagal tambah data $e ');
+    }
+  }
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> pickImage(isCamera) async {
+    final XFile? pickedFile = await _picker.pickImage(
+      source: isCamera ? ImageSource.camera : ImageSource.gallery,
+      imageQuality: 50,
+      maxWidth: 800,
+      maxHeight: 800,
+    );
+    if (pickedFile != null) {
+      selectedImage.value = pickedFile;
+    }
+  }
+
+  void pickDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2041),
+    );
+
+    if (pickedDate != null) {
+      TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        final combinedDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+
+        selectedDate.value = combinedDateTime;
+      }
+    }
+  }
+
+  void saveItem() {
+    Get.snackbar('Item Saved', 'Your item has been saved successfully!');
+  }
+
+  void saveAndCreateAnother() {
+    saveItem();
+    resetForm();
+  }
+
+  void resetForm() {
+    kodeBarangC.clear();
+    namaBarangC.clear();
+    stokAwalC.clear();
+    hargaBeliC.clear();
+    hargaJualC.clear();
+    hargaGrosirC.clear();
+    selectedCategory.value = '';
+    deskripsiC.clear();
+    selectedImage.value = null;
+    selectedDate.value = DateTime.now();
+  }
+
   @override
   void onInit() {
     super.onInit();
+    repo = ProductRepository();
+    fetchCategories();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -10,13 +11,13 @@ class ProductRepository {
   var apiConstant = ApiConstant();
   final box = Hive.box('user');
   final RxString token = ''.obs;
-  final RxString userId = ''.obs;
+  // final RxString userId = ''.obs;
 
   final dio = Dio();
 
   void getUserData() {
     final user = box.get('user');
-    userId.value = user['id'];
+    // userId.value = user['id'].toString();
     token.value = box.get('token');
     print('Token: $token');
     print('ID user: ${user['id']}');
@@ -25,12 +26,13 @@ class ProductRepository {
   Future<Iterable<Map<String, dynamic>>> fetchAllProducts() async {
     try {
       // getUserData();
+      final userId = HomeController.to.userId;
       var headers = {
         'Authorization':
             'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQ0MjE0MzE5LCJleHAiOjE3NDc4MTQzMTksIm5iZiI6MTc0NDIxNDMxOSwianRpIjoiYlA5V1pid2RDNm40N1lNYSIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.0H4tVvfGn5vHONALlRkGmaBJi0bzkMH17T_iXzv3AlQ',
       };
       var response = await dio.request(
-        '${apiConstant.BASE_URL}/products/3',
+        '${apiConstant.BASE_URL}/products/$userId',
         options: Options(method: 'GET', headers: headers),
       );
       print(response.data.toString());
@@ -48,10 +50,14 @@ class ProductRepository {
   }
 
   Future<void> deleteProduct(String id) async {
-    getUserData();
-    var headers = {'Authorization': 'Bearer $token'};
-    var response = await dio.delete(
-      '${apiConstant.BASE_URL}/products/3/$id',
+    // getUserData();
+    var headers = {
+      'Authorization':
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQ0MjE0MzE5LCJleHAiOjE3NDc4MTQzMTksIm5iZiI6MTc0NDIxNDMxOSwianRpIjoiYlA5V1pid2RDNm40N1lNYSIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.0H4tVvfGn5vHONALlRkGmaBJi0bzkMH17T_iXzv3AlQ',
+    };
+    final userId = HomeController.to.userId;
+    var response = await dio.request(
+      '${apiConstant.BASE_URL}/products/$userId/$id',
       options: Options(method: 'DELETE', headers: headers),
     );
     print(response.data);

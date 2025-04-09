@@ -5,6 +5,7 @@ import 'package:kelola_barang/app/modules/history/views/history_view.dart';
 import 'package:kelola_barang/app/modules/landing/views/landing_view.dart';
 import 'package:kelola_barang/app/modules/other/views/other_view.dart';
 import 'package:kelola_barang/app/modules/product/views/product_view.dart';
+import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/c_bottom_nav_bar.dart';
 
@@ -26,7 +27,7 @@ class HomeView extends GetView<HomeController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('Tambah Barang');
-          // Get.toNamed('/tambah_barang');
+          Get.toNamed(Routes.ADD_PRODUCT);
         },
         backgroundColor: ColorStyle.primary,
         shape: const CircleBorder(),
