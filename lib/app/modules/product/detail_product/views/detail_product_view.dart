@@ -10,7 +10,14 @@ import '../controllers/detail_product_controller.dart';
 import 'widgets/info_row.dart';
 
 class DetailProductView extends GetView<DetailProductController> {
-  const DetailProductView({super.key});
+  DetailProductView({super.key});
+
+  final currencyFormatter = NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp. ',
+    decimalDigits: 0,
+  );
+
   @override
   Widget build(BuildContext context) {
     final items = Get.arguments;
@@ -113,8 +120,14 @@ class DetailProductView extends GetView<DetailProductController> {
                 ],
               ),
               const Divider(),
-              InfoRow(title: 'Harga Beli', value: 'Rp ${items['harga_beli']}'),
-              InfoRow(title: 'Harga Jual', value: 'Rp ${items['harga_jual']}'),
+              InfoRow(
+                title: 'Harga Beli',
+                value: currencyFormatter.format(items['harga_beli'] ?? 0),
+              ),
+              InfoRow(
+                title: 'Harga Jual',
+                value: currencyFormatter.format(items['harga_jual'] ?? 0),
+              ),
               InfoRow(title: 'Kategori', value: '${items['kategori']}'),
               InfoRow(
                 title: 'Kadaluarsa',

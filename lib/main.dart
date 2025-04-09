@@ -19,7 +19,7 @@ void main() async {
       builder: (context, child) {
         return GetMaterialApp(
           title: "Application",
-          defaultTransition: Transition.fadeIn,
+          defaultTransition: Transition.cupertino,
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
         );
