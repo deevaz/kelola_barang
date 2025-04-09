@@ -115,10 +115,6 @@ class DetailProductView extends GetView<DetailProductController> {
               const Divider(),
               InfoRow(title: 'Harga Beli', value: 'Rp ${items['harga_beli']}'),
               InfoRow(title: 'Harga Jual', value: 'Rp ${items['harga_jual']}'),
-              // InfoRow(
-              //   title: 'Harga Grosir',
-              //   value: 'Rp ${items['harga_grosir']}',
-              // ),
               InfoRow(title: 'Kategori', value: '${items['kategori']}'),
               InfoRow(
                 title: 'Kadaluarsa',
@@ -128,7 +124,45 @@ class DetailProductView extends GetView<DetailProductController> {
                   'dd MMM yyyy – HH:mm',
                 ).format(DateTime.parse(items['kadaluarsa'])),
               ),
-              SizedBox(height: 135.h),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      'Deskripsi',
+                      style: TextStyle(fontSize: 18.sp, color: ColorStyle.grey),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {
+                        Get.defaultDialog(
+                          title: 'Deskripsi',
+                          titleStyle: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          content: Container(
+                            padding: EdgeInsets.all(20.w),
+                            child: Text(
+                              items['deskripsi'] ?? '',
+                              style: TextStyle(fontSize: 16.sp),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        items['deskripsi'] ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 100.h),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ColorStyle.primary,
