@@ -52,6 +52,7 @@ class HomeController extends GetxController {
     name.value = user['name'];
     print('Nama user: ${user['name']}');
     print('Email user: ${user['email']}');
+    print('ID user: ${user['id']}');
     token.value = box.get('token');
     print('Token: $token');
   }

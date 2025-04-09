@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class SplashScreenController extends GetxController {
-  //TODO: Implement SplashScreenController
-
   @override
   void onInit() {
     print('SplashScreenController initialized');
@@ -20,10 +19,19 @@ class SplashScreenController extends GetxController {
     super.onClose();
   }
 
-  void navigateToOnboard() {
-    Future.delayed(const Duration(seconds: 3), () {
-      print('Navigating to Onboarding');
-      Get.offAllNamed('/onboarding');
+  void navigateToOnboard() async {
+    await Future.delayed(const Duration(seconds: 3), () {
+      final box = Hive.box('user');
+      final token = box.get('token');
+      print('Token ditemukan: $token');
+
+      if (token != null && token.toString().isNotEmpty) {
+        print('Navigating to Home');
+        Get.offAllNamed('/home');
+      } else {
+        print('Navigating to Onboarding');
+        Get.offAllNamed('/onboarding');
+      }
     });
   }
 }

@@ -12,7 +12,11 @@ import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
 import '../modules/other/bindings/other_binding.dart';
 import '../modules/other/views/other_view.dart';
+import '../modules/product/add_product/bindings/add_product_binding.dart';
+import '../modules/product/add_product/views/add_product_view.dart';
 import '../modules/product/bindings/product_binding.dart';
+import '../modules/product/detail_product/bindings/detail_product_binding.dart';
+import '../modules/product/detail_product/views/detail_product_view.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
@@ -24,7 +28,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ONBOARDING;
+  static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
@@ -61,6 +65,18 @@ class AppPages {
       name: _Paths.PRODUCT,
       page: () => const ProductView(),
       binding: ProductBinding(),
+      children: [
+        GetPage(
+          name: _Paths.DETAIL_PRODUCT,
+          page: () => const DetailProductView(),
+          binding: DetailProductBinding(),
+        ),
+        GetPage(
+          name: _Paths.ADD_PRODUCT,
+          page: () => const AddProductView(),
+          binding: AddProductBinding(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.HISTORY,
