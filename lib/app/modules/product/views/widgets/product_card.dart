@@ -124,7 +124,7 @@ class ProductCard extends StatelessWidget {
                     child:
                         item['gambar'] != null
                             ? Image.network(
-                              'http://192.168.0.102:8000/storage/${item['gambar']}',
+                              'http://192.168.0.101:8000/storage/${item['gambar']}',
                               width: 130.w,
                               fit: BoxFit.cover,
                             )

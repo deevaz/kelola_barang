@@ -30,9 +30,12 @@ class RegisterController extends GetxController {
     }
   }
 
-  Future<void> pickImage() async {
+  Future<void> pickImage(isCamera) async {
     final XFile? pickedFile = await _picker.pickImage(
-      source: ImageSource.camera,
+      source: isCamera ? ImageSource.camera : ImageSource.gallery,
+      imageQuality: 50,
+      maxWidth: 200,
+      maxHeight: 200,
     );
     if (pickedFile != null) {
       selectedImage.value = pickedFile;
@@ -81,7 +84,9 @@ class RegisterController extends GetxController {
         await box.put('token', response.data['token']);
         await box.put('user', response.data['user']);
         print(json.encode(response.data));
-        Get.offAllNamed('/home');
+        Get.offAllNamed('/create-business');
+      } else if (response.statusCode == 422) {
+        print('VALIDATION ERROR: ${response.data}');
       } else {
         print(response.statusMessage);
       }
@@ -94,6 +99,9 @@ class RegisterController extends GetxController {
         backgroundColor: Colors.green,
       );
     } catch (e) {
+      if (e is dio.DioException) {
+        print('VALIDATION ERROR: ${e.response?.data}');
+      }
       print('Gagal mendaftar: $e');
       Get.snackbar(
         'Gagal',

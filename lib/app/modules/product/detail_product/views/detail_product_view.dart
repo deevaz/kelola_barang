@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 import '../controllers/detail_product_controller.dart';
@@ -45,7 +46,7 @@ class DetailProductView extends GetView<DetailProductController> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: Image.network(
-                  'http://192.168.0.102:8000/storage/${items['gambar']}',
+                  'http://192.168.0.101:8000/storage/${items['gambar']}',
                   width: 200.w,
                   height: 200.h,
                   fit: BoxFit.cover,
@@ -146,29 +147,31 @@ class DetailProductView extends GetView<DetailProductController> {
                       style: TextStyle(fontSize: 18.sp, color: ColorStyle.grey),
                     ),
                     const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        Get.defaultDialog(
-                          title: 'Deskripsi',
-                          titleStyle: TextStyle(
-                            fontSize: 20.sp,
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Get.defaultDialog(
+                            title: 'Deskripsi',
+                            titleStyle: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            content: Container(
+                              padding: EdgeInsets.all(20.w),
+                              child: Text(
+                                items['deskripsi'] ?? '',
+                                style: TextStyle(fontSize: 16.sp),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          items['deskripsi'] ?? '',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
                           ),
-                          content: Container(
-                            padding: EdgeInsets.all(20.w),
-                            child: Text(
-                              items['deskripsi'] ?? '',
-                              style: TextStyle(fontSize: 16.sp),
-                            ),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        items['deskripsi'] ?? '',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -185,7 +188,7 @@ class DetailProductView extends GetView<DetailProductController> {
                   minimumSize: Size(double.infinity, 50.h),
                 ),
                 onPressed: () {
-                  Get.toNamed('edit_barang', arguments: items);
+                  Get.toNamed(Routes.EDIT_PRODUCT, arguments: items);
                 },
                 child: Text(
                   'Ubah',

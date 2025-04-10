@@ -6,16 +6,16 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
-import '../../controllers/register_controller.dart';
+import '../../controllers/edit_product_controller.dart';
 
-class TambahGambarUser extends StatelessWidget {
+class EditGambarButton extends StatelessWidget {
+  final EditProductController c;
   final bool isCamera;
 
-  const TambahGambarUser({super.key, this.isCamera = true});
+  const EditGambarButton({super.key, required this.c, this.isCamera = true});
 
   @override
   Widget build(BuildContext context) {
-    final RegisterController c = Get.find<RegisterController>();
     return Obx(
       () => Container(
         width: 155.w,

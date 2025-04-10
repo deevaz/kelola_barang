@@ -3,6 +3,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import '../repositories/product_repository.dart';
 
 class ProductController extends GetxController {
+  static ProductController get to => Get.find();
   late final ProductRepository repo;
   final RxList products = [].obs;
   final RefreshController bRefresh = RefreshController(initialRefresh: false);

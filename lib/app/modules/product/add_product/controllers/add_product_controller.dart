@@ -10,6 +10,7 @@ import 'package:kelola_barang/constants/api_constant.dart';
 import '../../repositories/product_repository.dart';
 
 class AddProductController extends GetxController {
+  static AddProductController get to => Get.put(AddProductController());
   final barcodeC = Get.put(BarcodeController());
 
   final kodeBarangC = TextEditingController();
@@ -38,6 +39,7 @@ class AddProductController extends GetxController {
 
   void addProduct(bool again) async {
     print('Adding Product');
+
     final file = selectedImage.value;
     dio.FormData formData = dio.FormData.fromMap({
       if (file != null)
@@ -51,7 +53,6 @@ class AddProductController extends GetxController {
       'total_stok': int.tryParse(stokAwalC.text) ?? 0,
       'harga_beli': int.tryParse(hargaBeliC.text) ?? 0,
       'harga_jual': int.tryParse(hargaJualC.text) ?? 0,
-      // 'harga_grosir': int.tryParse(hargaGrosirC.text) ?? 0,
       'deskripsi': deskripsiC.text,
       'kategori': selectedCategory.value,
       'kadaluarsa': selectedDate.value.toIso8601String(),
