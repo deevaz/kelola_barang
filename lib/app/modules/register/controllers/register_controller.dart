@@ -84,7 +84,7 @@ class RegisterController extends GetxController {
         await box.put('token', response.data['token']);
         await box.put('user', response.data['user']);
         print(json.encode(response.data));
-        Get.offAllNamed('/create-business');
+        Get.offAllNamed('/home');
       } else if (response.statusCode == 422) {
         print('VALIDATION ERROR: ${response.data}');
       } else {

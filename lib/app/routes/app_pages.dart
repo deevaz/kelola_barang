@@ -17,6 +17,8 @@ import '../modules/product/add_product/views/add_product_view.dart';
 import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/detail_product/bindings/detail_product_binding.dart';
 import '../modules/product/detail_product/views/detail_product_view.dart';
+import '../modules/product/edit_product/bindings/edit_product_binding.dart';
+import '../modules/product/edit_product/views/edit_product_view.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
@@ -75,6 +77,11 @@ class AppPages {
           name: _Paths.ADD_PRODUCT,
           page: () => AddProductView(),
           binding: AddProductBinding(),
+        ),
+        GetPage(
+          name: _Paths.EDIT_PRODUCT,
+          page: () => EditProductView(),
+          binding: EditProductBinding(),
         ),
       ],
     ),

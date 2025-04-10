@@ -2,9 +2,10 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeController extends GetxController {
-  static HomeController get to => Get.find();
+  static HomeController get to => Get.put(HomeController());
 
   final RxString name = ''.obs;
+  final RxString image = ''.obs;
   final RxString token = ''.obs;
   final RxString userId = ''.obs;
   final box = Hive.box('user');
@@ -53,6 +54,7 @@ class HomeController extends GetxController {
   void getUserData() {
     final user = box.get('user');
     name.value = user['name'];
+    image.value = user['profile_picture'];
     userId.value = user['id'].toString();
     print('Nama user: ${user['name']}');
     print('Email user: ${user['email']}');

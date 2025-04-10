@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 
 class LandingController extends GetxController {
-  //TODO: Implement LandingController
+  RxInt omset = 0.obs;
+  RxInt keuntungan = 10.obs;
+  RxInt stokMasuk = 0.obs;
+  RxInt stokKeluar = 0.obs;
 
   final count = 0.obs;
   @override
