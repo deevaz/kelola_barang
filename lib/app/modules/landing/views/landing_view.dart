@@ -26,13 +26,25 @@ class LandingView extends GetView<LandingController> {
                   Obx(() {
                     final user = HomeController.to.name.value;
 
-                    return Text(
-                      user.isNotEmpty
-                          ? 'Selamat datang, $user'
-                          : 'Selamat datang',
-                      style: TextStyle(
-                        fontSize: 25.sp,
-                        fontWeight: FontWeight.bold,
+                    return RichText(
+                      text: TextSpan(
+                        text: 'Selamat datang,\n',
+                        style: TextStyle(
+                          fontSize: 25.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: user.isNotEmpty ? user : '',
+                            style: TextStyle(
+                              fontSize: 25.sp,
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  ColorStyle.primary, // Change color for user
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   }),

@@ -5,6 +5,10 @@ import '../modules/history/views/history_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/landing/bindings/landing_binding.dart';
+import '../modules/landing/supplier/add_supplier/bindings/add_supplier_binding.dart';
+import '../modules/landing/supplier/add_supplier/views/add_supplier_view.dart';
+import '../modules/landing/supplier/bindings/supplier_binding.dart';
+import '../modules/landing/supplier/views/supplier_view.dart';
 import '../modules/landing/views/landing_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
@@ -62,6 +66,20 @@ class AppPages {
       name: _Paths.LANDING,
       page: () => const LandingView(),
       binding: LandingBinding(),
+      children: [
+        GetPage(
+          name: _Paths.SUPPLIER,
+          page: () => const SupplierView(),
+          binding: SupplierBinding(),
+          children: [
+            GetPage(
+              name: _Paths.ADD_SUPPLIER,
+              page: () => const AddSupplierView(),
+              binding: AddSupplierBinding(),
+            ),
+          ],
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.PRODUCT,
