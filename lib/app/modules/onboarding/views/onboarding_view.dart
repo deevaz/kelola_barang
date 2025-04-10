@@ -41,7 +41,7 @@ class OnboardingView extends GetView<OnboardingController> {
                       ),
                       SizedBox(height: 10.h),
                       Text(
-                        'Sahabat pengelolaan inventarismu',
+                        'deskripsi-judul'.tr,
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
@@ -65,7 +65,7 @@ class OnboardingView extends GetView<OnboardingController> {
                                 Get.toNamed('/login');
                               },
                               child: Text(
-                                'Masuk',
+                                'login'.tr,
                                 style: TextStyle(color: ColorStyle.white),
                               ),
                             ),
@@ -85,7 +85,7 @@ class OnboardingView extends GetView<OnboardingController> {
                                 Get.toNamed('/register');
                               },
                               child: Text(
-                                'Daftar',
+                                'register'.tr,
                                 style: TextStyle(color: ColorStyle.white),
                               ),
                             ),

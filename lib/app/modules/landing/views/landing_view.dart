@@ -9,15 +9,9 @@ class LandingView extends GetView<LandingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('LandingView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'LandingView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      appBar: AppBar(title: const Text('LandingView'), centerTitle: true),
+      body: Center(
+        child: Text('deskripsi-judul'.tr, style: TextStyle(fontSize: 20)),
       ),
     );
   }
