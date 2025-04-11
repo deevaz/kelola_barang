@@ -10,7 +10,6 @@ import 'app/translations/app_translations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  // Hive.registerAdapter(UserModelAdapter());
   await Hive.openBox('user');
   runApp(
     ScreenUtilInit(

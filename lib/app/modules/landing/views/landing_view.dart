@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 import '../controllers/landing_controller.dart';
@@ -55,7 +56,7 @@ class LandingView extends GetView<LandingController> {
                       final image = HomeController.to.image.value;
                       if (image.isNotEmpty) {
                         return Image.network(
-                          'http://192.168.0.101:8000/storage/$image',
+                          'http://192.168.0.100:8000/storage/$image',
                           width: 40.w,
                           height: 40.h,
                           fit: BoxFit.cover,
@@ -95,7 +96,7 @@ class LandingView extends GetView<LandingController> {
                   SizedBox(width: 20.w),
                   InfoCard(
                     title: 'Pemasok',
-                    onTap: () => Get.toNamed('pemasok'),
+                    onTap: () => Get.toNamed(Routes.SUPPLIER),
                     icon: 'assets/images/img_supplier.png',
                   ),
                 ],

@@ -46,7 +46,7 @@ class DetailProductView extends GetView<DetailProductController> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: Image.network(
-                  'http://192.168.0.101:8000/storage/${items['gambar']}',
+                  'http://192.168.0.100:8000/storage/${items['gambar']}',
                   width: 200.w,
                   height: 200.h,
                   fit: BoxFit.cover,

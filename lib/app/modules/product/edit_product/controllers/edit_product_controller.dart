@@ -79,10 +79,8 @@ class EditProductController extends GetxController {
       '_method': 'PUT',
     });
 
-    var headers = {
-      'Authorization':
-          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQ0MjE0MzE5LCJleHAiOjE3NDc4MTQzMTksIm5iZiI6MTc0NDIxNDMxOSwianRpIjoiYlA5V1pid2RDNm40N1lNYSIsInN1YiI6IjMiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.0H4tVvfGn5vHONALlRkGmaBJi0bzkMH17T_iXzv3AlQ',
-    };
+    var token = HomeController.to.token;
+    var headers = {'Authorization': 'Bearer $token'};
 
     try {
       final userId = HomeController.to.userId;
