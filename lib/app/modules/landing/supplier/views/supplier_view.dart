@@ -31,7 +31,12 @@ class SupplierView extends GetView<SupplierController> {
       appBar: CustomAppBar(title: 'supplier'.tr),
       body: Column(
         children: [
-          SearchWidget(),
+          SearchWidget(
+            onChanged: (value) {
+              controller.filterSupplier(value);
+              controller.searchText.value = value;
+            },
+          ),
           Expanded(
             child: Obx(
               () => ListView.builder(

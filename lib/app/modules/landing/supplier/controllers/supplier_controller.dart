@@ -19,6 +19,23 @@ class SupplierController extends GetxController {
 
   var apiConstant = ApiConstant();
 
+  var searchText = ''.obs;
+
+  final RxList<Map<String, dynamic>> allSuppliers =
+      <Map<String, dynamic>>[].obs;
+
+  void filterSupplier(String query) {
+    final lowerQuery = query.toLowerCase();
+    final filtered =
+        allSuppliers
+            .where(
+              (item) => (item["nama_supplier"]?.toString().toLowerCase() ?? "")
+                  .contains(lowerQuery),
+            )
+            .toList();
+    pemasok.assignAll(filtered);
+  }
+
   void addSupplier() async {
     print('Adding supplier...');
     var data = dio.FormData.fromMap({
@@ -76,6 +93,7 @@ class SupplierController extends GetxController {
       final fetchedpemasok = await repo.fetchAllSuppliers();
       final listOfpemasok = List<Map<String, dynamic>>.from(fetchedpemasok);
       pemasok.assignAll(listOfpemasok);
+      allSuppliers.assignAll(listOfpemasok); // Tambahkan ini
       print('Suppliers fetched ${pemasok.length}');
     } catch (e) {
       print("Error fetching suppliers: $e");
