@@ -45,22 +45,7 @@ class RegisterController extends GetxController {
   void register() async {
     print('Sedang daftar');
 
-    if (passwordController.text == cpasswordController.text) {
-      final file = selectedImage.value;
-      dio.FormData formData = dio.FormData.fromMap({
-        if (file != null)
-          'profile_picture': await dio.MultipartFile.fromFile(
-            file.path,
-            filename: file.name,
-          ),
-        'name': nameController.text,
-        'username': usernameC.text,
-        'password': passwordController.text,
-        'email': emailController.text,
-      });
-
-      postUser(formData);
-    } else {
+    if (passwordController.text != cpasswordController.text) {
       Get.snackbar(
         'Gagal',
         'Password tidak sama',
@@ -68,7 +53,34 @@ class RegisterController extends GetxController {
         colorText: Colors.white,
         backgroundColor: Colors.red,
       );
+      return;
     }
+
+    if (passwordController.text.length < 6) {
+      Get.snackbar(
+        'Gagal',
+        'Password minimal 6 karakter',
+        duration: const Duration(seconds: 2),
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+      );
+      return;
+    }
+
+    final file = selectedImage.value;
+    dio.FormData formData = dio.FormData.fromMap({
+      if (file != null)
+        'profile_picture': await dio.MultipartFile.fromFile(
+          file.path,
+          filename: file.name,
+        ),
+      'name': nameController.text,
+      'username': usernameC.text,
+      'password': passwordController.text,
+      'email': emailController.text,
+    });
+
+    postUser(formData);
   }
 
   Future<void> postUser(FormData formData) async {

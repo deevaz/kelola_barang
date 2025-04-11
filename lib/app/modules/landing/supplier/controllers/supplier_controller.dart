@@ -93,7 +93,7 @@ class SupplierController extends GetxController {
       final fetchedpemasok = await repo.fetchAllSuppliers();
       final listOfpemasok = List<Map<String, dynamic>>.from(fetchedpemasok);
       pemasok.assignAll(listOfpemasok);
-      allSuppliers.assignAll(listOfpemasok); // Tambahkan ini
+      allSuppliers.assignAll(listOfpemasok);
       print('Suppliers fetched ${pemasok.length}');
     } catch (e) {
       print("Error fetching suppliers: $e");

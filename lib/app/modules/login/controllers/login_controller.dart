@@ -42,6 +42,17 @@ class LoginController extends GetxController {
   }
 
   Future<UserModel?> login(String username, String password) async {
+    if (password.length < 6) {
+      Get.snackbar(
+        'Login Gagal',
+        'Password minimal 6 karakter',
+        duration: const Duration(seconds: 2),
+        colorText: ColorStyle.white,
+        backgroundColor: Colors.red,
+      );
+      return null;
+    }
+
     var dio = Dio();
     var response = await dio.request(
       '${apiConstant.BASE_URL}/login',
@@ -70,6 +81,5 @@ class LoginController extends GetxController {
       print(response.statusMessage);
     }
     return null;
-    // return null;
   }
 }

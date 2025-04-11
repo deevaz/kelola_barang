@@ -56,7 +56,7 @@ class LandingView extends GetView<LandingController> {
                       final image = HomeController.to.image.value;
                       if (image.isNotEmpty) {
                         return Image.network(
-                          'http://192.168.0.100:8000/storage/$image',
+                          image,
                           width: 40.w,
                           height: 40.h,
                           fit: BoxFit.cover,

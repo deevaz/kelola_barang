@@ -54,7 +54,10 @@ class HomeController extends GetxController {
   void getUserData() {
     final user = box.get('user');
     name.value = user['name'];
-    image.value = user['profile_picture'];
+    image.value =
+        user['profile_picture'] != null
+            ? 'http://192.168.0.100:8000/storage/${user['profile_picture']}'
+            : 'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
     userId.value = user['id'].toString();
     print('Nama user: ${user['name']}');
     print('Email user: ${user['email']}');
