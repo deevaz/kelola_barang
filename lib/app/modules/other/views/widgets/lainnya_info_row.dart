@@ -4,7 +4,7 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class LainnyaInfoRow extends StatelessWidget {
   final String title;
-  final String info;
+  final String? info;
   final IconData? icon;
   final IconData? suffixIcon;
   final Function()? onTap;
@@ -12,7 +12,7 @@ class LainnyaInfoRow extends StatelessWidget {
   const LainnyaInfoRow({
     super.key,
     required this.title,
-    required this.info,
+    this.info,
     required this.icon,
     this.suffixIcon,
     this.onTap,
@@ -38,7 +38,7 @@ class LainnyaInfoRow extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  info,
+                  info ?? '',
                   style: TextStyle(color: ColorStyle.grey, fontSize: 14.sp),
                 ),
               ],

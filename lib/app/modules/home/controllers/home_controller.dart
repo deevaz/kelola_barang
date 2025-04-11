@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -9,6 +11,7 @@ class HomeController extends GetxController {
   final RxString token = ''.obs;
   final RxString userId = ''.obs;
   final box = Hive.box('user');
+  final RxString lang = ''.obs;
 
   var tabIndex = 0.obs;
 
@@ -21,6 +24,11 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     getUserData();
+  }
+
+  void changeLang(String value) {
+    lang.value = value;
+    Get.updateLocale(Locale(value));
   }
 
   void putController() {

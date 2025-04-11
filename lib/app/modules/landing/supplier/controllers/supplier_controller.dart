@@ -66,7 +66,7 @@ class SupplierController extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        Get.back();
+        // Get.back();
         getAllSuppliers();
       } else if (response.statusCode == 422) {
         print('Validation error: ${response.data}');

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/change_lang_bottom_sheet.dart';
 
 import '../../login/controllers/login_controller.dart';
 import '../controllers/other_controller.dart';
@@ -22,7 +23,7 @@ class OtherView extends GetView<OtherController> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'Menu Lainnya',
+          'other'.tr,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
         ),
       ),
@@ -50,7 +51,7 @@ class OtherView extends GetView<OtherController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Data Toko & Akun',
+                    'info-account'.tr,
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
@@ -69,11 +70,45 @@ class OtherView extends GetView<OtherController> {
                   //   );
                   // }),
                   SizedBox(height: 15.h),
-                  LainnyaInfoRow(
-                    title: 'Nama Pemilik',
-                    info: name.toString(),
-                    icon: Ionicons.person,
-                    suffixIcon: Ionicons.chevron_forward,
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          ClipOval(
+                            child: Image.network(
+                              HomeController.to.image.value,
+                              width: 70.w,
+                              height: 70.h,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox(width: 15.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                name.toString(),
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          print('Edit Profile');
+                        },
+                        icon: Icon(
+                          Ionicons.chevron_forward,
+                          color: ColorStyle.grey,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -85,7 +120,7 @@ class OtherView extends GetView<OtherController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pengaturan',
+                    'setting'.tr,
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
@@ -93,16 +128,38 @@ class OtherView extends GetView<OtherController> {
                   ),
                   const Divider(),
                   LainnyaInfoRow(
-                    title: 'Kategori',
-                    info: 'Kelola Kategori Inventarismu',
+                    title: 'category'.tr,
+                    info: 'manage-category'.tr,
                     icon: Ionicons.create,
                   ),
                   SizedBox(height: 15.h),
                   LainnyaInfoRow(
-                    title: 'Ganti Bahasa',
-                    info: 'Ganti Bahasa Aplikasimu',
+                    title: 'change-language'.tr,
+                    info: 'manage-language'.tr,
                     icon: Ionicons.person,
                     suffixIcon: Ionicons.chevron_forward,
+                    onTap: () {
+                      Get.bottomSheet(
+                        Container(
+                          padding: EdgeInsets.all(15.w),
+                          decoration: BoxDecoration(
+                            color: ColorStyle.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.r),
+                              topRight: Radius.circular(20.r),
+                            ),
+                          ),
+                          child: ChangeLangBottomSheet(
+                            title: 'change-language'.tr,
+                            onTap: (value) {
+                              homeController.changeLang(value);
+                              Get.back();
+                            },
+                            selectedLang: homeController.lang.value,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   SizedBox(height: 15.h),
                 ],
@@ -121,15 +178,15 @@ class OtherView extends GetView<OtherController> {
                 ),
                 onPressed: () {
                   Get.defaultDialog(
-                    title: 'Konfirmasi',
-                    middleText: 'Apakah Kamu yakin ingin keluar?',
+                    title: 'logout'.tr,
+                    middleText: 'confirm-logout'.tr,
                     actions: [
                       TextButton(
                         onPressed: () {
                           Get.back();
                         },
                         child: Text(
-                          'Batal',
+                          'cancel'.tr,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -142,7 +199,7 @@ class OtherView extends GetView<OtherController> {
                           loginC.logout();
                         },
                         child: Text(
-                          'Ya',
+                          'yes'.tr,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -154,7 +211,7 @@ class OtherView extends GetView<OtherController> {
                   );
                 },
                 child: Text(
-                  'Keluar',
+                  'logout'.tr,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,

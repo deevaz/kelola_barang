@@ -20,10 +20,10 @@ class LoginController extends GetxController {
   void showPassword() {
     if (isPassword.value == true) {
       isPassword.value = false;
-      print('Password is visible');
+      debugPrint('Password is visible');
     } else {
       isPassword.value = true;
-      print('Password is hidden');
+      debugPrint('Password is hidden');
     }
   }
 

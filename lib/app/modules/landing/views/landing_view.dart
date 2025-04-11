@@ -83,6 +83,7 @@ class LandingView extends GetView<LandingController> {
                     icon: 'assets/images/img_stok_masuk.png',
                     onTap: () {
                       // Get.toNamed(Routes.stokMasukRoute);
+                      print('Stok Masuk');
                     },
                   ),
                   SizedBox(width: 20.w),
@@ -90,7 +91,8 @@ class LandingView extends GetView<LandingController> {
                     title: 'Stok Keluar',
                     icon: 'assets/images/img_stok_keluar.png',
                     onTap: () {
-                      Get.toNamed('/stok_keluar');
+                      // Get.toNamed('/stok_keluar');
+                      print('Stok Keluar');
                     },
                   ),
                   SizedBox(width: 20.w),
