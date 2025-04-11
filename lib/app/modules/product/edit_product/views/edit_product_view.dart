@@ -20,6 +20,11 @@ class EditProductView extends GetView<EditProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print(item['id']);
+        },
+      ),
       appBar: CustomAppBar(title: 'Edit Barang'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
@@ -172,7 +177,9 @@ class EditProductView extends GetView<EditProductController> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          controller.updateProduct('11');
+                          final id = item['id'].toString();
+                          controller.updateProduct(id);
+                          print(item['id']);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: ColorStyle.primary,
