@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/controllers/barcode_controller.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -20,6 +21,7 @@ class AddProductController extends GetxController {
   final hargaJualC = TextEditingController();
   final hargaGrosirC = TextEditingController();
   final deskripsiC = TextEditingController();
+  final RxString barcode = ''.obs;
 
   late final ProductRepository repo;
   List<Map<String, dynamic>> get daftarKategori => repo.categories;
@@ -37,6 +39,18 @@ class AddProductController extends GetxController {
     kategori.value = repo.categories;
   }
 
+  Future<void> scanBarcode() async {
+    try {
+      final result = await Get.toNamed(Routes.BARCODE_SCANNER);
+      if (result != null) {
+        print('Kode barcode diambil: $result');
+        barcode.value = result;
+      }
+    } catch (e) {
+      print('Terjadi error saat scan barcode: $e');
+    }
+  }
+
   void addProduct(bool again) async {
     print('Adding Product');
 
@@ -48,7 +62,8 @@ class AddProductController extends GetxController {
           filename: file.name,
         ),
       'nama_barang': namaBarangC.text,
-      'kode_barang': kodeBarangC.text,
+      'kode_barang':
+          barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
       'stok_awal': int.tryParse(stokAwalC.text) ?? 0,
       'total_stok': int.tryParse(stokAwalC.text) ?? 0,
       'harga_beli': int.tryParse(hargaBeliC.text) ?? 0,

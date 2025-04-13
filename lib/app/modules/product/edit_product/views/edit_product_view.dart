@@ -37,7 +37,10 @@ class EditProductView extends GetView<EditProductController> {
                     Flexible(
                       child: CustomTextField(
                         controller: controller.kodeBarangC,
-                        title: 'Kode Barang',
+                        title:
+                            controller.barcode.isEmpty
+                                ? 'Kode Barang'
+                                : controller.barcode.toString(),
                       ),
                     ),
                     SizedBox(width: 10.w),
@@ -64,7 +67,9 @@ class EditProductView extends GetView<EditProductController> {
                             Ionicons.barcode_outline,
                             color: ColorStyle.dark,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.scanBarcode();
+                          },
                         ),
                       ),
                     ),

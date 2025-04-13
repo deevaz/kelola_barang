@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/barcode_scanner/bindings/barcode_scanner_binding.dart';
+import '../modules/barcode_scanner/views/barcode_scanner_view.dart';
 import '../modules/history/bindings/history_binding.dart';
 import '../modules/history/views/history_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -112,6 +114,11 @@ class AppPages {
       name: _Paths.OTHER,
       page: () => const OtherView(),
       binding: OtherBinding(),
+    ),
+    GetPage(
+      name: _Paths.BARCODE_SCANNER,
+      page: () => BarcodeScannerView(),
+      binding: BarcodeScannerBinding(),
     ),
   ];
 }

@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kelola_barang/app/shared/controllers/barcode_controller.dart';
+import 'package:kelola_barang/app/modules/barcode_scanner/controllers/barcode_scanner_controller.dart';
+
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_form_tanggal.dart';
@@ -17,7 +18,7 @@ import 'widgets/tambah_gambar.dart';
 class AddProductView extends GetView<AddProductController> {
   AddProductView({super.key});
 
-  final barcodeC = Get.put(BarcodeController());
+  final barcodeC = Get.put(BarcodeScannerController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +35,10 @@ class AddProductView extends GetView<AddProductController> {
                     Flexible(
                       child: Obx(
                         () => CustomTextField(
-                          inputType: TextInputType.number,
                           title:
-                              barcodeC.barcode.isEmpty
+                              controller.barcode.isEmpty
                                   ? 'Kode Barang'
-                                  : barcodeC.barcode.toString(),
+                                  : controller.barcode.toString(),
                           controller: controller.kodeBarangC,
                         ),
                       ),
@@ -68,7 +68,8 @@ class AddProductView extends GetView<AddProductController> {
                             color: ColorStyle.dark,
                           ),
                           onPressed: () {
-                            barcodeC.scanBarcode();
+                            controller.scanBarcode();
+                            // Get.toNamed(Routes.BARCODE_SCANNER);
                           },
                         ),
                       ),

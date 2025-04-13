@@ -50,8 +50,7 @@ class LandingView extends GetView<LandingController> {
                             style: TextStyle(
                               fontSize: 25.sp,
                               fontWeight: FontWeight.bold,
-                              color:
-                                  ColorStyle.primary, // Change color for user
+                              color: ColorStyle.primary,
                             ),
                           ),
                         ],

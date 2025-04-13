@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/modules/product/controllers/product_controller.dart';
+import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 import '../../../../shared/controllers/barcode_controller.dart';
@@ -20,6 +21,8 @@ class EditProductController extends GetxController {
   final hargaGrosirC = TextEditingController();
   final deskripsiC = TextEditingController();
 
+  final RxString barcode = ''.obs;
+
   final selectedDate = DateTime.now().obs;
   final selectedCategory = ''.obs;
   var kategori = <Map<String, dynamic>>[].obs;
@@ -28,6 +31,19 @@ class EditProductController extends GetxController {
   var imageUrl = Rxn<String>();
 
   var apiConstant = ApiConstant();
+
+  Future<void> scanBarcode() async {
+    try {
+      final result = await Get.toNamed(Routes.BARCODE_SCANNER);
+      if (result != null) {
+        print('Kode barcode diambil: $result');
+        barcode.value = result;
+        kodeBarangC.text = result;
+      }
+    } catch (e) {
+      print('Terjadi error saat scan barcode: $e');
+    }
+  }
 
   void loadProductData(Map<String, dynamic> product) {
     kodeBarangC.text = product['kode_barang'] ?? '';
@@ -67,7 +83,8 @@ class EditProductController extends GetxController {
           file.path,
           filename: file.name,
         ),
-      'kode_barang': kodeBarangC.text,
+      'kode_barang':
+          barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
       'nama_barang': namaBarangC.text,
       'stok_awal': int.tryParse(stokAwalC.text) ?? 0,
       'total_stok': int.tryParse(stokAwalC.text) ?? 0,
