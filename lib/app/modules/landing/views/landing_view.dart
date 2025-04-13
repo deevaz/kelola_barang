@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/landing/views/widgets/chart_in_widget.dart';
+import 'package:kelola_barang/app/modules/landing/views/widgets/chart_out_widget.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
@@ -20,7 +22,10 @@ class LandingView extends GetView<LandingController> {
         onPressed: () {
           controller.setStokKeluar();
           controller.setStokMasuk();
+          controller.getStockIn();
+          controller.getStockOut();
           // controller.getHistory();
+          print(controller.chartDataIn);
           print(HistoryController.to.stokMasuk.length);
           print(HistoryController.to.stokKeluar.length);
         },
@@ -112,57 +117,72 @@ class LandingView extends GetView<LandingController> {
                 ],
               ),
               SizedBox(height: 20.h),
-              // Obx(() {
-              //   final riwayat = RiwayatController.to.semuaRiwayat;
-              //   if (riwayat.isEmpty) {
-              //     return const Center(child: Text('Belum ada data riwayat'));
-              //   }
-              // return Container(
-              //   height: 200.h,
-              //   decoration: BoxDecoration(
-              //     color: ColorStyle.white,
-              //     borderRadius: BorderRadius.circular(15.r),
-              //     boxShadow: [
-              //       BoxShadow(
-              //         color: Colors.grey.withOpacity(0.5),
-              //         spreadRadius: 1,
-              //         blurRadius: 1,
-              //         offset: const Offset(0, 1),
-              //       ),
-              //     ],
-              //   ),
-              //   child: Row(
-              //     children: [
-              //       Flexible(child: SizedBox(child: buildChart(riwayat))),
-              //       Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           SizedBox(height: 30.h),
-              //           Text(
-              //             'Riwayat',
-              //             style: TextStyle(
-              //               fontSize: 20.sp,
-              //               fontWeight: FontWeight.bold,
-              //             ),
-              //           ),
-              //           SizedBox(height: 8.h),
-              //           Text(
-              //             'Barang Masuk: 100',
-              //             // 'Barang Masuk: ${RiwayatController.to.stokMasuk.fold<int>(0, (sum, e) => sum + (e.barang?.fold<int>(0, (s, b) => s + (b.jumlahStokMasuk?.toInt() ?? 0)) ?? 0))}',
-              //             style: TextStyle(fontSize: 14.sp),
-              //           ),
-              //           Text(
-              //             'Barang Keluar: 100',
-              //             // 'Barang Keluar: ${RiwayatController.to.stokKeluar.fold<int>(0, (sum, e) => sum + (e.barang?.fold<int>(0, (s, b) => s + ((b.jumlahStokKeluar?.toInt() ?? 0))) ?? 0))}',
-              //             style: TextStyle(fontSize: 14.sp),
-              //           ),
-              //         ],
-              //       ),
-              //       SizedBox(width: 30.w),
-              //     ],
-              //   ),
-              // );
-              // }),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 5,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 10.h,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          DropdownButtonFormField(
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(15.sp),
+                              ),
+                            ),
+                            dropdownColor: ColorStyle.white,
+                            items: [
+                              DropdownMenuItem(
+                                value: 'in',
+                                child: Text('Stok Masuk'),
+                              ),
+                              DropdownMenuItem(
+                                value: 'out',
+                                child: Text('Stok Keluar'),
+                              ),
+                            ],
+                            value: controller.selectedChart.value,
+                            onChanged: (value) {
+                              // bc.mataUang.value = value.toString();
+                              print('Selected value: $value');
+                              controller.selectedChart.value = value.toString();
+                              print(
+                                'Selected value: ${controller.selectedChart.value}',
+                              );
+                            },
+                          ),
+                          const Divider(),
+                        ],
+                      ),
+                    ),
+                    Obx(() {
+                      return controller.selectedChart.value == 'in'
+                          ? ChartInWidget()
+                          : ChartOutWidget();
+                    }),
+                    SizedBox(height: 20.h),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

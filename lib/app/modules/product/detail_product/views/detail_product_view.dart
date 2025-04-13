@@ -50,6 +50,14 @@ class DetailProductView extends GetView<DetailProductController> {
                   width: 200.w,
                   height: 200.h,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/img_placeholder.png',
+                      width: 200.w,
+                      height: 200.h,
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
               ),
             ),
@@ -147,25 +155,9 @@ class DetailProductView extends GetView<DetailProductController> {
                       style: TextStyle(fontSize: 18.sp, color: ColorStyle.grey),
                     ),
                     const Spacer(),
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Get.defaultDialog(
-                            title: 'Deskripsi',
-                            titleStyle: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            content: Container(
-                              padding: EdgeInsets.all(20.w),
-                              child: Text(
-                                items['deskripsi'] ?? '',
-                                style: TextStyle(fontSize: 16.sp),
-                              ),
-                            ),
-                          );
-                        },
-                        child: Text(
+                    Row(
+                      children: [
+                        Text(
                           items['deskripsi'] ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -173,7 +165,27 @@ class DetailProductView extends GetView<DetailProductController> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
+                        IconButton(
+                          onPressed: () {
+                            Get.defaultDialog(
+                              title: 'Deskripsi',
+                              titleStyle: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              content: Text(
+                                items['deskripsi'] ?? '',
+                                style: TextStyle(fontSize: 16.sp),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            size: 20.sp,
+                            Ionicons.chevron_forward_outline,
+                            color: ColorStyle.primary,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

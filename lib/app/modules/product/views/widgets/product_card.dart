@@ -127,6 +127,13 @@ class ProductCard extends StatelessWidget {
                               'http://192.168.1.5:8000/storage/${item['gambar']}',
                               width: 130.w,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.asset(
+                                  'assets/images/img_placeholder.png',
+                                  width: 130.w,
+                                  fit: BoxFit.cover,
+                                );
+                              },
                             )
                             : Image.asset(
                               'assets/images/img_placeholder.png',
