@@ -18,7 +18,7 @@ class OtherView extends GetView<OtherController> {
   Widget build(BuildContext context) {
     final homeController = Get.put(HomeController());
     final loginC = Get.put(LoginController());
-    final name = homeController.name.value;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -30,6 +30,7 @@ class OtherView extends GetView<OtherController> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               padding: EdgeInsets.all(8.0),
@@ -46,72 +47,36 @@ class OtherView extends GetView<OtherController> {
                 ],
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'info-account'.tr,
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
+              child: Center(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: NetworkImage(
+                        HomeController.to.image.value,
+                      ),
+                      backgroundColor: Colors.grey[200],
                     ),
-                  ),
-                  const Divider(),
-                  // Obx(() {
-                  //   final bisnis =
-                  //       BuatBisnisController.to.bisnis.isNotEmpty
-                  //           ? BuatBisnisController.to.bisnis.first
-                  //           : null;
-                  //   return LainnyaInfoRow(
-                  //     title: 'Nama Toko',
-                  //     info: bisnis?.namaBisnis ?? 'Nama Toko',
-                  //     icon: Icons.shop,
-                  //   );
-                  // }),
-                  SizedBox(height: 15.h),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          ClipOval(
-                            child: Image.network(
-                              HomeController.to.image.value,
-                              width: 70.w,
-                              height: 70.h,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          SizedBox(width: 15.w),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                name.toString(),
-                                style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                    SizedBox(height: 10),
+                    Text(
+                      HomeController.to.name.value,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
-                      IconButton(
-                        onPressed: () {
-                          print('Edit Profile');
-                        },
-                        icon: Icon(
-                          Ionicons.chevron_forward,
-                          color: ColorStyle.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    Text(
+                      HomeController.to.email.value,
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
               ),
+            ),
+            SizedBox(height: 20.h),
+            Text(
+              'setting'.tr,
+              style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10.h),
             CustomContainer(
@@ -119,20 +84,13 @@ class OtherView extends GetView<OtherController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'setting'.tr,
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Divider(),
                   LainnyaInfoRow(
                     title: 'category'.tr,
                     info: 'manage-category'.tr,
                     icon: Ionicons.create,
                   ),
-                  SizedBox(height: 15.h),
+                  const Divider(),
+
                   LainnyaInfoRow(
                     title: 'change-language'.tr,
                     info: 'manage-language'.tr,
@@ -165,15 +123,16 @@ class OtherView extends GetView<OtherController> {
                 ],
               ),
             ),
-            SizedBox(height: 10.h),
+            SizedBox(height: 20.h),
             SizedBox(
               width: double.infinity,
-              height: 40.h,
+              height: 50.h,
+
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ColorStyle.danger,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                 ),
                 onPressed: () {
@@ -213,7 +172,7 @@ class OtherView extends GetView<OtherController> {
                 child: Text(
                   'logout'.tr,
                   style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                     color: ColorStyle.white,
                   ),

@@ -157,12 +157,15 @@ class DetailProductView extends GetView<DetailProductController> {
                     const Spacer(),
                     Row(
                       children: [
-                        Text(
-                          items['deskripsi'] ?? '',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
+                        SizedBox(
+                          width: 100.w,
+                          child: Text(
+                            items['deskripsi'] ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         IconButton(

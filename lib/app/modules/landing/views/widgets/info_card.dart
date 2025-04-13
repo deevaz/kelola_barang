@@ -22,7 +22,7 @@ class InfoCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 110.sp,
+        width: 115.sp,
         height: 129.sp,
         decoration: BoxDecoration(
           boxShadow: [

@@ -87,7 +87,7 @@ class LandingView extends GetView<LandingController> {
               ),
               SizedBox(height: 20.h),
               InfoDataCard(),
-              SizedBox(height: 20.h),
+              SizedBox(height: 15.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -99,7 +99,7 @@ class LandingView extends GetView<LandingController> {
                       print('Stok Masuk');
                     },
                   ),
-                  SizedBox(width: 20.w),
+
                   InfoCard(
                     title: 'Stok Keluar',
                     icon: 'assets/images/img_stok_keluar.png',
@@ -108,7 +108,7 @@ class LandingView extends GetView<LandingController> {
                       print('Stok Keluar');
                     },
                   ),
-                  SizedBox(width: 20.w),
+
                   InfoCard(
                     title: 'Pemasok',
                     onTap: () => Get.toNamed(Routes.SUPPLIER),
@@ -116,7 +116,7 @@ class LandingView extends GetView<LandingController> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 15.h),
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
