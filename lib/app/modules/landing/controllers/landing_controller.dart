@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 
 class LandingController extends GetxController {
+  static LandingController get to => Get.find();
   RxInt omset = 0.obs;
   RxInt keuntungan = 10.obs;
   RxInt stokMasuk = 0.obs;
@@ -10,8 +11,6 @@ class LandingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    setStokMasuk();
-    setStokKeluar();
   }
 
   @override

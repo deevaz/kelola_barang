@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
 
 import '../repositories/history_repository.dart';
 
@@ -58,6 +59,8 @@ class HistoryController extends GetxController {
       print(
         'History fetched ${stokMasuk.length} dan keluar ${stokKeluar.length}',
       );
+      LandingController.to.setStokMasuk();
+      LandingController.to.setStokKeluar();
     } catch (e) {
       print("Error fetching stok: $e");
     } finally {
