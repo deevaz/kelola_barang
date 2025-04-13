@@ -64,7 +64,7 @@ class HomeController extends GetxController {
     name.value = user['name'];
     image.value =
         user['profile_picture'] != null
-            ? 'http://192.168.0.100:8000/storage/${user['profile_picture']}'
+            ? 'http://192.168.1.5:8000/storage/${user['profile_picture']}'
             : 'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
     userId.value = user['id'].toString();
     print('Nama user: ${user['name']}');

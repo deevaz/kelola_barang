@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -15,6 +16,15 @@ class LandingView extends GetView<LandingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          controller.setStokKeluar();
+          controller.setStokMasuk();
+          // controller.getHistory();
+          print(HistoryController.to.stokMasuk.length);
+          print(HistoryController.to.stokKeluar.length);
+        },
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
@@ -26,7 +36,6 @@ class LandingView extends GetView<LandingController> {
                 children: [
                   Obx(() {
                     final user = HomeController.to.name.value;
-
                     return RichText(
                       text: TextSpan(
                         text: 'Selamat datang,\n',

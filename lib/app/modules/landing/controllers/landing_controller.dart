@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 
 class LandingController extends GetxController {
   RxInt omset = 0.obs;
@@ -6,10 +7,11 @@ class LandingController extends GetxController {
   RxInt stokMasuk = 0.obs;
   RxInt stokKeluar = 0.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    setStokMasuk();
+    setStokKeluar();
   }
 
   @override
@@ -22,5 +24,22 @@ class LandingController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void setOmset(int value) {
+    omset.value = value;
+  }
+
+  void setKeuntungan(int value) {
+    keuntungan.value = value;
+  }
+
+  void setStokMasuk() {
+    print('Stok Masuk: ${HistoryController.to.stokMasuk.length}');
+    stokMasuk.value = HistoryController.to.stokMasuk.length;
+    ;
+  }
+
+  void setStokKeluar() {
+    print('Stok Keluar: ${HistoryController.to.stokKeluar.length}');
+    stokKeluar.value = HistoryController.to.stokKeluar.length;
+  }
 }
