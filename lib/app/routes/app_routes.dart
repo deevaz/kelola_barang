@@ -19,6 +19,8 @@ abstract class Routes {
   static const ADD_SUPPLIER =
       _Paths.LANDING + _Paths.SUPPLIER + _Paths.ADD_SUPPLIER;
   static const BARCODE_SCANNER = _Paths.BARCODE_SCANNER;
+  static const STOCK_IN = _Paths.STOCK_IN;
+  static const STOCK_IN_PRODUCT = _Paths.STOCK_IN + _Paths.STOCK_IN_PRODUCT;
 }
 
 abstract class _Paths {
@@ -38,4 +40,6 @@ abstract class _Paths {
   static const SUPPLIER = '/supplier';
   static const ADD_SUPPLIER = '/add-supplier';
   static const BARCODE_SCANNER = '/barcode-scanner';
+  static const STOCK_IN = '/stock-in';
+  static const STOCK_IN_PRODUCT = '/stock-in-product';
 }

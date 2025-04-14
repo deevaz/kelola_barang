@@ -95,7 +95,7 @@ class LandingView extends GetView<LandingController> {
                     title: 'Stok Masuk',
                     icon: 'assets/images/img_stok_masuk.png',
                     onTap: () {
-                      // Get.toNamed(Routes.stokMasukRoute);
+                      Get.toNamed(Routes.STOCK_IN);
                       print('Stok Masuk');
                     },
                   ),

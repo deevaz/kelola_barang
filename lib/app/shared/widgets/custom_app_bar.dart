@@ -9,10 +9,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isBackButton;
   final bool isActionButton;
   final Widget? actionButton;
+  final bool lightBg;
 
   const CustomAppBar({
     super.key,
     required this.title,
+    this.lightBg = true,
     this.isBackButton = true,
     this.isActionButton = false,
     this.actionButton,
@@ -21,12 +23,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: ColorStyle.light,
+      backgroundColor: lightBg ? ColorStyle.light : Colors.transparent,
       leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back_ios_new,
-          color: ColorStyle.dark,
-        ),
+        icon: Icon(Icons.arrow_back_ios_new, color: ColorStyle.dark),
         onPressed: () {
           Get.back();
         },
@@ -34,9 +33,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            color: ColorStyle.dark),
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,
+          color: ColorStyle.dark,
+        ),
       ),
     );
   }

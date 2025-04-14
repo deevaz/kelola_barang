@@ -30,6 +30,12 @@ import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/splash_screen/bindings/splash_screen_binding.dart';
 import '../modules/splash_screen/views/splash_screen_view.dart';
+import '../modules/stock_in/bindings/stock_in_binding.dart';
+import '../modules/stock_in/stock_in_product/bindings/stock_in_product_binding.dart';
+
+import '../modules/stock_in/stock_in_product/views/stock_in_product_view.dart';
+
+import '../modules/stock_in/views/stock_in_view.dart';
 
 part 'app_routes.dart';
 
@@ -119,6 +125,18 @@ class AppPages {
       name: _Paths.BARCODE_SCANNER,
       page: () => BarcodeScannerView(),
       binding: BarcodeScannerBinding(),
+    ),
+    GetPage(
+      name: _Paths.STOCK_IN,
+      page: () => const StockInView(),
+      binding: StockInBinding(),
+      children: [
+        GetPage(
+          name: _Paths.STOCK_IN_PRODUCT,
+          page: () => const StockInProductView(),
+          binding: StockInProductBinding(),
+        ),
+      ],
     ),
   ];
 }

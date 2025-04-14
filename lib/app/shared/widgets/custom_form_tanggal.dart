@@ -8,6 +8,7 @@ class CustomFormTanggal extends StatelessWidget {
   final double? width;
   final Function()? onTap;
   final String title;
+  final double? fontSize;
 
   final DateTime? selectedDate;
 
@@ -16,12 +17,12 @@ class CustomFormTanggal extends StatelessWidget {
     required this.title,
     this.width,
     this.onTap,
+    this.fontSize,
     this.selectedDate,
   });
 
   @override
   Widget build(BuildContext context) {
-    // String date = DateFormat('dd MMMM yyyy').format(selectedDate!);
     return Container(
       margin: EdgeInsets.only(top: 10.h),
       width: width ?? double.infinity,
@@ -46,14 +47,17 @@ class CustomFormTanggal extends StatelessWidget {
           Expanded(
             child: TextButton(
               onPressed: onTap,
-              child: Text(
-                // date ??
-                title,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: ColorStyle.grey,
-                  fontWeight: FontWeight.bold,
+              style: TextButton.styleFrom(alignment: Alignment.centerLeft),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  title,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: fontSize ?? 14.sp,
+                    color: ColorStyle.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

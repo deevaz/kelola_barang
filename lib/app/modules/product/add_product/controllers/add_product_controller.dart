@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/controllers/barcode_controller.dart';
+import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 import '../../repositories/product_repository.dart';
@@ -46,6 +47,13 @@ class AddProductController extends GetxController {
         print('Kode barcode diambil: $result');
         barcode.value = result;
       }
+      Get.snackbar(
+        'Barcode terdeteksi',
+        'Kode: $result',
+        backgroundColor: ColorStyle.success,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 2),
+      );
     } catch (e) {
       print('Terjadi error saat scan barcode: $e');
     }

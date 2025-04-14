@@ -19,6 +19,8 @@ class AppTranslations extends Translations {
       'save': 'Save',
       'add-picture': 'Add a Picture',
       'stock-in': 'Stock In',
+      'select-product': 'Select Product',
+      'select-supplier': 'Select Supplier',
       'stock-out': 'Stock Out',
       'supplier': 'Supplier',
       'edit-item': 'Edit Item',
@@ -113,6 +115,8 @@ class AppTranslations extends Translations {
       'cancel': 'Batalkan',
       'yes': 'Ya',
       'account-name': 'Nama Pemilik',
+      'select-product': 'Pilih Barang',
+      'select-supplier': 'Pilih Pemasok',
     },
   };
 }
