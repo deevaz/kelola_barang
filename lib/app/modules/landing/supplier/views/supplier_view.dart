@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/stock_in/controllers/stock_in_controller.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
@@ -13,21 +14,10 @@ class SupplierView extends GetView<SupplierController> {
   const SupplierView({super.key});
   @override
   Widget build(BuildContext context) {
+    final arguments = Get.arguments;
     final pemasok = controller.pemasok;
+    final stockC = Get.put(StockInController());
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorStyle.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.r),
-        ),
-        onPressed: () {
-          Get.toNamed(Routes.ADD_SUPPLIER);
-          controller.getAllSuppliers();
-          print('Tambah Pemasok');
-          print(controller.pemasok.length);
-        },
-        child: Icon(Icons.add, color: ColorStyle.white),
-      ),
       appBar: CustomAppBar(title: 'supplier'.tr),
       body: Column(
         children: [
@@ -50,8 +40,17 @@ class SupplierView extends GetView<SupplierController> {
                     ),
                     child: InkWell(
                       onTap: () {
-                        // StokMasukController.to.addItem(pemasok[index]);
-                        // Get.back();
+                        if (arguments['from'] == 'SelectedSupplierCard') {
+                          print(
+                            'Selected Supplier: ${supplier['nama_supplier']}',
+                          );
+                          stockC.selectedSupplier.value =
+                              supplier['nama_supplier'];
+                          // controller.selectedSupplier.value = supplier;
+                          Get.back();
+                        } else {
+                          print('gaada ap');
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -98,6 +97,19 @@ class SupplierView extends GetView<SupplierController> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorStyle.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.r),
+        ),
+        onPressed: () {
+          Get.toNamed(Routes.ADD_SUPPLIER);
+          controller.getAllSuppliers();
+          print('Tambah Pemasok');
+          print(controller.pemasok.length);
+        },
+        child: Icon(Icons.add, color: ColorStyle.white),
       ),
     );
   }

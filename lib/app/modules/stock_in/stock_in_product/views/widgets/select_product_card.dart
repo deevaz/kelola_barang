@@ -40,10 +40,26 @@ class SelectProductCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                // ClipRRect(
-                //   borderRadius: BorderRadius.circular(8.0),
-                //   child: Image.network(items.gambar ?? '', width: 130.w),
-                // ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(
+                    items['gambar'] ?? '',
+                    width: 130.w,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: 130.w,
+                        height: 130.h,
+                        color: Colors.grey[300],
+                        child: Icon(
+                          Icons.broken_image,
+                          size: 50.sp,
+                          color: Colors.grey,
+                        ),
+                      );
+                    },
+                  ),
+                ),
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Column(
@@ -88,8 +104,7 @@ class SelectProductCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        // items.totalStok.toString(),
-                        items['total_stok'].toString() ?? '',
+                        items['total_stok'].toString(),
                         style: TextStyle(
                           fontSize: 32.sp,
                           fontWeight: FontWeight.bold,

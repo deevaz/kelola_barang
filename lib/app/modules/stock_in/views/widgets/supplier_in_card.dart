@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class SupplierInCard extends StatelessWidget {
-  final dynamic item;
-  const SupplierInCard({super.key, required this.item});
+  final String supplier;
+  const SupplierInCard({super.key, required this.supplier});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SupplierInCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                item ?? '',
+                supplier,
                 style: TextStyle(
                   fontSize: 16.sp,
                   color: ColorStyle.dark,
@@ -31,7 +31,7 @@ class SupplierInCard extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                item,
+                supplier,
                 style: TextStyle(
                   fontSize: 12.sp,
                   color: ColorStyle.dark,

@@ -1,23 +1,17 @@
 class ProductInModel {
-  final String idBarang;
   final String namaBarang;
-  int? totalHarga;
+  final String gambar;
   int? totalStok;
-  String? kodeBarang;
-  String? gambar;
   int stok;
   int stokMasuk;
   int harga;
 
   ProductInModel({
-    required this.idBarang,
     required this.namaBarang,
-    this.kodeBarang,
-    this.totalHarga,
+    required this.gambar,
     required this.harga,
     required this.stok,
     required this.stokMasuk,
-    this.gambar,
   });
 
   void tambahStok() {
@@ -32,6 +26,21 @@ class ProductInModel {
 
   void simpanStok() {
     stok += stokMasuk;
-    // stokMasuk = 0;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'namaBarang': namaBarang,
+      'gambar': gambar,
+      'totalStok': totalStok,
+      'stok': stok,
+      'stokMasuk': stokMasuk,
+      'harga': harga,
+    };
+  }
+
+  @override
+  String toString() {
+    return 'ProductInModel(namaBarang: $namaBarang, harga: $harga, stok: $stok, stokMasuk: $stokMasuk, totalStok: $totalStok)';
   }
 }

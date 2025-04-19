@@ -3,20 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:ionicons/ionicons.dart';
+import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart';
 import 'package:kelola_barang/app/modules/stock_in/views/widgets/product_in_card.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class SelectedProductsCard extends StatelessWidget {
-  const SelectedProductsCard({super.key});
+  final RxList<ProductInModel> selectedProduct;
+
+  const SelectedProductsCard({super.key, required this.selectedProduct});
 
   @override
   Widget build(BuildContext context) {
-    bool barang = false;
     return InkWell(
       onTap: () {
-        // Get.toNamed('/stok_masuk_barang');
         Get.toNamed(Routes.STOCK_IN_PRODUCT);
         print('Selected Products Card tapped');
       },
@@ -65,10 +66,9 @@ class SelectedProductsCard extends StatelessWidget {
                 ),
               ],
             ),
-            // Obx(() {
-            ...[
-              if (barang == true)
-                Column(
+            Obx(() {
+              if (selectedProduct.isNotEmpty) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Divider(color: ColorStyle.dark, height: 0),
@@ -86,20 +86,22 @@ class SelectedProductsCard extends StatelessWidget {
                     ListView.builder(
                       itemBuilder: (context, index) {
                         return ProductInCard(
-                          // items: barang[index]
+                          namaBarang: selectedProduct[index].namaBarang,
+                          gambar: selectedProduct[index].gambar,
+                          harga: selectedProduct[index].harga,
+                          stokMasuk: selectedProduct[index].stokMasuk,
                         );
                       },
-                      itemCount: 2,
-                      //  barang.length,
+                      itemCount: selectedProduct.length,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                     ),
                   ],
-                )
-              else
-                SizedBox.shrink(),
-            ],
-            // }),
+                );
+              } else {
+                return SizedBox.shrink();
+              }
+            }),
           ],
         ),
       ),

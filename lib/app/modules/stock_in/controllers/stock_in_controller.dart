@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
-import 'package:kelola_barang/app/modules/stock_in/models/supplier_model.dart';
+import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -15,8 +15,10 @@ class StockInController extends GetxController {
   static StockInController get to => Get.find();
 
   final catatanC = TextEditingController();
-  final RxList<SupplierModel> selectedSupplier = <SupplierModel>[].obs;
+  final RxString selectedSupplier = ''.obs;
+  final RxInt totalPrice = 0.obs;
   final Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
+  final RxList<ProductInModel> stockInData = <ProductInModel>[].obs;
 
   final dio = Dio();
   final userId = HomeController.to.userId.value;
@@ -27,26 +29,21 @@ class StockInController extends GetxController {
     selectedDate.value = date;
   }
 
-  void addItem(SupplierModel item) {
-    selectedSupplier.clear();
-    selectedSupplier.add(item);
-  }
-
   Future<void> postStockIn() async {
     final stockData = StockInModel(
-      pemasok: "Nopal Firman",
+      pemasok: selectedSupplier.value,
       catatan: catatanC.text,
       tanggalMasuk: selectedDate.value?.toIso8601String() ?? '',
-      totalHarga: 10000,
-      barang: [
-        Barang(
-          nama: "Keripik",
-          harga: 1000,
-          jumlahStokMasuk: 20,
-          totalStok: 30,
-        ),
-        Barang(nama: "Ginjal", harga: 2000, jumlahStokMasuk: 29, totalStok: 7),
-      ],
+      totalHarga: totalPrice.value,
+      barang:
+          stockInData.map((item) {
+            return Barang(
+              nama: item.namaBarang,
+              harga: item.harga,
+              jumlahStokMasuk: item.stokMasuk,
+              totalStok: item.stok,
+            );
+          }).toList(),
     );
     try {
       var token = await HomeController.to.token.value;

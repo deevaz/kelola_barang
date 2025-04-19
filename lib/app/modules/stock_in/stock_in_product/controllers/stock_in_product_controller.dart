@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/modules/product/controllers/product_controller.dart';
+import 'package:kelola_barang/app/modules/stock_in/controllers/stock_in_controller.dart';
+import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
@@ -15,6 +17,7 @@ class StockInProductController extends GetxController {
   final RxList listProducts = [].obs;
   var apiConstant = ApiConstant();
   RxInt stockIn = 2.obs;
+  RxInt price = 0.obs;
 
   @override
   void onInit() {
@@ -49,7 +52,14 @@ class StockInProductController extends GetxController {
   }
 
   int getTotalHarga() {
-    return 100000;
+    print("Total harga: ${selectedProduct.length}");
+    return selectedProduct.isNotEmpty
+        ? selectedProduct.fold(
+          0,
+          (total, item) =>
+              total + ((item['harga'] * item['jumlah_stok_masuk']) as int),
+        )
+        : 0;
   }
 
   void searchBarangByBarcode() {
@@ -140,12 +150,10 @@ class StockInProductController extends GetxController {
   }
 
   void tambahStok(String idBarang) {
-    // Cari produk di listProducts berdasarkan id
     final barang = listProducts.firstWhereOrNull(
       (b) => b['id']?.toString() == idBarang,
     );
     if (barang != null) {
-      // Pastikan field stokMasuk ada, kalau belum ada, inisialisasi dengan 0
       int current =
           barang['stok_masuk'] != null
               ? int.tryParse(barang['stok_masuk'].toString()) ?? 0
@@ -154,7 +162,6 @@ class StockInProductController extends GetxController {
       barang['stok_masuk'] = current;
       listProducts.refresh();
 
-      // Update atau tambahkan data ke selectedProduct dengan format yang diinginkan
       final existing = selectedProduct.firstWhereOrNull(
         (b) => b['id']?.toString() == idBarang,
       );
@@ -163,6 +170,7 @@ class StockInProductController extends GetxController {
       } else {
         selectedProduct.add({
           'id': barang['id'],
+          'gambar': barang['gambar'],
           'nama': barang['nama_barang'],
           'harga': barang['harga_jual'],
           'jumlah_stok_masuk': current,
@@ -194,7 +202,6 @@ class StockInProductController extends GetxController {
         );
         if (existing != null) {
           if (current == 0) {
-            // Hapus produk jika stokMasuk sudah nol
             selectedProduct.removeWhere((b) => b['id']?.toString() == idBarang);
           } else {
             existing['jumlah_stok_masuk'] = current;
@@ -209,7 +216,6 @@ class StockInProductController extends GetxController {
   }
 
   void simpanStok(String idBarang) {
-    // Perbarui data di selectedProduct sesuai data dari listProducts
     final barang = listProducts.firstWhereOrNull(
       (b) => b['id']?.toString() == idBarang,
     );
@@ -246,29 +252,30 @@ class StockInProductController extends GetxController {
     }
   }
 
-  void simpanSemuaStok() {
-    // Kosongkan selectedProduct dan ambil semua produk dari listProducts yang memiliki stokMasuk > 0
-    selectedProduct.clear();
-    for (var barang in listProducts) {
-      int current =
-          barang['stok_masuk'] != null
-              ? int.tryParse(barang['stok_masuk'].toString()) ?? 0
-              : 0;
-      if (current > 0) {
-        selectedProduct.add({
-          'id': barang['id'],
-          'nama': barang['nama_barang'],
-          'harga': barang['harga_jual'],
-          'jumlah_stok_masuk': current,
-          'totalStok': barang['total_stok'],
-        });
-      }
+  void savestockin() {
+    final stockInData = StockInController.to.stockInData;
+    stockInData.clear();
+    for (var barang in selectedProduct) {
+      stockInData.add(
+        ProductInModel(
+          namaBarang: barang['nama'],
+          harga: barang['harga'],
+          stokMasuk: barang['jumlah_stok_masuk'],
+          stok: barang['totalStok'],
+          gambar: barang['gambar'] ?? 'https://placehold.co/600x400/png',
+        ),
+      );
     }
-    print("Semua barang disimpan: ${selectedProduct.length} barang.");
-    listProducts.refresh();
-    selectedProduct.refresh();
+    stockInData.refresh();
+    print("Semua barang disimpan: ${stockInData.length} barang $stockInData");
 
-    // Opsional: Jika ingin memperbarui data produk di controller lain
+    StockInController.to.totalPrice.value = selectedProduct.fold(0, (
+      total,
+      item,
+    ) {
+      return total + ((item['harga'] * item['jumlah_stok_masuk']) as int);
+    });
+
     Get.lazyPut(() => ProductController());
     ProductController.to.loadProducts();
   }

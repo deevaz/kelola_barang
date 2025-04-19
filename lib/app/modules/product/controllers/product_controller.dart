@@ -43,11 +43,7 @@ class ProductController extends GetxController {
   );
 
   void _filter(bool Function(Map<String, dynamic>) predicate) {
-    if (predicate == null) {
-      products.assignAll(allProducts);
-    } else {
-      products.assignAll(allProducts.where(predicate));
-    }
+    products.assignAll(allProducts.where(predicate));
   }
 
   void onRefresh() async {

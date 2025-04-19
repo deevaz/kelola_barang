@@ -20,9 +20,11 @@ class StockInProductView extends GetView<StockInProductController> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          controller.loadStokDariProduk();
-          controller.getTotalHarga();
-          print(controller.listProducts);
+          print('jumlah pilih: ${controller.selectedProduct.length}');
+          print('data: ${controller.selectedProduct}');
+          // controller.loadStokDariProduk();
+          // controller.getTotalHarga();
+          // print(controller.listProducts);
         },
       ),
       appBar: CustomAppBar(title: 'select-product'.tr, lightBg: false),
@@ -118,12 +120,14 @@ class StockInProductView extends GetView<StockInProductController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  'RP. 100.0000',
-                  style: TextStyle(
-                    fontSize: 25.sp,
-                    color: ColorStyle.dark,
-                    fontWeight: FontWeight.bold,
+                Obx(
+                  () => Text(
+                    'RP. ${controller.getTotalHarga()}',
+                    style: TextStyle(
+                      fontSize: 25.sp,
+                      color: ColorStyle.dark,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
 
@@ -136,7 +140,8 @@ class StockInProductView extends GetView<StockInProductController> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    controller.simpanSemuaStok();
+                    controller.savestockin();
+                    controller.getTotalHarga();
                     Get.back();
                   },
                   style: EvelatedButtonStyle.rounded15,
