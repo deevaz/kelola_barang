@@ -54,7 +54,7 @@ class EditGambarButton extends StatelessWidget {
               ),
               onPressed: () {
                 Get.defaultDialog(
-                  title: 'Pilih Gambar',
+                  title: 'edit-picture'.tr,
                   titleStyle: TextStyle(
                     fontSize: 20.sp,
                     color: ColorStyle.dark,

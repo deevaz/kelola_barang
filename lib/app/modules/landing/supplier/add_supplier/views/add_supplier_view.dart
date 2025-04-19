@@ -52,7 +52,7 @@ class AddSupplierView extends GetView<AddSupplierController> {
                   onPressed: () {
                     pc.addSupplier();
                   },
-                  child: Text('Simpan'),
+                  child: Text('save'.tr),
                 ),
               ),
             ],

@@ -69,7 +69,7 @@ class ProductView extends GetView<ProductController> {
                                     Get.back();
                                   },
                                 ),
-                                ...controller.daftarKategori.map((kategori) {
+                                ...controller.categories.map((kategori) {
                                   return ListTile(
                                     title: Text(kategori['name']),
                                     onTap: () {

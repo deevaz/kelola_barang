@@ -25,7 +25,7 @@ class EditProductView extends GetView<EditProductController> {
           print(item['id']);
         },
       ),
-      appBar: CustomAppBar(title: 'Edit Barang'),
+      appBar: CustomAppBar(title: 'edit-item'.tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         child: ListView(
@@ -39,7 +39,7 @@ class EditProductView extends GetView<EditProductController> {
                         controller: controller.kodeBarangC,
                         title:
                             controller.barcode.isEmpty
-                                ? 'Kode Barang'
+                                ? 'item-code'.tr
                                 : controller.barcode.toString(),
                       ),
                     ),
@@ -76,16 +76,16 @@ class EditProductView extends GetView<EditProductController> {
                   ],
                 ),
                 CustomTextField(
-                  title: 'Nama Barang',
+                  title: 'product-name'.tr,
                   controller: controller.namaBarangC,
                 ),
                 CustomTextField(
-                  title: 'Stok Awal',
+                  title: 'initial-stock'.tr,
                   controller: controller.stokAwalC,
                   inputType: TextInputType.number,
                 ),
                 CustomTextField(
-                  title: 'Harga Beli',
+                  title: 'buy-price'.tr,
                   controller: controller.hargaBeliC,
                   inputType: TextInputType.number,
                 ),
@@ -94,13 +94,13 @@ class EditProductView extends GetView<EditProductController> {
                     Flexible(
                       child: Column(
                         children: [
+                          // CustomTextField(
+                          //   inputType: TextInputType.number,
+                          //   title: 'Harga Grosir',
+                          //   controller: controller.hargaGrosirC,
+                          // ),
                           CustomTextField(
-                            inputType: TextInputType.number,
-                            title: 'Harga Grosir',
-                            controller: controller.hargaGrosirC,
-                          ),
-                          CustomTextField(
-                            title: 'Harga Jual',
+                            title: 'selling-price'.tr,
                             inputType: TextInputType.number,
                             controller: controller.hargaJualC,
                           ),
@@ -194,7 +194,7 @@ class EditProductView extends GetView<EditProductController> {
                           ),
                         ),
                         child: Text(
-                          'Simpan',
+                          'save'.tr,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,

@@ -43,7 +43,7 @@ class LandingView extends GetView<LandingController> {
                     final user = HomeController.to.name.value;
                     return RichText(
                       text: TextSpan(
-                        text: 'Selamat datang,\n',
+                        text: 'welcome'.tr,
                         style: TextStyle(
                           fontSize: 25.sp,
                           fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class LandingView extends GetView<LandingController> {
                         ),
                         children: [
                           TextSpan(
-                            text: user.isNotEmpty ? user : '',
+                            text: '\n${user.isNotEmpty ? user : 'Guest'}',
                             style: TextStyle(
                               fontSize: 25.sp,
                               fontWeight: FontWeight.bold,
@@ -92,7 +92,7 @@ class LandingView extends GetView<LandingController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InfoCard(
-                    title: 'Stok Masuk',
+                    title: 'stock-in'.tr,
                     icon: 'assets/images/img_stok_masuk.png',
                     onTap: () {
                       Get.toNamed(Routes.STOCK_IN);
@@ -101,7 +101,7 @@ class LandingView extends GetView<LandingController> {
                   ),
 
                   InfoCard(
-                    title: 'Stok Keluar',
+                    title: 'stock-out'.tr,
                     icon: 'assets/images/img_stok_keluar.png',
                     onTap: () {
                       // Get.toNamed('/stok_keluar');
@@ -110,7 +110,7 @@ class LandingView extends GetView<LandingController> {
                   ),
 
                   InfoCard(
-                    title: 'Pemasok',
+                    title: 'supplier'.tr,
                     onTap: () => Get.toNamed(Routes.SUPPLIER),
                     icon: 'assets/images/img_supplier.png',
                   ),
@@ -153,11 +153,11 @@ class LandingView extends GetView<LandingController> {
                             items: [
                               DropdownMenuItem(
                                 value: 'in',
-                                child: Text('Stok Masuk'),
+                                child: Text('stock-in'.tr),
                               ),
                               DropdownMenuItem(
                                 value: 'out',
-                                child: Text('Stok Keluar'),
+                                child: Text('stock-out'.tr),
                               ),
                             ],
                             value: controller.selectedChart.value,

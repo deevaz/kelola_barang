@@ -42,8 +42,8 @@ class StockInController extends GetxController {
         Barang(
           nama: "Keripik",
           harga: 1000,
-          jumlahStokMasuk: 10,
-          totalStok: 10,
+          jumlahStokMasuk: 20,
+          totalStok: 30,
         ),
         Barang(nama: "Ginjal", harga: 2000, jumlahStokMasuk: 29, totalStok: 7),
       ],

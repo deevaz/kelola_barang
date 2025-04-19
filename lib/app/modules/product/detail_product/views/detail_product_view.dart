@@ -30,7 +30,7 @@ class DetailProductView extends GetView<DetailProductController> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Detail Barang',
+          'product-detail'.tr,
           style: TextStyle(
             color: ColorStyle.dark,
             fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class DetailProductView extends GetView<DetailProductController> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: Image.network(
-                  'http://192.168.2.67:8000/storage/${items['gambar']}',
+                  items['gambar'],
                   width: 200.w,
                   height: 200.h,
                   fit: BoxFit.cover,
@@ -130,16 +130,16 @@ class DetailProductView extends GetView<DetailProductController> {
               ),
               const Divider(),
               InfoRow(
-                title: 'Harga Beli',
+                title: 'buy-price'.tr,
                 value: currencyFormatter.format(items['harga_beli'] ?? 0),
               ),
               InfoRow(
-                title: 'Harga Jual',
+                title: 'sell-price'.tr,
                 value: currencyFormatter.format(items['harga_jual'] ?? 0),
               ),
               InfoRow(title: 'Kategori', value: '${items['kategori']}'),
               InfoRow(
-                title: 'Kadaluarsa',
+                title: 'expired'.tr,
                 value:
                 // items.kadaluarsa!.toString(),
                 DateFormat(
@@ -151,7 +151,7 @@ class DetailProductView extends GetView<DetailProductController> {
                 child: Row(
                   children: [
                     Text(
-                      'Deskripsi',
+                      'deskripsi'.tr,
                       style: TextStyle(fontSize: 18.sp, color: ColorStyle.grey),
                     ),
                     const Spacer(),
@@ -206,7 +206,7 @@ class DetailProductView extends GetView<DetailProductController> {
                   Get.toNamed(Routes.EDIT_PRODUCT, arguments: items);
                 },
                 child: Text(
-                  'Ubah',
+                  'change'.tr,
                   style: TextStyle(fontSize: 18.sp, color: Colors.white),
                 ),
               ),

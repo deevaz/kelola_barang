@@ -33,7 +33,7 @@ class OnboardingView extends GetView<OnboardingController> {
                     children: [
                       SizedBox(height: 25.h),
                       Text(
-                        'Barangku',
+                        'Kelola Barang',
                         style: TextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.bold,

@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
-class HistoryRepository {
-  HistoryRepository();
+class HistoryService {
+  HistoryService();
 
   var apiConstant = ApiConstant();
   final userId = HomeController.to.userId;

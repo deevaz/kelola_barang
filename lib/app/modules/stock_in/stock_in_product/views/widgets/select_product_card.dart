@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
@@ -12,7 +13,7 @@ class SelectProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stokMasukBC = StockInProductController.to;
+    final stockInP = StockInProductController.to;
     return InkWell(
       onTap: () {
         if (onTap != null) {
@@ -94,16 +95,18 @@ class SelectProductCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      // Obx(() {
-                      // final stokMasuk = stokMasukBC.getStokMasuk(items.id!);
-                      // return
-                      Text(
-                        '+ 1',
-                        style: TextStyle(
-                          color: ColorStyle.success,
-                          fontSize: 22.sp,
-                        ),
-                      ),
+                      Obx(() {
+                        final stokMasuk = stockInP.getStokMasuk(
+                          items['id']!.toString(),
+                        );
+                        return Text(
+                          '+ ${stokMasuk.toString()}',
+                          style: TextStyle(
+                            color: ColorStyle.success,
+                            fontSize: 22.sp,
+                          ),
+                        );
+                      }),
                       // }),
                     ],
                   ),

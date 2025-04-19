@@ -20,24 +20,24 @@ class LoginView extends GetView<LoginController> {
               Image.asset('assets/icons/ic_barangku.png', height: 200.h),
               SizedBox(height: 5.h),
               Text(
-                'Masuk',
+                'login'.tr,
                 style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10.h),
               Text(
-                'Masukkan username dan password untuk masuk ke akunmu',
+                'deskripsi-login'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
               ),
               CustomTextField(
                 title: 'Username',
-                hintText: 'Masukkan username',
+                hintText: 'input-username'.tr,
                 controller: controller.usernameController,
               ),
               SizedBox(height: 5.h),
               PasswordTextField(
                 title: 'Password',
-                hintText: 'Masukkan password',
+                hintText: 'input-password'.tr,
                 suffixIcon: Icons.visibility,
                 obscureText: true,
                 controller: controller.passwordController,
@@ -63,7 +63,7 @@ class LoginView extends GetView<LoginController> {
 
                     controller.login(username, password);
                   },
-                  child: Text('Masuk'),
+                  child: Text('login'.tr),
                 ),
               ),
             ],

@@ -26,7 +26,7 @@ class HistoryView extends GetView<HistoryController> {
         title: Padding(
           padding: const EdgeInsets.only(left: 15),
           child: Text(
-            'Riwayat',
+            'history'.tr,
             style: TextStyle(
               fontSize: 18.sp,
               color: ColorStyle.dark,

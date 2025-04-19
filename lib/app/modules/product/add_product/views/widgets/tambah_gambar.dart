@@ -84,7 +84,7 @@ class TambahGambarButton extends StatelessWidget {
               },
             ),
             Text(
-              'Tambah Gambar',
+              'add-picture'.tr,
               style: TextStyle(
                 fontSize: 12.sp,
                 color: ColorStyle.grey,

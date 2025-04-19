@@ -18,10 +18,11 @@ void main() async {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          title: "Application",
+          title: "Kelola Barang",
           translations: AppTranslations(),
           locale: Locale('en'),
           fallbackLocale: const Locale('id'),
+          debugShowCheckedModeBanner: false,
           supportedLocales: const [Locale('en', 'US'), Locale('id')],
           defaultTransition: Transition.cupertino,
           initialRoute: AppPages.INITIAL,

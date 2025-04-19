@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/product/add_product/controllers/add_product_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
@@ -23,7 +24,7 @@ class KategoriBarangDropdown extends StatelessWidget {
           child: DropdownButtonFormField<String>(
             isExpanded: true,
             decoration: InputDecoration(
-              labelText: 'Kategori',
+              labelText: 'category'.tr,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.r),
               ),

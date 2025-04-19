@@ -6,12 +6,15 @@ import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
+import '../views/widgets/stock_in_modal_bottom.dart';
+
 class StockInProductController extends GetxController {
   static StockInProductController get to => Get.find();
   RxString barcode = ''.obs;
   final RxList selectedProduct = [].obs;
   final RxList listProducts = [].obs;
   var apiConstant = ApiConstant();
+  RxInt stockIn = 2.obs;
 
   @override
   void onInit() {
@@ -29,16 +32,24 @@ class StockInProductController extends GetxController {
     super.onClose();
   }
 
+  int getTotalBarang() {
+    return selectedProduct.length;
+  }
+
   int getStokMasuk(String idBarang) {
     final barang = selectedProduct.firstWhereOrNull(
-      (b) => b.idBarang == idBarang,
+      (b) => b['id'].toString() == idBarang,
     );
 
-    if (barang != null && barang.stokMasuk > 0) {
-      return barang.stokMasuk;
+    if (barang != null && (barang['jumlah_stok_masuk'] ?? 0) > 0) {
+      return barang['jumlah_stok_masuk'];
     }
 
     return 0;
+  }
+
+  int getTotalHarga() {
+    return 100000;
   }
 
   void searchBarangByBarcode() {
@@ -62,6 +73,18 @@ class StockInProductController extends GetxController {
           backgroundColor: ColorStyle.success,
           colorText: ColorStyle.white,
           duration: const Duration(seconds: 5),
+        );
+
+        Get.bottomSheet(
+          StockInModalBottom(
+            items: barang,
+            onIncrease: () {
+              tambahStok(barang['id']);
+            },
+            onDecrease: () {
+              kurangStok(barang['id']);
+            },
+          ),
         );
       } else {
         print("Barang tidak ditemukan.");
@@ -124,11 +147,11 @@ class StockInProductController extends GetxController {
     if (barang != null) {
       // Pastikan field stokMasuk ada, kalau belum ada, inisialisasi dengan 0
       int current =
-          barang['stokMasuk'] != null
-              ? int.tryParse(barang['stokMasuk'].toString()) ?? 0
+          barang['stok_masuk'] != null
+              ? int.tryParse(barang['stok_masuk'].toString()) ?? 0
               : 0;
       current++;
-      barang['stokMasuk'] = current;
+      barang['stok_masuk'] = current;
       listProducts.refresh();
 
       // Update atau tambahkan data ke selectedProduct dengan format yang diinginkan
@@ -136,13 +159,13 @@ class StockInProductController extends GetxController {
         (b) => b['id']?.toString() == idBarang,
       );
       if (existing != null) {
-        existing['jumlahStokMasuk'] = current;
+        existing['jumlah_stok_masuk'] = current;
       } else {
         selectedProduct.add({
           'id': barang['id'],
           'nama': barang['nama_barang'],
           'harga': barang['harga_jual'],
-          'jumlahStokMasuk': current,
+          'jumlah_stok_masuk': current,
           'totalStok': barang['total_stok'],
         });
       }
@@ -159,12 +182,12 @@ class StockInProductController extends GetxController {
     );
     if (barang != null) {
       int current =
-          barang['stokMasuk'] != null
-              ? int.tryParse(barang['stokMasuk'].toString()) ?? 0
+          barang['stok_masuk'] != null
+              ? int.tryParse(barang['stok_masuk'].toString()) ?? 0
               : 0;
       if (current > 0) {
         current--;
-        barang['stokMasuk'] = current;
+        barang['stok_masuk'] = current;
         listProducts.refresh();
         final existing = selectedProduct.firstWhereOrNull(
           (b) => b['id']?.toString() == idBarang,
@@ -174,7 +197,7 @@ class StockInProductController extends GetxController {
             // Hapus produk jika stokMasuk sudah nol
             selectedProduct.removeWhere((b) => b['id']?.toString() == idBarang);
           } else {
-            existing['jumlahStokMasuk'] = current;
+            existing['jumlah_stok_masuk'] = current;
           }
         }
         selectedProduct.refresh();
@@ -192,15 +215,15 @@ class StockInProductController extends GetxController {
     );
     if (barang != null) {
       int current =
-          barang['stokMasuk'] != null
-              ? int.tryParse(barang['stokMasuk'].toString()) ?? 0
+          barang['stok_masuk'] != null
+              ? int.tryParse(barang['stok_masuk'].toString()) ?? 0
               : 0;
       if (current > 0) {
         final existing = selectedProduct.firstWhereOrNull(
           (b) => b['id']?.toString() == idBarang,
         );
         if (existing != null) {
-          existing['jumlahStokMasuk'] = current;
+          existing['jumlah_stok_masuk'] = current;
           // Jika stokMasuk menjadi nol, hapus produk
           if (current == 0) {
             selectedProduct.removeWhere((b) => b['id']?.toString() == idBarang);
@@ -210,7 +233,7 @@ class StockInProductController extends GetxController {
             'id': barang['id'],
             'nama': barang['nama_barang'],
             'harga': barang['harga_jual'],
-            'jumlahStokMasuk': current,
+            'jumlah_stok_masuk': current,
             'totalStok': barang['total_stok'],
           });
         }
@@ -228,15 +251,15 @@ class StockInProductController extends GetxController {
     selectedProduct.clear();
     for (var barang in listProducts) {
       int current =
-          barang['stokMasuk'] != null
-              ? int.tryParse(barang['stokMasuk'].toString()) ?? 0
+          barang['stok_masuk'] != null
+              ? int.tryParse(barang['stok_masuk'].toString()) ?? 0
               : 0;
       if (current > 0) {
         selectedProduct.add({
           'id': barang['id'],
           'nama': barang['nama_barang'],
           'harga': barang['harga_jual'],
-          'jumlahStokMasuk': current,
+          'jumlah_stok_masuk': current,
           'totalStok': barang['total_stok'],
         });
       }
@@ -247,6 +270,6 @@ class StockInProductController extends GetxController {
 
     // Opsional: Jika ingin memperbarui data produk di controller lain
     Get.lazyPut(() => ProductController());
-    ProductController.to.getAllProducts();
+    ProductController.to.loadProducts();
   }
 }

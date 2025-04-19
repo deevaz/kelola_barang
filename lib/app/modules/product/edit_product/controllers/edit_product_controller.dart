@@ -113,7 +113,7 @@ class EditProductController extends GetxController {
         print(response.data);
         Get.back();
         Get.back();
-        ProductController.to.getAllProducts();
+        ProductController.to.loadProducts();
         Get.back();
         Get.snackbar(
           'Berhasil',

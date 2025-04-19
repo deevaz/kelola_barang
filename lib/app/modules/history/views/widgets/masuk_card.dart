@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -57,12 +58,12 @@ class MasukCard extends StatelessWidget {
                         ),
                         SizedBox(width: 5.w),
                         Text(
-                          'Stok Masuk',
+                          'stock-in'.tr,
                           style: TextStyle(color: ColorStyle.success),
                         ),
                         SizedBox(width: 5.w),
                         Text(
-                          '(${item['barang']?.length ?? 0} Barang)',
+                          '(${item['barang']?.length ?? 0} ${'product'.tr})',
                           style: TextStyle(color: ColorStyle.grey),
                         ),
                       ],
@@ -77,7 +78,7 @@ class MasukCard extends StatelessWidget {
                             style: TextStyle(color: ColorStyle.grey),
                           ),
                           Text(
-                            '- ${barang['jumlah_stok_masuk'] ?? 0} Barang',
+                            '- ${barang['jumlah_stok_masuk'] ?? 0} ${'product'.tr}',
                             style: TextStyle(color: ColorStyle.grey),
                           ),
                         ],

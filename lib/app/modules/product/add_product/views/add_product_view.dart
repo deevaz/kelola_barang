@@ -23,7 +23,7 @@ class AddProductView extends GetView<AddProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Tambah Barang'),
+      appBar: CustomAppBar(title: 'add-item'.tr),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         child: ListView(
@@ -37,7 +37,7 @@ class AddProductView extends GetView<AddProductController> {
                         () => CustomTextField(
                           title:
                               controller.barcode.isEmpty
-                                  ? 'Kode Barang'
+                                  ? 'item-code'.tr
                                   : controller.barcode.toString(),
                           controller: controller.kodeBarangC,
                         ),
@@ -77,16 +77,16 @@ class AddProductView extends GetView<AddProductController> {
                   ],
                 ),
                 CustomTextField(
-                  title: 'Nama Barang',
+                  title: 'product-name'.tr,
                   controller: controller.namaBarangC,
                 ),
                 CustomTextField(
-                  title: 'Stok Awal',
+                  title: 'initial-stock'.tr,
                   controller: controller.stokAwalC,
                   inputType: TextInputType.number,
                 ),
                 CustomTextField(
-                  title: 'Harga Beli',
+                  title: 'buy-price'.tr,
                   controller: controller.hargaBeliC,
                   inputType: TextInputType.number,
                 ),
@@ -95,14 +95,14 @@ class AddProductView extends GetView<AddProductController> {
                     Flexible(
                       child: Column(
                         children: [
+                          // CustomTextField(
+                          //   title: '',
+                          //   inputType: TextInputType.number,
+                          //   controller: controller.hargaGrosirC,
+                          // ),
                           CustomTextField(
-                            title: 'Harga Grosir',
                             inputType: TextInputType.number,
-                            controller: controller.hargaGrosirC,
-                          ),
-                          CustomTextField(
-                            inputType: TextInputType.number,
-                            title: 'Harga Jual',
+                            title: 'selling-price'.tr,
                             controller: controller.hargaJualC,
                           ),
                         ],
@@ -132,7 +132,7 @@ class AddProductView extends GetView<AddProductController> {
                   ],
                 ),
                 CustomTextFormField(
-                  title: 'Deskripsi',
+                  title: 'deskripsi'.tr,
                   controller: controller.deskripsiC,
                 ),
                 SizedBox(height: 30.h),
@@ -151,7 +151,7 @@ class AddProductView extends GetView<AddProductController> {
                           ),
                         ),
                         child: Text(
-                          'Simpan',
+                          'save'.tr,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -174,7 +174,7 @@ class AddProductView extends GetView<AddProductController> {
                           ),
                         ),
                         child: Text(
-                          'Simpan & Tambah Lagi',
+                          'save-create'.tr,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,

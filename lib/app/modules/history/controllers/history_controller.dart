@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
 
-import '../repositories/history_repository.dart';
+import '../services/history_service.dart';
 
 class HistoryController extends GetxController {
   static HistoryController get to => Get.find();
-  late final HistoryRepository repo;
+  late final HistoryService repo;
 
   final RxList<Map<String, dynamic>> stokMasuk = <Map<String, dynamic>>[].obs;
   final RxList<Map<String, dynamic>> stokKeluar = <Map<String, dynamic>>[].obs;
@@ -71,7 +71,7 @@ class HistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    repo = HistoryRepository();
+    repo = HistoryService();
     getHistory();
   }
 }

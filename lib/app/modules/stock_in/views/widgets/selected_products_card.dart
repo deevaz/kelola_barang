@@ -49,7 +49,7 @@ class SelectedProductsCard extends StatelessWidget {
                       onPressed: () {},
                     ),
                     Text(
-                      'Pilih Barang',
+                      'select-product'.tr,
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: ColorStyle.grey,

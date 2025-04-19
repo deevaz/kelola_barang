@@ -51,14 +51,14 @@ class StockInModalBottom extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Jumlah Stok Masuk',
+                  'stock-in-total'.tr,
                   style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  items.namaBarang ?? '',
+                  items['nama_barang'],
                   style: TextStyle(color: ColorStyle.grey, fontSize: 16.sp),
                 ),
                 SizedBox(height: 30.h),
@@ -72,14 +72,17 @@ class StockInModalBottom extends StatelessWidget {
                         size: 50.r,
                       ),
                       onPressed: () {
-                        if (items.id != null) {
-                          stokMasukBC.kurangStok(items.id!);
+                        if (items['id'] != null) {
+                          stokMasukBC.kurangStok(items['id']!.toString());
                         }
                       },
                     ),
                     SizedBox(width: 10.w),
+
                     Obx(() {
-                      final stokMasuk = stokMasukBC.getStokMasuk(items.id!);
+                      final stokMasuk = stokMasukBC.getStokMasuk(
+                        items['id']!.toString(),
+                      );
                       return Text(
                         stokMasuk.toString(),
                         style: TextStyle(
@@ -88,6 +91,7 @@ class StockInModalBottom extends StatelessWidget {
                         ),
                       );
                     }),
+
                     SizedBox(width: 10.w),
                     IconButton(
                       icon: Icon(
@@ -96,10 +100,8 @@ class StockInModalBottom extends StatelessWidget {
                         color: ColorStyle.primary,
                       ),
                       onPressed: () {
-                        if (onIncrease != null) {
-                          onIncrease!();
-                        } else {
-                          stokMasukBC.tambahStok(items.id!);
+                        if (items['id'] != null) {
+                          stokMasukBC.tambahStok(items['id']!.toString());
                         }
                       },
                     ),
@@ -125,7 +127,7 @@ class StockInModalBottom extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Batal',
+                          'cancel'.tr,
                           style: TextStyle(
                             color: ColorStyle.white,
                             fontSize: 16.sp,
@@ -138,16 +140,17 @@ class StockInModalBottom extends StatelessWidget {
                       height: 50.h,
                       child: ElevatedButton(
                         onPressed: () {
-                          stokMasukBC.simpanStok(items.id!);
+                          // print('${items.id}');
+                          // stokMasukBC.simpanStok(items.id!);
                           // stokMasukBC.getTotalBarang();
                           // stokMasukBC.getTotalHarga();
 
-                          stokMasukBC.selectedProduct.refresh();
+                          // stokMasukBC.selectedProduct.refresh();
                           Get.back();
                         },
                         style: EvelatedButtonStyle.rounded15,
                         child: Text(
-                          'Simpan',
+                          'save'.tr,
                           style: TextStyle(
                             color: ColorStyle.white,
                             fontSize: 16.sp,

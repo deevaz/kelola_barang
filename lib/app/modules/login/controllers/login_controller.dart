@@ -32,8 +32,8 @@ class LoginController extends GetxController {
     passwordController.clear();
     box.clear();
     Get.snackbar(
-      'Logout Berhasil',
-      'Anda telah keluar dari aplikasi',
+      'logout-success'.tr,
+      'confirm-logout-success'.tr,
       duration: const Duration(seconds: 2),
       colorText: ColorStyle.white,
       backgroundColor: ColorStyle.primary,

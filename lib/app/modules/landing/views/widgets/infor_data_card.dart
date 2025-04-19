@@ -35,7 +35,7 @@ class InfoDataCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Data Minggu Ini',
+              'data'.tr,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
@@ -48,7 +48,7 @@ class InfoDataCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InfoWidget(
-                    title: 'Stok Masuk',
+                    title: 'stock-in'.tr,
                     value: lc.stokMasuk.value.toString(),
                     textStyle: TextStyle(
                       fontSize: 35.sp,
@@ -56,7 +56,7 @@ class InfoDataCard extends StatelessWidget {
                     ),
                   ),
                   InfoWidget(
-                    title: 'Stok Keluar',
+                    title: 'stock-out'.tr,
                     value: lc.stokKeluar.value.toString(),
                     textStyle: TextStyle(
                       fontSize: 35.sp,
@@ -75,7 +75,7 @@ class InfoDataCard extends StatelessWidget {
                   textStyle: TextStyle(fontSize: 22.sp, color: ColorStyle.dark),
                 ),
                 InfoWidget(
-                  title: 'Keuntungan',
+                  title: 'profit'.tr,
                   value: 'Rp. ${lc.keuntungan.value}',
                   textStyle: TextStyle(fontSize: 22.sp, color: ColorStyle.dark),
                 ),
