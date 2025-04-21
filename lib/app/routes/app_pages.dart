@@ -32,10 +32,12 @@ import '../modules/splash_screen/bindings/splash_screen_binding.dart';
 import '../modules/splash_screen/views/splash_screen_view.dart';
 import '../modules/stock_in/bindings/stock_in_binding.dart';
 import '../modules/stock_in/stock_in_product/bindings/stock_in_product_binding.dart';
-
 import '../modules/stock_in/stock_in_product/views/stock_in_product_view.dart';
-
 import '../modules/stock_in/views/stock_in_view.dart';
+import '../modules/stock_out/bindings/stock_out_binding.dart';
+import '../modules/stock_out/stock_out_product/bindings/stock_out_product_binding.dart';
+import '../modules/stock_out/stock_out_product/views/stock_out_product_view.dart';
+import '../modules/stock_out/views/stock_out_view.dart';
 
 part 'app_routes.dart';
 
@@ -135,6 +137,18 @@ class AppPages {
           name: _Paths.STOCK_IN_PRODUCT,
           page: () => const StockInProductView(),
           binding: StockInProductBinding(),
+        ),
+      ],
+    ),
+    GetPage(
+      name: _Paths.STOCK_OUT,
+      page: () => const StockOutView(),
+      binding: StockOutBinding(),
+      children: [
+        GetPage(
+          name: _Paths.STOCK_OUT_PRODUCT,
+          page: () => const StockOutProductView(),
+          binding: StockOutProductBinding(),
         ),
       ],
     ),

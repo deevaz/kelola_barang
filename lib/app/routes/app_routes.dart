@@ -21,6 +21,8 @@ abstract class Routes {
   static const BARCODE_SCANNER = _Paths.BARCODE_SCANNER;
   static const STOCK_IN = _Paths.STOCK_IN;
   static const STOCK_IN_PRODUCT = _Paths.STOCK_IN + _Paths.STOCK_IN_PRODUCT;
+  static const STOCK_OUT = _Paths.STOCK_OUT;
+  static const STOCK_OUT_PRODUCT = _Paths.STOCK_OUT + _Paths.STOCK_OUT_PRODUCT;
 }
 
 abstract class _Paths {
@@ -42,4 +44,6 @@ abstract class _Paths {
   static const BARCODE_SCANNER = '/barcode-scanner';
   static const STOCK_IN = '/stock-in';
   static const STOCK_IN_PRODUCT = '/stock-in-product';
+  static const STOCK_OUT = '/stock-out';
+  static const STOCK_OUT_PRODUCT = '/stock-out-product';
 }

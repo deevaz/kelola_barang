@@ -12,6 +12,6 @@ class ColorStyle {
   static const Color light = Color(0xffF1F3F4);
   static const Color dark = Color(0xff1C1B20);
   static const Color white = Color(0xffffffff);
-  static const Color grey = Color(0xffCFCFCF);
+  static const Color grey = Color.fromARGB(255, 76, 76, 76);
   static const Color purple = Color(0xffF0F3FD);
 }

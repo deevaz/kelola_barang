@@ -104,7 +104,7 @@ class LandingView extends GetView<LandingController> {
                     title: 'stock-out'.tr,
                     icon: 'assets/images/img_stok_keluar.png',
                     onTap: () {
-                      // Get.toNamed('/stok_keluar');
+                      Get.toNamed(Routes.STOCK_OUT);
                       print('Stok Keluar');
                     },
                   ),
