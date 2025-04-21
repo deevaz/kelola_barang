@@ -85,6 +85,16 @@ class OtherView extends GetView<OtherController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   LainnyaInfoRow(
+                    title: 'edit-profile'.tr,
+                    info: 'edit-profile-desc'.tr,
+                    icon: Ionicons.person,
+                    suffixIcon: Ionicons.chevron_forward,
+                    onTap: () {
+                      // Get.toNamed('/change-password');
+                    },
+                  ),
+                  const Divider(),
+                  LainnyaInfoRow(
                     title: 'change-password'.tr,
                     info: 'desc-password'.tr,
                     icon: Ionicons.lock_closed,
@@ -97,7 +107,7 @@ class OtherView extends GetView<OtherController> {
                   LainnyaInfoRow(
                     title: 'change-language'.tr,
                     info: 'manage-language'.tr,
-                    icon: Ionicons.person,
+                    icon: Ionicons.language,
                     suffixIcon: Ionicons.chevron_forward,
                     onTap: () {
                       Get.bottomSheet(

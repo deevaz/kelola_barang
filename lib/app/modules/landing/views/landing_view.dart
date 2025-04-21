@@ -162,7 +162,6 @@ class LandingView extends GetView<LandingController> {
                             ],
                             value: controller.selectedChart.value,
                             onChanged: (value) {
-                              // bc.mataUang.value = value.toString();
                               print('Selected value: $value');
                               controller.selectedChart.value = value.toString();
                               print(

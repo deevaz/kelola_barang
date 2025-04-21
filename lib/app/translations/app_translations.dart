@@ -83,6 +83,8 @@ class AppTranslations extends Translations {
       'edit-item': 'Edit Product',
       'change-password': 'Change Password',
       'desc-password': 'Change your password to a new one',
+      'edit-profile': 'Edit Profile',
+      'edit-profile-desc': 'Edit your profile',
     },
 
     // ! INI ADALAH TRANSLATE BAHASA INDONESIA
@@ -166,6 +168,8 @@ class AppTranslations extends Translations {
       'edit-item': 'Edit Barang',
       'change-password': 'Ubah Kata Sandi',
       'desc-password': 'Ubah kata sandi Anda menjadi yang baru',
+      'edit-profile': 'Ubah Profil',
+      'edit-profile-desc': 'Ubah profil Anda',
     },
   };
 }

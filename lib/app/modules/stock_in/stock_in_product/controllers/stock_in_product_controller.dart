@@ -15,8 +15,11 @@ class StockInProductController extends GetxController {
   RxString barcode = ''.obs;
   final RxList selectedProduct = [].obs;
   final RxList listProducts = [].obs;
+  final RxList<Map<String, dynamic>> filteredProducts =
+      <Map<String, dynamic>>[].obs;
+  RxString searchText = ''.obs;
   var apiConstant = ApiConstant();
-  RxInt stockIn = 2.obs;
+  RxInt stockIn = 0.obs;
   RxInt price = 0.obs;
 
   @override
