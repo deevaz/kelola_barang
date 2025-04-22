@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:intl/intl.dart';
+import 'package:kelola_barang/app/modules/history/views/widgets/history_modal_bottom.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class KeluarCard extends StatelessWidget {
@@ -12,7 +13,10 @@ class KeluarCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        print(item);
+        Get.bottomSheet(HistoryModalBottom(item: item));
+      },
       child: Container(
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(8),

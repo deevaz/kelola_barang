@@ -54,12 +54,7 @@ class StockInView extends GetView<StockInController> {
                 child: ElevatedButton(
                   style: EvelatedButtonStyle.rounded15,
                   onPressed: () {
-                    controller.postStockIn(
-                      // StockInModel(
-                      //   catatan: controller.catatanC.text,
-
-                      // ),
-                    );
+                    controller.postStockIn();
                   },
                   child: Text('Simpan', style: TextStyle(fontSize: 16.sp)),
                 ),

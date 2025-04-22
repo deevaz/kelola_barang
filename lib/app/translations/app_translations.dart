@@ -169,7 +169,7 @@ class AppTranslations extends Translations {
       'add-item': 'Tambah Barang',
       'edit-item': 'Edit Barang',
       'change-password': 'Ubah Kata Sandi',
-      'desc-password': 'Ubah kata sandi Anda menjadi yang baru',
+      'desc-password': 'Ubah kata sandi Anda',
       'edit-profile': 'Ubah Profil',
       'edit-profile-desc': 'Ubah profil Anda',
       'buyer': 'Pembeli',

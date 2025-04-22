@@ -12,50 +12,39 @@ class HistoryView extends GetView<HistoryController> {
   const HistoryView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.getHistory();
-          print(controller.stokMasuk.length);
-          print(controller.stokKeluar.length);
-        },
-      ),
-      appBar: AppBar(
-        backgroundColor: ColorStyle.light,
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Text(
-            'history'.tr,
-            style: TextStyle(
-              fontSize: 18.sp,
-              color: ColorStyle.dark,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        titleTextStyle: TextStyle(
-          fontSize: 18.sp,
-          color: ColorStyle.dark,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      body: Padding(
+    return SafeArea(
+      child: Padding(
         padding: const EdgeInsets.all(15),
-        child: Obx(() {
-          final riwayatList = controller.semuaRiwayat;
-          return ListView.builder(
-            itemCount: riwayatList.length,
-            itemBuilder: (context, index) {
-              final riwayat = riwayatList[index];
-              if (riwayat['tipe'] == 'masuk') {
-                return MasukCard(item: riwayat);
-              } else {
-                return KeluarCard(item: riwayat);
-              }
-            },
-          );
-        }),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              ' Riwayat Stok',
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600,
+                color: ColorStyle.dark,
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Expanded(
+              child: Obx(() {
+                final riwayatList = controller.semuaRiwayat;
+                return ListView.builder(
+                  itemCount: riwayatList.length,
+                  itemBuilder: (context, index) {
+                    final riwayat = riwayatList[index];
+                    if (riwayat['tipe'] == 'masuk') {
+                      return MasukCard(item: riwayat);
+                    } else {
+                      return KeluarCard(item: riwayat);
+                    }
+                  },
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

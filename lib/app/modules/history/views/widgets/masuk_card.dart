@@ -5,6 +5,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
+import 'history_modal_bottom.dart';
+
 class MasukCard extends StatelessWidget {
   final Map<String, dynamic> item;
   MasukCard({super.key, required this.item});
@@ -12,7 +14,10 @@ class MasukCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        print(item);
+        Get.bottomSheet(HistoryModalBottom(item: item));
+      },
       child: Container(
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(8),
@@ -40,12 +45,9 @@ class MasukCard extends StatelessWidget {
                   children: [
                     SizedBox(
                       child: Text(
-                        // 'Selasa, 11 Maret 2025 09.20',
                         DateFormat(
                           'dd MMM yyyy – HH:mm',
                         ).format(DateTime.parse(item['tanggal'] ?? '')),
-
-                        // item?.tanggal ?? '-',
                         style: TextStyle(color: ColorStyle.grey),
                       ),
                     ),
