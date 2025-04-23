@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 import '../controllers/history_controller.dart';
-import 'widgets/keluar_card.dart';
-import 'widgets/masuk_card.dart';
+import 'widgets/stock_out_card.dart';
+import 'widgets/stock_in_card.dart';
 
 class HistoryView extends GetView<HistoryController> {
   const HistoryView({super.key});
@@ -19,7 +19,7 @@ class HistoryView extends GetView<HistoryController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              ' Riwayat Stok',
+              'history'.tr,
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
@@ -35,9 +35,9 @@ class HistoryView extends GetView<HistoryController> {
                   itemBuilder: (context, index) {
                     final riwayat = riwayatList[index];
                     if (riwayat['tipe'] == 'masuk') {
-                      return MasukCard(item: riwayat);
+                      return StockInCard(item: riwayat);
                     } else {
-                      return KeluarCard(item: riwayat);
+                      return StockOutCard(item: riwayat);
                     }
                   },
                 );

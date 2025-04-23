@@ -7,9 +7,9 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 import 'history_modal_bottom.dart';
 
-class MasukCard extends StatelessWidget {
+class StockInCard extends StatelessWidget {
   final Map<String, dynamic> item;
-  MasukCard({super.key, required this.item});
+  StockInCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class MasukCard extends StatelessWidget {
         Get.bottomSheet(HistoryModalBottom(item: item));
       },
       child: Container(
-        margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.all(8),
+        margin: EdgeInsets.all(8.r),
+        padding: EdgeInsets.all(8.r),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -61,7 +61,10 @@ class MasukCard extends StatelessWidget {
                         SizedBox(width: 5.w),
                         Text(
                           'stock-in'.tr,
-                          style: TextStyle(color: ColorStyle.success),
+                          style: TextStyle(
+                            color: ColorStyle.success,
+                            fontSize: 14.sp,
+                          ),
                         ),
                         SizedBox(width: 5.w),
                         Text(
@@ -77,11 +80,17 @@ class MasukCard extends StatelessWidget {
                         children: [
                           Text(
                             barang['nama'] ?? '-',
-                            style: TextStyle(color: ColorStyle.grey),
+                            style: TextStyle(
+                              color: ColorStyle.grey,
+                              fontSize: 14.sp,
+                            ),
                           ),
                           Text(
                             '- ${barang['jumlah_stok_masuk'] ?? 0} ${'product'.tr}',
-                            style: TextStyle(color: ColorStyle.grey),
+                            style: TextStyle(
+                              color: ColorStyle.grey,
+                              fontSize: 14.sp,
+                            ),
                           ),
                         ],
                       );

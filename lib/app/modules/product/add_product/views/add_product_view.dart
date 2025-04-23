@@ -13,7 +13,7 @@ import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
 import '../controllers/add_product_controller.dart';
 import 'widgets/custom_text_form_field.dart';
 import 'widgets/kategori_barang_dropdown.dart';
-import 'widgets/tambah_gambar.dart';
+import 'widgets/add_picture.dart';
 
 class AddProductView extends GetView<AddProductController> {
   AddProductView({super.key});
@@ -23,7 +23,7 @@ class AddProductView extends GetView<AddProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'add-item'.tr),
+      appBar: CustomAppBar(title: 'add-item'.tr, lightBg: false),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         child: ListView(
@@ -95,41 +95,28 @@ class AddProductView extends GetView<AddProductController> {
                     Flexible(
                       child: Column(
                         children: [
-                          // CustomTextField(
-                          //   title: '',
-                          //   inputType: TextInputType.number,
-                          //   controller: controller.hargaGrosirC,
-                          // ),
                           CustomTextField(
                             inputType: TextInputType.number,
                             title: 'selling-price'.tr,
                             controller: controller.hargaJualC,
                           ),
+                          KategoriBarangDropdown(c: controller),
                         ],
                       ),
                     ),
                     SizedBox(width: 10.w),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.h),
-                      child: TambahGambarButton(c: controller),
-                    ),
+                    AddPictureButton(c: controller),
                   ],
                 ),
-                Row(
-                  children: [
-                    Flexible(child: KategoriBarangDropdown(c: controller)),
-                    SizedBox(width: 10.w),
-                    Obx(
-                      () => CustomFormTanggal(
-                        title: controller.selectedDate.value.toString(),
-                        width: 155.w,
-                        selectedDate: controller.selectedDate.value,
-                        onTap: () {
-                          controller.pickDate(context);
-                        },
-                      ),
-                    ),
-                  ],
+                Obx(
+                  () => CustomFormTanggal(
+                    title: controller.selectedDate.value.toString(),
+                    width: double.infinity,
+                    selectedDate: controller.selectedDate.value,
+                    onTap: () {
+                      controller.pickDate(context);
+                    },
+                  ),
                 ),
                 CustomTextFormField(
                   title: 'deskripsi'.tr,

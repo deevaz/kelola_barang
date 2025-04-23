@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
 
 import '../controllers/detail_product_controller.dart';
 import 'widgets/info_row.dart';
@@ -23,21 +24,7 @@ class DetailProductView extends GetView<DetailProductController> {
   Widget build(BuildContext context) {
     final items = Get.arguments;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorStyle.light,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'product-detail'.tr,
-          style: TextStyle(
-            color: ColorStyle.dark,
-            fontWeight: FontWeight.bold,
-            fontSize: 20.sp,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'product-detail'.tr, lightBg: false),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 30.h),
         child: Column(

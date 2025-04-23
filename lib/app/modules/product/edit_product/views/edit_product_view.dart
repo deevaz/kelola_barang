@@ -7,11 +7,12 @@ import 'package:kelola_barang/app/modules/product/add_product/controllers/add_pr
 import 'package:kelola_barang/app/modules/product/add_product/views/widgets/custom_text_form_field.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
+import 'package:kelola_barang/app/shared/widgets/custom_form_tanggal.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
 
 import '../../add_product/views/widgets/kategori_barang_dropdown.dart';
 import '../controllers/edit_product_controller.dart';
-import 'widgets/edit_gambar_button.dart';
+import 'widgets/edit_picture_button.dart';
 
 class EditProductView extends GetView<EditProductController> {
   EditProductView({super.key});
@@ -25,7 +26,7 @@ class EditProductView extends GetView<EditProductController> {
           print(item['id']);
         },
       ),
-      appBar: CustomAppBar(title: 'edit-item'.tr),
+      appBar: CustomAppBar(title: 'edit-item'.tr, lightBg: false),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         child: ListView(
@@ -94,83 +95,30 @@ class EditProductView extends GetView<EditProductController> {
                     Flexible(
                       child: Column(
                         children: [
-                          // CustomTextField(
-                          //   inputType: TextInputType.number,
-                          //   title: 'Harga Grosir',
-                          //   controller: controller.hargaGrosirC,
-                          // ),
                           CustomTextField(
                             title: 'selling-price'.tr,
                             inputType: TextInputType.number,
                             controller: controller.hargaJualC,
                           ),
+
+                          // ! BELUM SESUAI
+                          KategoriBarangDropdown(c: AddProductController.to),
                         ],
                       ),
                     ),
                     SizedBox(width: 10.w),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.h),
-                      child: EditGambarButton(c: controller),
-                    ),
+                    EditPictureButton(c: controller),
                   ],
                 ),
-                Row(
-                  children: [
-                    Flexible(
-                      // ! BELUM SESUAI
-                      child: KategoriBarangDropdown(c: AddProductController.to),
-                    ),
-                    SizedBox(width: 10.w),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10.h),
-                      child: Container(
-                        width: 155.w,
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: ColorStyle.dark),
-                          color: ColorStyle.white,
-                          borderRadius: BorderRadius.circular(10.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset: Offset(0, 1),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Ionicons.calendar_outline,
-                                color: ColorStyle.dark,
-                              ),
-                              onPressed: () {
-                                controller.pickDate(context);
-                              },
-                            ),
-                            Expanded(
-                              child: TextButton(
-                                onPressed: () {
-                                  controller.pickDate(context);
-                                },
-                                child: Text(
-                                  controller.selectedDate.value.toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: ColorStyle.grey,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                Obx(
+                  () => CustomFormTanggal(
+                    title: controller.selectedDate.value.toString(),
+                    width: double.infinity,
+                    selectedDate: controller.selectedDate.value,
+                    onTap: () {
+                      controller.pickDate(context);
+                    },
+                  ),
                 ),
                 CustomTextFormField(
                   title: 'Deskripsi',

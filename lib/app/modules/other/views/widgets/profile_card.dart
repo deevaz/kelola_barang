@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
@@ -23,23 +24,26 @@ class ProfileCard extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Center(
-        child: Column(
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(HomeController.to.image.value),
-              backgroundColor: Colors.grey[200],
-            ),
-            SizedBox(height: 10),
-            Text(
-              HomeController.to.name.value,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-            Text(
-              HomeController.to.email.value,
-              style: TextStyle(color: Colors.grey[600]),
-            ),
-          ],
+        child: Padding(
+          padding: EdgeInsets.all(20.r),
+          child: Column(
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(HomeController.to.image.value),
+                backgroundColor: Colors.grey[200],
+              ),
+              SizedBox(height: 10),
+              Text(
+                HomeController.to.name.value,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+              ),
+              Text(
+                HomeController.to.email.value,
+                style: TextStyle(color: ColorStyle.grey, fontSize: 14.sp),
+              ),
+            ],
+          ),
         ),
       ),
     );

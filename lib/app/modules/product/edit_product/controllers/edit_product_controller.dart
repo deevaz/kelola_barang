@@ -11,6 +11,7 @@ import 'package:kelola_barang/constants/api_constant.dart';
 import '../../../../shared/controllers/barcode_controller.dart';
 
 class EditProductController extends GetxController {
+  static EditProductController get to => Get.find();
   final barcodeC = Get.put(BarcodeController());
 
   final kodeBarangC = TextEditingController();

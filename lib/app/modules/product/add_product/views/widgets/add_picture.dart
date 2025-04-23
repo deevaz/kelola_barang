@@ -7,10 +7,10 @@ import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/product/add_product/controllers/add_product_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
-class TambahGambarButton extends StatelessWidget {
+class AddPictureButton extends StatelessWidget {
   final AddProductController c;
 
-  const TambahGambarButton({super.key, required this.c});
+  const AddPictureButton({super.key, required this.c});
 
   @override
   Widget build(BuildContext context) {

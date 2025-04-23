@@ -6,9 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/history/views/widgets/history_modal_bottom.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
-class KeluarCard extends StatelessWidget {
+class StockOutCard extends StatelessWidget {
   final Map<String, dynamic> item;
-  KeluarCard({super.key, required this.item});
+  StockOutCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class KeluarCard extends StatelessWidget {
         Get.bottomSheet(HistoryModalBottom(item: item));
       },
       child: Container(
-        margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.all(8),
+        margin: EdgeInsets.all(8.r),
+        padding: EdgeInsets.all(8.r),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -59,8 +59,11 @@ class KeluarCard extends StatelessWidget {
                         ),
                         SizedBox(width: 5.w),
                         Text(
-                          'Stok Keluar',
-                          style: TextStyle(color: ColorStyle.danger),
+                          'stock-out'.tr,
+                          style: TextStyle(
+                            color: ColorStyle.danger,
+                            fontSize: 14.sp,
+                          ),
                         ),
                         SizedBox(width: 5.w),
                         Text(
@@ -76,11 +79,17 @@ class KeluarCard extends StatelessWidget {
                         children: [
                           Text(
                             barang['nama'] ?? '-',
-                            style: TextStyle(color: ColorStyle.grey),
+                            style: TextStyle(
+                              color: ColorStyle.grey,
+                              fontSize: 14.sp,
+                            ),
                           ),
                           Text(
                             '- ${barang['jumlah_stok_keluar'] ?? 0} Barang'.tr,
-                            style: TextStyle(color: ColorStyle.grey),
+                            style: TextStyle(
+                              color: ColorStyle.grey,
+                              fontSize: 14.sp,
+                            ),
                           ),
                         ],
                       );

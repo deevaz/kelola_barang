@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/other/views/widgets/profile_card.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/change_lang_bottom_sheet.dart';
 
@@ -32,47 +33,7 @@ class OtherView extends GetView<OtherController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.all(8.0),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: ColorStyle.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: Offset(0, 1),
-                  ),
-                ],
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Center(
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(
-                        HomeController.to.image.value,
-                      ),
-                      backgroundColor: Colors.grey[200],
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      HomeController.to.name.value,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                    Text(
-                      HomeController.to.email.value,
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ProfileCard(),
             SizedBox(height: 20.h),
             Text(
               'setting'.tr,
@@ -90,7 +51,7 @@ class OtherView extends GetView<OtherController> {
                     icon: Ionicons.person,
                     suffixIcon: Ionicons.chevron_forward,
                     onTap: () {
-                      // Get.toNamed('/change-password');
+                      Get.toNamed('/other/edit-profile');
                     },
                   ),
                   const Divider(),
@@ -100,7 +61,7 @@ class OtherView extends GetView<OtherController> {
                     icon: Ionicons.lock_closed,
                     suffixIcon: Ionicons.chevron_forward,
                     onTap: () {
-                      // Get.toNamed('/change-password');
+                      Get.toNamed('/other/change-password');
                     },
                   ),
                   const Divider(),

@@ -23,7 +23,7 @@ void main() async {
           locale: Locale('en'),
           fallbackLocale: const Locale('id'),
           debugShowCheckedModeBanner: false,
-          supportedLocales: const [Locale('en', 'US'), Locale('id')],
+          supportedLocales: const [Locale('en'), Locale('id')],
           defaultTransition: Transition.cupertino,
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
