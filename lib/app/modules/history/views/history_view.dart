@@ -21,7 +21,7 @@ class HistoryView extends GetView<HistoryController> {
             Text(
               'history'.tr,
               style: TextStyle(
-                fontSize: 20.sp,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.w600,
                 color: ColorStyle.dark,
               ),

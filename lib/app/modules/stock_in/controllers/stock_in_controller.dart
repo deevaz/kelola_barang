@@ -62,8 +62,8 @@ class StockInController extends GetxController {
       if (response.statusCode == 201) {
         print('Berhasil kirim: ${response.data}');
         Get.snackbar(
-          'Berhasil',
-          'Stock Masuk berhasil disimpan',
+          'success'.tr,
+          'stock-in-success'.tr,
           backgroundColor: ColorStyle.success,
           colorText: Colors.white,
         );

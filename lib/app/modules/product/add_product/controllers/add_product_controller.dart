@@ -167,7 +167,13 @@ class AddProductController extends GetxController {
   }
 
   void saveItem() {
-    Get.snackbar('Item Saved', 'Your item has been saved successfully!');
+    Get.snackbar(
+      'success'.tr,
+      'item-saved'.tr,
+      backgroundColor: ColorStyle.success,
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
+    );
   }
 
   void saveAndCreateAnother() {

@@ -64,7 +64,7 @@ class EditProfilePicture extends StatelessWidget {
                       children: [
                         ListTile(
                           leading: Icon(Ionicons.camera_outline),
-                          title: Text('Kamera'),
+                          title: Text('camera'.tr),
                           onTap: () {
                             c.selectedImage.value = null;
                             c.pickImage(true);
@@ -73,7 +73,7 @@ class EditProfilePicture extends StatelessWidget {
                         ),
                         ListTile(
                           leading: Icon(Ionicons.image_outline),
-                          title: Text('Galeri'),
+                          title: Text('gallery'.tr),
                           onTap: () {
                             c.selectedImage.value = null;
                             c.pickImage(false);
@@ -86,7 +86,9 @@ class EditProfilePicture extends StatelessWidget {
                 },
               ),
               Text(
-                'add-picture'.tr,
+                c.selectedImage.value != null
+                    ? 'change-picture'.tr
+                    : 'add-picture'.tr,
                 style: TextStyle(
                   fontSize: 12.sp,
                   color:

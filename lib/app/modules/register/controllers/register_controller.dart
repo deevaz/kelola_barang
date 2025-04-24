@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide FormData;
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
 import 'package:kelola_barang/app/shared/services/auth_services.dart';
@@ -15,7 +14,6 @@ class RegisterController extends GetxController {
   final RxBool isPassword = true.obs;
   var selectedImage = Rxn<XFile>();
   var apiConstant = ApiConstant();
-  final box = Hive.box('user');
   final ImagePicker _picker = ImagePicker();
   final AuthServices _authService = AuthServices();
 

@@ -47,7 +47,7 @@ class AddPictureButton extends StatelessWidget {
                 size: 40.sp,
                 color:
                     c.selectedImage.value != null
-                        ? ColorStyle.grey
+                        ? Colors.transparent
                         : ColorStyle.dark,
               ),
               onPressed: () {
@@ -87,7 +87,10 @@ class AddPictureButton extends StatelessWidget {
               'add-picture'.tr,
               style: TextStyle(
                 fontSize: 12.sp,
-                color: ColorStyle.grey,
+                color:
+                    c.selectedImage.value != null
+                        ? Colors.transparent
+                        : ColorStyle.dark,
                 fontWeight: FontWeight.bold,
               ),
             ),

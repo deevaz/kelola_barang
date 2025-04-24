@@ -52,7 +52,7 @@ class DetailProductView extends GetView<DetailProductController> {
         ),
       ),
       bottomNavigationBar: Container(
-        height: 510.h,
+        height: 530.h,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -127,55 +127,54 @@ class DetailProductView extends GetView<DetailProductController> {
               InfoRow(title: 'Kategori', value: '${items['kategori']}'),
               InfoRow(
                 title: 'expired'.tr,
-                value:
-                // items.kadaluarsa!.toString(),
-                DateFormat(
+                value: DateFormat(
                   'dd MMM yyyy – HH:mm',
                 ).format(DateTime.parse(items['kadaluarsa'])),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 10),
+                padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'deskripsi'.tr,
                       style: TextStyle(fontSize: 18.sp, color: ColorStyle.grey),
                     ),
                     const Spacer(),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 100.w,
-                          child: Text(
+                    InkWell(
+                      onTap: () {
+                        Get.defaultDialog(
+                          title: 'deskripsi'.tr,
+                          titleStyle: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          content: Text(
                             items['deskripsi'] ?? '',
-                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 16.sp),
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            items['deskripsi'] ?? '',
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold,
                             ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Get.defaultDialog(
-                              title: 'Deskripsi',
-                              titleStyle: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              content: Text(
-                                items['deskripsi'] ?? '',
-                                style: TextStyle(fontSize: 16.sp),
-                              ),
-                            );
-                          },
-                          icon: Icon(
-                            size: 20.sp,
+                          SizedBox(width: 4.w),
+                          Icon(
                             Ionicons.chevron_forward_outline,
+                            size: 20.sp,
                             color: ColorStyle.primary,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

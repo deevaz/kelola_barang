@@ -8,18 +8,18 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 import '../../controllers/register_controller.dart';
 
-class TambahGambarUser extends StatelessWidget {
+class AddProfileImage extends StatelessWidget {
   final bool isCamera;
 
-  const TambahGambarUser({super.key, this.isCamera = true});
+  const AddProfileImage({super.key, this.isCamera = true});
 
   @override
   Widget build(BuildContext context) {
     final RegisterController c = Get.find<RegisterController>();
     return Obx(
       () => Container(
-        width: 155.w,
-        height: 100.h,
+        width: 170.w,
+        height: 135.h,
         decoration: BoxDecoration(
           image:
               c.selectedImage.value != null
@@ -49,12 +49,12 @@ class TambahGambarUser extends StatelessWidget {
                 size: 40.sp,
                 color:
                     c.selectedImage.value != null
-                        ? ColorStyle.grey
+                        ? Colors.transparent
                         : ColorStyle.dark,
               ),
               onPressed: () {
                 Get.defaultDialog(
-                  title: 'Pilih Gambar',
+                  title: 'select-image'.tr,
                   titleStyle: TextStyle(
                     fontSize: 20.sp,
                     color: ColorStyle.dark,
@@ -64,7 +64,7 @@ class TambahGambarUser extends StatelessWidget {
                     children: [
                       ListTile(
                         leading: Icon(Ionicons.camera_outline),
-                        title: Text('Kamera'),
+                        title: Text('camera'.tr),
                         onTap: () {
                           c.selectedImage.value = null;
                           c.pickImage(true);
@@ -73,7 +73,7 @@ class TambahGambarUser extends StatelessWidget {
                       ),
                       ListTile(
                         leading: Icon(Ionicons.image_outline),
-                        title: Text('Galeri'),
+                        title: Text('gallery'.tr),
                         onTap: () {
                           c.selectedImage.value = null;
                           c.pickImage(false);
@@ -86,10 +86,13 @@ class TambahGambarUser extends StatelessWidget {
               },
             ),
             Text(
-              'Tambah Gambar',
+              'add-picture'.tr,
               style: TextStyle(
                 fontSize: 12.sp,
-                color: ColorStyle.grey,
+                color:
+                    c.selectedImage.value != null
+                        ? Colors.transparent
+                        : ColorStyle.dark,
                 fontWeight: FontWeight.bold,
               ),
             ),

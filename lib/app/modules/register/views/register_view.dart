@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/register/views/widget/tambah_gambar_user.dart';
+import 'package:kelola_barang/app/modules/register/views/widget/add_profile_image.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
 
@@ -19,44 +19,43 @@ class RegisterView extends GetView<RegisterController> {
           padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 100.h),
           child: Column(
             children: [
-              // Image.asset('assets/icons/ic_barangku.png', width: 200.w),
               SizedBox(height: 10.h),
               Text(
-                'Daftar',
+                'register'.tr,
                 style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10.h),
               Text(
-                'Sahabat pengelolaan inventarismu',
+                'deskripsi-judul'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 30.h),
-              TambahGambarUser(),
+              AddProfileImage(),
               SizedBox(height: 10.h),
               CustomTextField(
-                title: 'Nama',
-                hintText: 'Masukkan Namamu',
+                title: 'name'.tr,
+                hintText: 'input-name'.tr,
                 controller: controller.nameController,
               ),
               CustomTextField(
-                title: 'Username',
-                hintText: 'Masukkan Username',
+                title: 'username'.tr,
+                hintText: 'input-username'.tr,
                 controller: controller.usernameC,
               ),
               CustomTextField(
-                title: 'Email',
-                hintText: 'Masukkan Alamat email',
+                title: 'email'.tr,
+                hintText: 'input-email'.tr,
                 controller: controller.emailController,
               ),
               RPasswordTextField(
-                title: 'Password',
-                hintText: 'Masukkan Password',
+                title: 'password'.tr,
+                hintText: 'input-password'.tr,
                 controller: controller.passwordController,
               ),
               RPasswordTextField(
-                title: 'Konfirmasi Password',
-                hintText: 'Konfirmasi Password',
+                title: 'confirm-password'.tr,
+                hintText: 'input-password'.tr,
                 controller: controller.cpasswordController,
               ),
               SizedBox(height: 30.h),

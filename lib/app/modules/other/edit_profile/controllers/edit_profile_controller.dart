@@ -6,7 +6,6 @@ import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart'
 import 'package:kelola_barang/app/modules/other/edit_profile/services/edit_profile_service.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class EditProfileController extends GetxController {
   final nameController = TextEditingController();
@@ -48,25 +47,21 @@ class EditProfileController extends GetxController {
       files: selectedImage.value != null ? [selectedImage.value!] : [],
     );
 
-    try {
-      print('🪳 [CONTROLLER] Calling updateUser');
-      final updated = await service.updateUser(userId, user, token);
-      print('✅ [CONTROLLER] Success: ${updated.toJson()}');
+    // try {
+    await service.updateUser(userId, user, token);
+    // print('✅ [CONTROLLER] Success: ${updated.toJson()}');
 
-      // Refresh data di HomeController
-      HomeController.to.getUserData();
+    HomeController.to.getUserData();
 
-      Get.snackbar('success'.tr, 'user-updated-success'.tr);
-      Get.back();
-    } catch (e) {
-      print('❌ [CONTROLLER] Error: $e');
-      Get.snackbar(
-        'error'.tr,
-        e.toString(),
-        backgroundColor: ColorStyle.danger,
-        colorText: ColorStyle.white,
-      );
-    }
+    // } catch (e) {
+    //   print('❌ [CONTROLLER] Error: $e');
+    //   Get.snackbar(
+    //     'error'.tr,
+    //     e.toString(),
+    //     backgroundColor: ColorStyle.danger,
+    //     colorText: ColorStyle.white,
+    //   );
+    // }
   }
 
   Future<void> pickImage(isCamera) async {

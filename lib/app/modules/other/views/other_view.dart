@@ -26,7 +26,7 @@ class OtherView extends GetView<OtherController> {
         automaticallyImplyLeading: false,
         title: Text(
           'other'.tr,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),
         ),
       ),
       body: Padding(
@@ -38,7 +38,7 @@ class OtherView extends GetView<OtherController> {
             SizedBox(height: 20.h),
             Text(
               'setting'.tr,
-              style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10.h),
             CustomContainer(
@@ -81,10 +81,20 @@ class OtherView extends GetView<OtherController> {
                   OtherInfoRow(
                     title: 'licenses'.tr,
                     info: 'licenses-desc'.tr,
+                    suffixIcon: Ionicons.chevron_forward,
                     icon: Ionicons.shield_checkmark,
-                    onTap: () {
-                      Get.toNamed('/other/licenses');
-                    },
+                    onTap:
+                        () => showDialog(
+                          context: context,
+                          builder:
+                              (BuildContext context) => AboutDialog(
+                                applicationIcon: const Icon(Icons.code),
+                                applicationLegalese:
+                                    '© ${DateTime.now().year} Deevaz',
+                                applicationName: 'Kelola Barang',
+                                applicationVersion: '1.0',
+                              ),
+                        ),
                   ),
                 ],
               ),

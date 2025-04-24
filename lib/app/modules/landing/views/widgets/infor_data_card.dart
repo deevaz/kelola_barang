@@ -66,17 +66,13 @@ class InfoDataCard extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 10.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InfoWidget(
-                  title: 'Omset',
-                  value: 'Rp. ${lc.omset.value}',
-                  textStyle: TextStyle(fontSize: 22.sp, color: ColorStyle.dark),
-                ),
-                InfoWidget(
                   title: 'profit'.tr,
-                  value: 'Rp. ${lc.keuntungan.value}',
+                  value: 'Rp. ${lc.omset.value}',
                   textStyle: TextStyle(fontSize: 22.sp, color: ColorStyle.dark),
                 ),
               ],
