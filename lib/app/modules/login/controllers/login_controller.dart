@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // ignore: depend_on_referenced_packages
 import 'package:hive/hive.dart';
+import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
 import 'package:kelola_barang/app/shared/services/auth_services.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -16,7 +17,8 @@ class LoginController extends GetxController {
 
   Dio dio = Dio();
   var apiConstant = ApiConstant();
-  final box = Hive.box('user');
+  final Box<UserResponseModel> userBox = Hive.box<UserResponseModel>('user');
+  final Box<String> authBox = Hive.box<String>('auth');
 
   void showPassword() {
     if (isPassword.value == true) {
@@ -29,9 +31,8 @@ class LoginController extends GetxController {
   }
 
   void logout() {
-    usernameController.clear();
-    passwordController.clear();
-    box.clear();
+    userBox.clear();
+    authBox.clear();
     Get.snackbar(
       'logout-success'.tr,
       'confirm-logout-success'.tr,

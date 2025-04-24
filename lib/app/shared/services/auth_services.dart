@@ -6,10 +6,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
+import '../models/user_response_model.dart';
+
 class AuthServices {
   final dio.Dio dioInstance = dio.Dio();
   var apiConstant = ApiConstant();
-  final box = Hive.box('user');
+  final userBox = Hive.box<UserResponseModel>('user');
+  final Box<String> authBox = Hive.box<String>('auth');
+
   Future<void> login(String username, String password) async {
     if (password.length < 6) {
       Get.snackbar(
@@ -19,7 +23,7 @@ class AuthServices {
         colorText: ColorStyle.white,
         backgroundColor: ColorStyle.danger,
       );
-      return null;
+      return;
     }
 
     final response = await dioInstance.request(
@@ -31,8 +35,10 @@ class AuthServices {
     if (response.statusCode == 200 && response.data != null) {
       print(json.encode(response.data));
 
-      await box.put('token', response.data['token']);
-      await box.put('user', response.data['user']);
+      final userMap = response.data['user'] as Map<String, dynamic>;
+      final user = UserResponseModel.fromJson(userMap);
+      await userBox.put('user', user);
+      await authBox.put('token', response.data['token'] as String);
 
       Get.snackbar(
         'login-success'.tr,
@@ -48,7 +54,7 @@ class AuthServices {
       print(response.data);
       print(response.statusMessage);
     }
-    return null;
+    return;
   }
 
   Future<void> postUser(dio.FormData formData) async {
@@ -60,8 +66,10 @@ class AuthServices {
       );
 
       if (response.statusCode == 201) {
-        await box.put('token', response.data['token']);
-        await box.put('user', response.data['user']);
+        final userMap = response.data['user'] as Map<String, dynamic>;
+        final user = UserResponseModel.fromJson(userMap);
+        await userBox.put('user', user);
+        await authBox.put('token', response.data['token'] as String);
         print(json.encode(response.data));
         Get.offAllNamed('/home');
       } else if (response.statusCode == 422) {

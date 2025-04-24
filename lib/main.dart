@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/translations/app_translations.dart';
@@ -10,7 +11,10 @@ import 'app/translations/app_translations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox('user');
+  Hive.registerAdapter(UserResponseModelAdapter());
+  await Hive.openBox<UserResponseModel>('user');
+  await Hive.openBox<String>('auth');
+
   runApp(
     ScreenUtilInit(
       designSize: const Size(414, 896),

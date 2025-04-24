@@ -54,6 +54,7 @@ class BarcodeScannerView extends GetView<BarcodeScannerController> {
             alignment: Alignment.bottomCenter,
             child: Container(
               padding: EdgeInsets.all(16.r),
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.5),
               child: Text(
                 'Arahkan kamera ke barcode untuk memindai',
@@ -73,6 +74,7 @@ class AnimatedScanningLine extends StatefulWidget {
   const AnimatedScanningLine({super.key, required this.scanAreaHeight});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AnimatedScanningLineState createState() => _AnimatedScanningLineState();
 }
 

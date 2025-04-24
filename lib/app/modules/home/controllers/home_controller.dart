@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.put(HomeController());
@@ -10,7 +11,9 @@ class HomeController extends GetxController {
   final RxString image = ''.obs;
   final RxString token = ''.obs;
   final RxString userId = ''.obs;
-  final box = Hive.box('user');
+  final Box<UserResponseModel> userBox = Hive.box<UserResponseModel>('user');
+  final Box<String> authBox = Hive.box<String>('auth');
+
   final RxString lang = ''.obs;
   final RxString email = ''.obs;
   final RxString password = ''.obs;
@@ -19,7 +22,6 @@ class HomeController extends GetxController {
 
   void changeTabIndex(int index) {
     tabIndex.value = index;
-    putController();
   }
 
   @override
@@ -33,46 +35,19 @@ class HomeController extends GetxController {
     Get.updateLocale(Locale(value));
   }
 
-  void putController() {
-    switch (tabIndex.value) {
-      // case 0:
-      //   if (!Get.isRegistered<BerandaController>()) {
-      //     Get.put(BerandaController());
-      //   }
-      //   break;
-      // case 1:
-      //   if (!Get.isRegistered<BarangController>()) {
-      //     Get.put(BarangController());
-      //   }
-      //   break;
-      // case 2:
-      //   if (!Get.isRegistered<RiwayatController>()) {
-      //     Get.put(RiwayatController());
-      //   }
-      //   break;
-      // case 3:
-      //   Get.put(LoginController());
-      //   if (!Get.isRegistered<LainnyaController>()) {
-      //     Get.put(LainnyaController());
-      //   }
-      //   break;
-      // default:
-      //   break;
-    }
-  }
-
   void getUserData() {
-    final user = box.get('user');
-    name.value = user['name'];
+    final user = userBox.get('user');
+    name.value = user!.name;
     image.value =
-        user['profile_picture'] ??
-        'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
-    userId.value = user['id'].toString();
-    email.value = user['email'];
-    print('Nama user: ${user['name']}');
-    print('Email user: ${user['email']}');
-    print('ID user: ${user['id']}');
-    token.value = box.get('token');
+        user.profilePicture.isNotEmpty
+            ? user.profilePicture
+            : 'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
+    userId.value = user.id.toString();
+    email.value = user.email;
+    print('Nama user: ${user.name}');
+    print('Email user: ${user.email}');
+    print('ID user: ${user.id}');
+    token.value = authBox.get('token') ?? '';
     // print('Token: $token');
   }
 

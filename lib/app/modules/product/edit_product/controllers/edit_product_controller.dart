@@ -117,8 +117,8 @@ class EditProductController extends GetxController {
         ProductController.to.loadProducts();
         Get.back();
         Get.snackbar(
-          'Berhasil',
-          'Data barang berhasil diperbarui',
+          'success'.tr,
+          'product-updated'.tr,
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );

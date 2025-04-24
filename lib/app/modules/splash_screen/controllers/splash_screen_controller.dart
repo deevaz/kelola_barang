@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
 class SplashScreenController extends GetxController {
   @override
@@ -9,29 +10,14 @@ class SplashScreenController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   void navigateToOnboard() async {
-    await Future.delayed(const Duration(seconds: 3), () {
-      final box = Hive.box('user');
-      final token = box.get('token');
-      print('Token ditemukan: $token');
-
-      if (token != null && token.toString().isNotEmpty) {
-        print('Navigating to Home');
-        Get.offAllNamed('/home');
-      } else {
-        print('Navigating to Onboarding');
-        Get.offAllNamed('/onboarding');
-      }
-    });
+    await Future.delayed(const Duration(seconds: 3));
+    final userBox = Hive.box<UserResponseModel>('user');
+    final user = userBox.get('user');
+    if (user != null) {
+      Get.offAllNamed('/home');
+    } else {
+      Get.offAllNamed('/onboarding');
+    }
   }
 }

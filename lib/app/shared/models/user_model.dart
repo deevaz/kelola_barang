@@ -6,14 +6,14 @@ class UserModel {
   String name;
   String username;
   String email;
-  String password;
+  String? password;
 
   UserModel({
     required this.files,
     required this.name,
     required this.username,
     required this.email,
-    required this.password,
+    this.password,
   });
 
   Map<String, dynamic> toJson() {
@@ -55,5 +55,32 @@ class UserModel {
       email: email,
       password: password,
     );
+  }
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      files: [],
+      name: json['name'] as String,
+      username: json['username'] as String,
+      email: json['email'] as String,
+      password: json['password'] as String,
+    );
+  }
+
+  Future<FormData> toFormDataForUpdate() async {
+    final multipartFiles = await Future.wait(
+      files.map(
+        (file) => MultipartFile.fromFile(file.path, filename: file.name),
+      ),
+    );
+
+    return FormData.fromMap({
+      'files': multipartFiles,
+      'name': name,
+      'username': username,
+      'email': email,
+      'password': password,
+      '_method': 'PUT',
+    });
   }
 }
