@@ -93,6 +93,7 @@ class AppTranslations extends Translations {
       'create-account-failed': 'Account creation failed',
       'failed': 'Failed',
       'success': 'Success',
+      'password-not-match': 'Password does not match',
     },
 
     'id': {
@@ -184,6 +185,7 @@ class AppTranslations extends Translations {
       'create-account-failed': 'Pembuatan akun gagal',
       'failed': 'Gagal',
       'success': 'Berhasil',
+      'password-not-match': 'Kata sandi tidak cocok',
     },
   };
 }

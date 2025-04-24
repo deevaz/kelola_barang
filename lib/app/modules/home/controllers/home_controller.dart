@@ -65,16 +65,15 @@ class HomeController extends GetxController {
     final user = box.get('user');
     name.value = user['name'];
     image.value =
-        user['profile_picture'] != null
-            ? user['profile_picture']
-            : 'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
+        user['profile_picture'] ??
+        'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
     userId.value = user['id'].toString();
     email.value = user['email'];
     print('Nama user: ${user['name']}');
     print('Email user: ${user['email']}');
     print('ID user: ${user['id']}');
     token.value = box.get('token');
-    print('Token: $token');
+    // print('Token: $token');
   }
 
   @override

@@ -1,9 +1,8 @@
-import 'package:dio/dio.dart' as dio;
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kelola_barang/app/shared/models/user_model.dart';
 import 'package:kelola_barang/app/shared/services/auth_services.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -47,8 +46,8 @@ class RegisterController extends GetxController {
 
     if (passwordController.text != cpasswordController.text) {
       Get.snackbar(
-        'Gagal',
-        'Password tidak sama',
+        'failed'.tr,
+        'password-not-match'.tr,
         duration: const Duration(seconds: 2),
         colorText: Colors.white,
         backgroundColor: Colors.red,
@@ -58,8 +57,8 @@ class RegisterController extends GetxController {
 
     if (passwordController.text.length < 6) {
       Get.snackbar(
-        'Gagal',
-        'Password minimal 6 karakter',
+        'failed'.tr,
+        'minimum-6-character'.tr,
         duration: const Duration(seconds: 2),
         colorText: Colors.white,
         backgroundColor: Colors.red,
@@ -67,18 +66,21 @@ class RegisterController extends GetxController {
       return;
     }
 
-    final file = selectedImage.value;
-    dio.FormData formData = dio.FormData.fromMap({
-      if (file != null)
-        'profile_picture': await dio.MultipartFile.fromFile(
-          file.path,
-          filename: file.name,
-        ),
-      'name': nameController.text,
-      'username': usernameC.text,
-      'password': passwordController.text,
-      'email': emailController.text,
-    });
-    _authService.postUser(formData);
+    final files = <XFile>[];
+    if (selectedImage.value != null) {
+      files.add(selectedImage.value!);
+    }
+
+    final user = UserModel.fromXFiles(
+      files: files,
+      name: nameController.text.trim(),
+      username: usernameC.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text,
+    );
+
+    final formData = await user.toFormData();
+
+    await _authService.postUser(formData);
   }
 }
