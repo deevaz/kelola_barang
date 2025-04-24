@@ -1,10 +1,10 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// ignore: depend_on_referenced_packages
 import 'package:hive/hive.dart';
-import 'package:dio/dio.dart';
-import 'package:kelola_barang/app/shared/models/user_model.dart';
+
+import 'package:kelola_barang/app/shared/services/auth_services.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -12,6 +12,7 @@ class LoginController extends GetxController {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final RxBool isPassword = true.obs;
+  final AuthServices _authService = AuthServices();
 
   Dio dio = Dio();
   var apiConstant = ApiConstant();
@@ -41,45 +42,10 @@ class LoginController extends GetxController {
     Get.offAllNamed('/onboarding');
   }
 
-  Future<UserModel?> login(String username, String password) async {
-    if (password.length < 6) {
-      Get.snackbar(
-        'Login Gagal',
-        'Password minimal 6 karakter',
-        duration: const Duration(seconds: 2),
-        colorText: ColorStyle.white,
-        backgroundColor: Colors.red,
-      );
-      return null;
-    }
+  Future<void> login() async {
+    String username = usernameController.text.trim();
+    String password = passwordController.text;
 
-    var dio = Dio();
-    var response = await dio.request(
-      '${apiConstant.BASE_URL}/login',
-      options: Options(method: 'POST'),
-      data: {'username': username, 'password': password},
-    );
-
-    if (response.statusCode == 200 && response.data != null) {
-      print(json.encode(response.data));
-
-      await box.put('token', response.data['token']);
-      await box.put('user', response.data['user']);
-
-      Get.snackbar(
-        'Login Berhasil',
-        'Selamat datang ${response.data['user']['name']}',
-        duration: const Duration(seconds: 2),
-        colorText: ColorStyle.white,
-        backgroundColor: ColorStyle.primary,
-      );
-      Get.offAllNamed('/home');
-    } else {
-      print('Login failed');
-      print(response.statusCode);
-      print(response.data);
-      print(response.statusMessage);
-    }
-    return null;
+    await _authService.login(username, password);
   }
 }

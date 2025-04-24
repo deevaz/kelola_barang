@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart' as dio;
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kelola_barang/app/shared/services/auth_services.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 class RegisterController extends GetxController {
@@ -19,6 +18,7 @@ class RegisterController extends GetxController {
   var apiConstant = ApiConstant();
   final box = Hive.box('user');
   final ImagePicker _picker = ImagePicker();
+  final AuthServices _authService = AuthServices();
 
   void showPassword() {
     if (isPassword.value == true) {
@@ -79,49 +79,6 @@ class RegisterController extends GetxController {
       'password': passwordController.text,
       'email': emailController.text,
     });
-
-    postUser(formData);
-  }
-
-  Future<void> postUser(FormData formData) async {
-    try {
-      var dio = Dio();
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/register',
-        options: Options(method: 'POST'),
-        data: formData,
-      );
-
-      if (response.statusCode == 201) {
-        await box.put('token', response.data['token']);
-        await box.put('user', response.data['user']);
-        print(json.encode(response.data));
-        Get.offAllNamed('/home');
-      } else if (response.statusCode == 422) {
-        print('VALIDATION ERROR: ${response.data}');
-      } else {
-        print(response.statusMessage);
-      }
-      print('Berhasil mendaftar');
-      Get.snackbar(
-        'Berhasil',
-        'Akun berhasil dibuat',
-        duration: const Duration(seconds: 2),
-        colorText: Colors.white,
-        backgroundColor: Colors.green,
-      );
-    } catch (e) {
-      if (e is dio.DioException) {
-        print('VALIDATION ERROR: ${e.response?.data}');
-      }
-      print('Gagal mendaftar: $e');
-      Get.snackbar(
-        'Gagal',
-        'Akun gagal dibuat',
-        duration: const Duration(seconds: 2),
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-      );
-    }
+    _authService.postUser(formData);
   }
 }

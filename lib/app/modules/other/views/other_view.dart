@@ -4,14 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/other/views/widgets/change_language_bottom.dart';
 import 'package:kelola_barang/app/modules/other/views/widgets/profile_card.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/app/shared/widgets/change_lang_bottom_sheet.dart';
+import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 
 import '../../login/controllers/login_controller.dart';
 import '../controllers/other_controller.dart';
 import 'widgets/custom_container.dart';
-import 'widgets/lainnya_info_row.dart';
+import 'widgets/other_info_row.dart';
 
 class OtherView extends GetView<OtherController> {
   const OtherView({super.key});
@@ -45,7 +46,7 @@ class OtherView extends GetView<OtherController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LainnyaInfoRow(
+                  OtherInfoRow(
                     title: 'edit-profile'.tr,
                     info: 'edit-profile-desc'.tr,
                     icon: Ionicons.person,
@@ -55,7 +56,7 @@ class OtherView extends GetView<OtherController> {
                     },
                   ),
                   const Divider(),
-                  LainnyaInfoRow(
+                  OtherInfoRow(
                     title: 'change-password'.tr,
                     info: 'desc-password'.tr,
                     icon: Ionicons.lock_closed,
@@ -65,50 +66,35 @@ class OtherView extends GetView<OtherController> {
                     },
                   ),
                   const Divider(),
-                  LainnyaInfoRow(
+                  OtherInfoRow(
                     title: 'change-language'.tr,
                     info: 'manage-language'.tr,
                     icon: Ionicons.language,
                     suffixIcon: Ionicons.chevron_forward,
                     onTap: () {
                       Get.bottomSheet(
-                        Container(
-                          padding: EdgeInsets.all(15.w),
-                          decoration: BoxDecoration(
-                            color: ColorStyle.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20.r),
-                              topRight: Radius.circular(20.r),
-                            ),
-                          ),
-                          child: ChangeLangBottomSheet(
-                            title: 'change-language'.tr,
-                            onTap: (value) {
-                              homeController.changeLang(value);
-                              Get.back();
-                            },
-                            selectedLang: homeController.lang.value,
-                          ),
-                        ),
+                        ChangeLanguageBottom(homeController: homeController),
                       );
                     },
                   ),
                   SizedBox(height: 15.h),
+                  OtherInfoRow(
+                    title: 'licenses'.tr,
+                    info: 'licenses-desc'.tr,
+                    icon: Ionicons.shield_checkmark,
+                    onTap: () {
+                      Get.toNamed('/other/licenses');
+                    },
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 20.h),
             SizedBox(
               width: double.infinity,
-              height: 50.h,
-
+              height: 45.h,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorStyle.danger,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                ),
+                style: EvelatedButtonStyle.danger,
                 onPressed: () {
                   Get.defaultDialog(
                     title: 'logout'.tr,

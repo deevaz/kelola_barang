@@ -23,6 +23,8 @@ abstract class Routes {
   static const STOCK_IN_PRODUCT = _Paths.STOCK_IN + _Paths.STOCK_IN_PRODUCT;
   static const STOCK_OUT = _Paths.STOCK_OUT;
   static const STOCK_OUT_PRODUCT = _Paths.STOCK_OUT + _Paths.STOCK_OUT_PRODUCT;
+  static const EDIT_PROFILE = _Paths.OTHER + _Paths.EDIT_PROFILE;
+  static const CHANGE_PASSWORD = _Paths.OTHER + _Paths.CHANGE_PASSWORD;
 }
 
 abstract class _Paths {
@@ -46,4 +48,6 @@ abstract class _Paths {
   static const STOCK_IN_PRODUCT = '/stock-in-product';
   static const STOCK_OUT = '/stock-out';
   static const STOCK_OUT_PRODUCT = '/stock-out-product';
+  static const EDIT_PROFILE = '/edit-profile';
+  static const CHANGE_PASSWORD = '/change-password';
 }

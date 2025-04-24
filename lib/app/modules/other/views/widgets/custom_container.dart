@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class CustomContainer extends StatelessWidget {
@@ -8,7 +9,7 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(15.r),
       width: double.infinity,
       decoration: BoxDecoration(
         color: ColorStyle.white,

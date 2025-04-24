@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/other/change_password/bindings/change_password_binding.dart';
+import 'package:kelola_barang/app/modules/other/change_password/views/change_password_view.dart';
+import 'package:kelola_barang/app/modules/other/edit_profile/bindings/edit_profile_binding.dart';
+import 'package:kelola_barang/app/modules/other/edit_profile/views/edit_profile_view.dart';
 
 import '../modules/barcode_scanner/bindings/barcode_scanner_binding.dart';
 import '../modules/barcode_scanner/views/barcode_scanner_view.dart';
@@ -122,6 +126,18 @@ class AppPages {
       name: _Paths.OTHER,
       page: () => const OtherView(),
       binding: OtherBinding(),
+      children: [
+        GetPage(
+          name: _Paths.EDIT_PROFILE,
+          page: () => const EditProfileView(),
+          binding: EditProfileBinding(),
+        ),
+        GetPage(
+          name: _Paths.CHANGE_PASSWORD,
+          page: () => const ChangePasswordView(),
+          binding: ChangePasswordBinding(),
+        ),
+      ],
     ),
     GetPage(
       name: _Paths.BARCODE_SCANNER,
