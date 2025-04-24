@@ -92,7 +92,7 @@ class OtherView extends GetView<OtherController> {
             SizedBox(height: 20.h),
             SizedBox(
               width: double.infinity,
-              height: 45.h,
+              height: 50.h,
               child: ElevatedButton(
                 style: EvelatedButtonStyle.danger,
                 onPressed: () {

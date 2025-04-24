@@ -26,7 +26,6 @@ class CustomTextField extends StatelessWidget {
       padding: EdgeInsets.only(top: 10.h),
       child: TextField(
         controller: controller,
-
         keyboardType: inputType,
         decoration: InputDecoration(
           prefixIcon:
@@ -55,10 +54,7 @@ class CustomTextField extends StatelessWidget {
             color: ColorStyle.dark.withOpacity(0.5),
           ),
         ),
-        style: TextStyle(
-          fontSize: 14.sp,
-          color: ColorStyle.dark.withOpacity(0.5),
-        ),
+        style: TextStyle(fontSize: 14.sp, color: ColorStyle.dark),
       ),
     );
   }
