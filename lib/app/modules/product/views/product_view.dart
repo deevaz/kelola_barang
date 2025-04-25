@@ -111,7 +111,7 @@ class ProductView extends GetView<ProductController> {
                         controller.delProduct(item['id'].toString());
                       },
                       onEdit: () {
-                        Get.toNamed('/edit_barang', arguments: item);
+                        Get.toNamed(Routes.EDIT_PRODUCT, arguments: item);
                       },
                       onPress: () {
                         Get.toNamed(Routes.DETAIL_PRODUCT, arguments: item);

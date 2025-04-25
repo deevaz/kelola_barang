@@ -138,6 +138,7 @@ class DetailProductView extends GetView<DetailProductController> {
                   children: [
                     Text(
                       'deskripsi'.tr,
+
                       style: TextStyle(fontSize: 18.sp, color: ColorStyle.grey),
                     ),
                     const Spacer(),
@@ -149,9 +150,20 @@ class DetailProductView extends GetView<DetailProductController> {
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
                           ),
-                          content: Text(
-                            items['deskripsi'] ?? '',
-                            style: TextStyle(fontSize: 16.sp),
+                          titlePadding: EdgeInsets.only(
+                            top: 20.h,
+                            left: 20.w,
+                            right: 20.w,
+                          ),
+                          content: Column(
+                            children: [
+                              const Divider(),
+                              SizedBox(height: 10.h),
+                              Text(
+                                items['deskripsi'] ?? '',
+                                style: TextStyle(fontSize: 16.sp),
+                              ),
+                            ],
                           ),
                         );
                       },
@@ -159,7 +171,7 @@ class DetailProductView extends GetView<DetailProductController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            items['deskripsi'] ?? '',
+                            '${(items['deskripsi'] ?? '').split(' ').first}..',
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold,

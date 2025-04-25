@@ -1,12 +1,9 @@
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/other/change_password/bindings/change_password_binding.dart';
-import 'package:kelola_barang/app/modules/other/change_password/views/change_password_view.dart';
-import 'package:kelola_barang/app/modules/other/edit_profile/bindings/edit_profile_binding.dart';
-import 'package:kelola_barang/app/modules/other/edit_profile/views/edit_profile_view.dart';
 
 import '../modules/barcode_scanner/bindings/barcode_scanner_binding.dart';
 import '../modules/barcode_scanner/views/barcode_scanner_view.dart';
 import '../modules/history/bindings/history_binding.dart';
+
 import '../modules/history/views/history_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -21,6 +18,10 @@ import '../modules/login/views/login_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
 import '../modules/other/bindings/other_binding.dart';
+import '../modules/other/change_password/bindings/change_password_binding.dart';
+import '../modules/other/change_password/views/change_password_view.dart';
+import '../modules/other/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/other/edit_profile/views/edit_profile_view.dart';
 import '../modules/other/views/other_view.dart';
 import '../modules/product/add_product/bindings/add_product_binding.dart';
 import '../modules/product/add_product/views/add_product_view.dart';

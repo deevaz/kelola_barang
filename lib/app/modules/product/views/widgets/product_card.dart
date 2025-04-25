@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
               offset: Offset(0, 1),
             ),
           ],
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10.r)),
           color: Colors.white,
         ),
         child: Icon(icon, color: iconColor),

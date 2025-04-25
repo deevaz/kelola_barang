@@ -109,6 +109,9 @@ class AppTranslations extends Translations {
       'change': 'Change',
       'stock-in-success': 'Stock In Added Success',
       'stock-out-success': 'Stock Out Added Success',
+      'delete-product': 'Delete Product',
+      'are-you-sure': 'Are you sure?',
+      'delete-product-success': 'Product deleted successfully',
     },
 
     'id': {
@@ -218,6 +221,9 @@ class AppTranslations extends Translations {
       'change': 'Ubah',
       'stock-in-success': 'Stok Masuk Berhasil Ditambahkan',
       'stock-out-success': 'Stok Keluar Berhasil Ditambahkan',
+      'delete-product': 'Hapus Produk',
+      'are-you-sure': 'Apakah Anda yakin?',
+      'delete-product-success': 'Produk berhasil dihapus',
     },
   };
 }

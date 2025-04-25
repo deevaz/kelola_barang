@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import '../services/product_service.dart';
 
@@ -53,8 +54,13 @@ class ProductController extends GetxController {
 
   void deleteProduct(String id) {
     Get.defaultDialog(
-      title: 'Hapus Produk',
-      middleText: 'Anda yakin?',
+      title: 'delete-product'.tr,
+      middleText: 'are-you-sure'.tr,
+      textConfirm: 'Yes'.tr,
+      textCancel: 'No'.tr,
+      confirmTextColor: ColorStyle.white,
+      cancelTextColor: ColorStyle.dark,
+      buttonColor: ColorStyle.danger,
       onConfirm: () async {
         final userId = HomeController.to.userId.toString();
         await _service.delete(userId, id);

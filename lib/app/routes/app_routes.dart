@@ -25,6 +25,7 @@ abstract class Routes {
   static const STOCK_OUT_PRODUCT = _Paths.STOCK_OUT + _Paths.STOCK_OUT_PRODUCT;
   static const EDIT_PROFILE = _Paths.OTHER + _Paths.EDIT_PROFILE;
   static const CHANGE_PASSWORD = _Paths.OTHER + _Paths.CHANGE_PASSWORD;
+  static const PRINT_PDF = _Paths.HISTORY + _Paths.PRINT_PDF;
 }
 
 abstract class _Paths {
@@ -50,4 +51,5 @@ abstract class _Paths {
   static const STOCK_OUT_PRODUCT = '/stock-out-product';
   static const EDIT_PROFILE = '/edit-profile';
   static const CHANGE_PASSWORD = '/change-password';
+  static const PRINT_PDF = '/print-pdf';
 }

@@ -18,13 +18,33 @@ class HistoryView extends GetView<HistoryController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'history'.tr,
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w600,
-                color: ColorStyle.dark,
-              ),
+            Row(
+              children: [
+                Text(
+                  'history'.tr,
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w600,
+                    color: ColorStyle.dark,
+                  ),
+                ),
+                const Spacer(),
+                Material(
+                  color: ColorStyle.white,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      controller.printDocument();
+                      print(controller.stokMasuk);
+                      print(controller.stokKeluar);
+                    },
+                    icon: const Icon(Icons.print),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 10.h),
             Expanded(

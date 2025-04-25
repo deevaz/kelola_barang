@@ -1,24 +1,40 @@
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/history/services/pdf_service.dart';
 import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
+import 'package:printing/printing.dart';
 
 import '../services/history_service.dart';
 
 class HistoryController extends GetxController {
   static HistoryController get to => Get.find();
-  late final HistoryService repo;
 
   final RxList<Map<String, dynamic>> stokMasuk = <Map<String, dynamic>>[].obs;
   final RxList<Map<String, dynamic>> stokKeluar = <Map<String, dynamic>>[].obs;
   final RxList<Map<String, dynamic>> semuaRiwayat =
       <Map<String, dynamic>>[].obs;
+  late final HistoryService _historyService;
+  final PdfService _pdfService = PdfService();
 
   final isLoading = false.obs;
+
+  void printDocument() async {
+    try {
+      final pdf = await _pdfService.generatePdf(
+        stokMasuk: stokMasuk,
+        stokKeluar: stokKeluar,
+      );
+
+      await Printing.layoutPdf(onLayout: (format) async => pdf.save());
+    } catch (e) {
+      print("Error saat print: $e");
+    }
+  }
 
   Future<void> getHistory() async {
     isLoading.value = true;
     try {
-      final bMasuk = await repo.fetchStokMasuk();
-      final bKeluar = await repo.fetchStokKeluar();
+      final bMasuk = await _historyService.fetchStokMasuk();
+      final bKeluar = await _historyService.fetchStokKeluar();
 
       final listStokMasuk = List<Map<String, dynamic>>.from(bMasuk);
       stokMasuk.assignAll(listStokMasuk);
@@ -71,7 +87,7 @@ class HistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    repo = HistoryService();
+    _historyService = HistoryService();
     getHistory();
   }
 }

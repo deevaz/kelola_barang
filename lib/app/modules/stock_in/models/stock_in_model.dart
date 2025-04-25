@@ -1,24 +1,3 @@
-class Barang {
-  final String nama;
-  final int harga;
-  final int jumlahStokMasuk;
-  final int totalStok;
-
-  Barang({
-    required this.nama,
-    required this.harga,
-    required this.jumlahStokMasuk,
-    required this.totalStok,
-  });
-
-  Map<String, dynamic> toJson() => {
-    "nama": nama,
-    "harga": harga,
-    "jumlah_stok_masuk": jumlahStokMasuk,
-    "total_stok": totalStok,
-  };
-}
-
 class StockInModel {
   final String pemasok;
   final String catatan;
@@ -40,5 +19,26 @@ class StockInModel {
     "tanggal_masuk": tanggalMasuk,
     "total_harga": totalHarga,
     "barang": barang.map((b) => b.toJson()).toList(),
+  };
+}
+
+class Barang {
+  final String nama;
+  final int harga;
+  final int jumlahStokMasuk;
+  final int totalStok;
+
+  Barang({
+    required this.nama,
+    required this.harga,
+    required this.jumlahStokMasuk,
+    required this.totalStok,
+  });
+
+  Map<String, dynamic> toJson() => {
+    "nama": nama,
+    "harga": harga,
+    "jumlah_stok_masuk": jumlahStokMasuk,
+    "total_stok": totalStok,
   };
 }
