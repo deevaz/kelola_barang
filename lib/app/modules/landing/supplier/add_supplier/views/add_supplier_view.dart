@@ -9,6 +9,7 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../controllers/add_supplier_controller.dart';
 
@@ -21,47 +22,43 @@ class AddSupplierView extends GetView<AddSupplierController> {
       appBar: CustomAppBar(title: 'supplier'.tr, lightBg: false),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.r),
+          padding: EdgeInsets.symmetric(horizontal: 20.r),
           child: Column(
             children: [
               CustomTextField(
-                title: 'Nama Pemasok',
+                title: 'supplier-name'.tr,
                 controller: pc.namaPemasokC,
                 hintText: 'Masukkan nama pemasok',
                 prefixIcon: Ionicons.person_outline,
               ),
-              CustomTextField(
-                title: 'Nomor Telepon',
-                controller: pc.teleponC,
-                inputType: TextInputType.phone,
-                hintText: 'Masukkan nomor telepon',
-                prefixIcon: Ionicons.call_outline,
-              ),
+
               Row(
                 children: [
                   Flexible(
                     child: CustomTextField(
-                      title: 'Nomor Rekening',
-                      controller: pc.rekeningC,
-                      inputType: TextInputType.number,
-                      hintText: 'Masukkan nomor rekening',
-                      prefixIcon: Ionicons.wallet_outline,
+                      title: 'phone-number'.tr,
+                      controller: pc.teleponC,
+                      inputType: TextInputType.phone,
+                      hintText: 'input-telepon'.tr,
+                      prefixIcon: Ionicons.call_outline,
                     ),
                   ),
                   SizedBox(width: 10.w),
                   Padding(
                     padding: EdgeInsets.only(top: 10.h),
-                    child: Material(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      elevation: 2,
-                      color: ColorStyle.white,
+                    child: MaterialRounded(
                       child: SizedBox(
                         height: 50.h,
                         width: 50.w,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print('pilih nomor telepon');
+                            // Get.to(ContactListView());
+                            controller.selectContact();
+                            print(
+                              'Selected Phone Number: ${controller.selectedPhoneNumber.value}',
+                            );
+                          },
                           icon: const Icon(
                             Icons.contact_phone_outlined,
                             color: ColorStyle.dark,
@@ -72,8 +69,15 @@ class AddSupplierView extends GetView<AddSupplierController> {
                   ),
                 ],
               ),
+              CustomTextField(
+                title: 'rekening'.tr,
+                controller: pc.rekeningC,
+                inputType: TextInputType.number,
+                hintText: 'input-rekening'.tr,
+                prefixIcon: Ionicons.wallet_outline,
+              ),
               CustomTextFormField(
-                title: 'Catatan',
+                title: 'note'.tr,
                 hintText: 'Masukkan catatan',
                 controller: pc.catatanC,
               ),

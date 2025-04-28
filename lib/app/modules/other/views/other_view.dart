@@ -105,7 +105,7 @@ class OtherView extends GetView<OtherController> {
             SizedBox(height: 20.h),
             SizedBox(
               width: double.infinity,
-              height: 45.h,
+              height: 50.h,
               child: ElevatedButton(
                 style: EvelatedButtonStyle.danger,
                 onPressed: () {
@@ -145,7 +145,7 @@ class OtherView extends GetView<OtherController> {
                 child: Text(
                   'logout'.tr,
                   style: TextStyle(
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                     color: ColorStyle.white,
                   ),

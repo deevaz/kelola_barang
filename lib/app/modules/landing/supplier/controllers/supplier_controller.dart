@@ -9,9 +9,9 @@ import '../repositories/supplier_repository.dart';
 
 class SupplierController extends GetxController {
   late final SupplierRepository repo;
-  final RxList<Map<String, dynamic>> pemasok = <Map<String, dynamic>>[].obs;
   final isLoading = false.obs;
 
+  final RxList<Map<String, dynamic>> pemasok = <Map<String, dynamic>>[].obs;
   final namaPemasokC = TextEditingController();
   final teleponC = TextEditingController();
   final rekeningC = TextEditingController();
@@ -61,13 +61,13 @@ class SupplierController extends GetxController {
         print('Supplier added successfully');
         clearForm();
         Get.snackbar(
-          'Success',
-          'Pemasok Berhasil ditambahkan',
+          'success'.tr,
+          'success-add-supplier'.tr,
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        // Get.back();
         getAllSuppliers();
+        Get.back();
       } else if (response.statusCode == 422) {
         print('Validation error: ${response.data}');
       } else if (response.statusCode == 401) {

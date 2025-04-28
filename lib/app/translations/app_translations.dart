@@ -46,7 +46,7 @@ class AppTranslations extends Translations {
       'item': 'Items',
       'amount-out': 'Amount of Stock Out',
       'entry-date': 'Entry Date',
-      'note': 'Catatan',
+      'note': 'Note',
       'customer': 'Customer',
       'exit-date': 'Exit Date',
       'supplier-name': 'Supplier Name',

@@ -25,8 +25,8 @@ class SupplierRepository {
       if (response.statusCode != 200) {
         print('Error: ${response.statusCode}');
         Get.snackbar(
-          'Gagal',
-          'Gagal mengambil data supplier',
+          'failed'.tr,
+          'failed-to-fetch-data'.tr,
           backgroundColor: ColorStyle.danger,
           colorText: ColorStyle.white,
         );
@@ -48,6 +48,6 @@ class SupplierRepository {
   }
 
   Future<void> deleteSupplier(String id) async {
-    await dio.delete('${apiConstant.BASE_URL}/users/1/suppliers/$id');
+    await dio.delete('${apiConstant.BASE_URL}/users/$userId/suppliers/$id');
   }
 }
