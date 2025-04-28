@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
-import 'package:kelola_barang/app/modules/other/views/widgets/change_language_bottom.dart';
 import 'package:kelola_barang/app/modules/other/views/widgets/profile_info_card.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
+import '../../../shared/widgets/change_lang_bottom_sheet.dart';
 import '../../login/controllers/login_controller.dart';
 import '../controllers/other_controller.dart';
 import 'widgets/other_info_row.dart';
@@ -75,7 +75,14 @@ class OtherView extends GetView<OtherController> {
                       suffixIcon: Ionicons.chevron_forward,
                       onTap: () {
                         Get.bottomSheet(
-                          ChangeLanguageBottom(homeController: homeController),
+                          ChangeLangBottomSheet(
+                            title: 'change-language'.tr,
+                            onTap: (value) {
+                              homeController.changeLang(value);
+                              Get.back();
+                            },
+                            selectedLang: homeController.lang.value,
+                          ),
                         );
                       },
                     ),

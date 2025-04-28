@@ -38,6 +38,7 @@ void main() async {
             colorScheme: ColorScheme.fromSwatch(
               primarySwatch: Colors.blue,
               brightness: Brightness.light,
+              accentColor: ColorStyle.primary,
             ),
           ),
           localizationsDelegates: const [

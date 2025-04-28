@@ -4,10 +4,10 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class ChangeLangBottomSheet extends StatelessWidget {
   final String title;
-  final String selectedLang;
+  String selectedLang = 'en';
   final void Function(String lang)? onTap;
 
-  const ChangeLangBottomSheet({
+  ChangeLangBottomSheet({
     Key? key,
     required this.title,
     required this.selectedLang,
@@ -17,7 +17,7 @@ class ChangeLangBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180,
+      height: 180.h,
       width: double.infinity,
       decoration: BoxDecoration(
         color: ColorStyle.white,

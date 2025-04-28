@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,7 @@ import 'package:intl/intl.dart';
 class ProductCard extends StatelessWidget {
   final Function? onPress;
   final VoidCallback? onEdit;
-  final Map<String, dynamic> item;
+  final ProductResponse item;
   final VoidCallback? onDelete;
 
   ProductCard({
@@ -121,25 +122,18 @@ class ProductCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child:
-                        item['gambar'] != null
-                            ? Image.network(
-                              item['gambar'],
-                              width: 130.w,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                  'assets/images/img_placeholder.png',
-                                  width: 130.w,
-                                  fit: BoxFit.cover,
-                                );
-                              },
-                            )
-                            : Image.asset(
-                              'assets/images/img_placeholder.png',
-                              width: 130.w,
-                              fit: BoxFit.cover,
-                            ),
+                    child: Image.network(
+                      item.gambar.toString(),
+                      width: 130.w,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/images/img_placeholder.png',
+                          width: 130.w,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(width: 10.w),
                   Expanded(
@@ -148,7 +142,7 @@ class ProductCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          item['nama_barang'] ?? '',
+                          item.namaBarang ?? '',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 18.sp,
@@ -156,7 +150,7 @@ class ProductCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${item['stok_awal']} Stok',
+                          '${item.totalStok} Stok',
                           style: TextStyle(fontSize: 14.sp),
                         ),
                         SizedBox(height: 10.h),
@@ -169,7 +163,7 @@ class ProductCard extends StatelessWidget {
                             ),
                             SizedBox(width: 5.w),
                             Text(
-                              item['kode_barang'] ?? 'Tidak ada kode',
+                              item.kodeBarang ?? 'Tidak ada kode',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(color: ColorStyle.grey),
                             ),
@@ -183,7 +177,7 @@ class ProductCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        '(${item['kategori']})',
+                        '(${item.kategori})',
                         style: TextStyle(
                           color: ColorStyle.grey,
                           fontSize: 12.sp,
@@ -191,7 +185,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       SizedBox(height: 20.h),
                       Text(
-                        currencyFormatter.format(item['harga_beli'] ?? 0),
+                        currencyFormatter.format(item.hargaBeli ?? 0),
                         style: TextStyle(
                           color: ColorStyle.dark,
                           fontSize: 18.sp,

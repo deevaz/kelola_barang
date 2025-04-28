@@ -8,6 +8,7 @@ import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
 
+import '../../models/product_response.dart';
 import '../controllers/detail_product_controller.dart';
 import 'widgets/info_row.dart';
 
@@ -22,7 +23,7 @@ class DetailProductView extends GetView<DetailProductController> {
 
   @override
   Widget build(BuildContext context) {
-    final items = Get.arguments;
+    final ProductResponse items = Get.arguments as ProductResponse;
     return Scaffold(
       appBar: CustomAppBar(title: 'product-detail'.tr, lightBg: false),
       body: Padding(
@@ -33,7 +34,7 @@ class DetailProductView extends GetView<DetailProductController> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: Image.network(
-                  items['gambar'],
+                  items.gambar!,
                   width: 200.w,
                   height: 200.h,
                   fit: BoxFit.cover,
@@ -80,7 +81,7 @@ class DetailProductView extends GetView<DetailProductController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        items['nama_barang'] ?? '',
+                        items.namaBarang!,
                         style: TextStyle(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.bold,
@@ -94,7 +95,7 @@ class DetailProductView extends GetView<DetailProductController> {
                           ),
                           SizedBox(width: 5.w),
                           Text(
-                            items['kode_barang'] ?? '',
+                            items.kodeBarang!,
                             style: TextStyle(
                               fontSize: 16.sp,
                               color: ColorStyle.grey,
@@ -106,7 +107,7 @@ class DetailProductView extends GetView<DetailProductController> {
                   ),
                   const Spacer(),
                   Text(
-                    '${items['total_stok']} STOK',
+                    '${items.totalStok} STOK',
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
@@ -118,18 +119,18 @@ class DetailProductView extends GetView<DetailProductController> {
               const Divider(),
               InfoRow(
                 title: 'buy-price'.tr,
-                value: currencyFormatter.format(items['harga_beli'] ?? 0),
+                value: currencyFormatter.format(items.hargaBeli),
               ),
               InfoRow(
                 title: 'sell-price'.tr,
-                value: currencyFormatter.format(items['harga_jual'] ?? 0),
+                value: currencyFormatter.format(items.hargaJual),
               ),
-              InfoRow(title: 'Kategori', value: '${items['kategori']}'),
+              InfoRow(title: 'Kategori', value: '${items.kategori}'),
               InfoRow(
                 title: 'expired'.tr,
                 value: DateFormat(
                   'dd MMM yyyy – HH:mm',
-                ).format(DateTime.parse(items['kadaluarsa'])),
+                ).format(items.kadaluarsa!),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
@@ -160,7 +161,7 @@ class DetailProductView extends GetView<DetailProductController> {
                               const Divider(),
                               SizedBox(height: 10.h),
                               Text(
-                                items['deskripsi'] ?? '',
+                                items.deskripsi!,
                                 style: TextStyle(fontSize: 16.sp),
                               ),
                             ],
@@ -171,7 +172,7 @@ class DetailProductView extends GetView<DetailProductController> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            '${(items['deskripsi'] ?? '').split(' ').first}..',
+                            '${(items.deskripsi!).split(' ').first}..',
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold,

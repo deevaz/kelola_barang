@@ -49,6 +49,8 @@ class ProductView extends GetView<ProductController> {
                       color: ColorStyle.dark,
                     ),
                     onPressed: () {
+                      controller.loadProducts();
+                      print('🪳panjang produk ${controller.products.length}');
                       Get.bottomSheet(
                         Container(
                           padding: EdgeInsets.all(16),
@@ -65,7 +67,7 @@ class ProductView extends GetView<ProductController> {
                                 ListTile(
                                   title: Text('Semua Kategori'),
                                   onTap: () {
-                                    controller.filterByCategory('');
+                                    // controller.filterByCategory('');
                                     Get.back();
                                   },
                                 ),
@@ -73,9 +75,9 @@ class ProductView extends GetView<ProductController> {
                                   return ListTile(
                                     title: Text(kategori['name']),
                                     onTap: () {
-                                      controller.filterByCategory(
-                                        kategori['name'],
-                                      );
+                                      // controller.filterByCategory(
+                                      //   kategori['name'],
+                                      // );
                                       Get.back();
                                     },
                                   );
@@ -91,7 +93,7 @@ class ProductView extends GetView<ProductController> {
               ),
             ],
           ),
-          if (controller.allProducts.isEmpty)
+          if (controller.products.isEmpty)
             Center(
               child: Text(
                 'empty'.tr,
@@ -108,7 +110,7 @@ class ProductView extends GetView<ProductController> {
                     return ProductCard(
                       item: item,
                       onDelete: () {
-                        controller.delProduct(item['id'].toString());
+                        controller.delProduct(item.id.toString());
                       },
                       onEdit: () {
                         Get.toNamed(Routes.EDIT_PRODUCT, arguments: item);
