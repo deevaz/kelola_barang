@@ -7,7 +7,7 @@ import '../services/product_service.dart';
 class ProductController extends GetxController {
   static ProductController get to => Get.find();
   final ProductService _service = ProductService();
-
+  // bikin filter di api
   final RxList<Map<String, dynamic>> products = <Map<String, dynamic>>[].obs;
   final RxList<Map<String, dynamic>> allProducts = <Map<String, dynamic>>[].obs;
   final searchText = ''.obs;
@@ -56,8 +56,8 @@ class ProductController extends GetxController {
     Get.defaultDialog(
       title: 'delete-product'.tr,
       middleText: 'are-you-sure'.tr,
-      textConfirm: 'Yes'.tr,
-      textCancel: 'No'.tr,
+      textConfirm: 'yes'.tr,
+      textCancel: 'no'.tr,
       confirmTextColor: ColorStyle.white,
       cancelTextColor: ColorStyle.dark,
       buttonColor: ColorStyle.danger,

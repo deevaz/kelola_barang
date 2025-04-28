@@ -18,7 +18,7 @@ class SupplierView extends GetView<SupplierController> {
     final pemasok = controller.pemasok;
     final stockC = Get.put(StockInController());
     return Scaffold(
-      appBar: CustomAppBar(title: 'supplier'.tr),
+      appBar: CustomAppBar(title: 'supplier'.tr, lightBg: false),
       body: Column(
         children: [
           SearchWidget(
@@ -46,25 +46,30 @@ class SupplierView extends GetView<SupplierController> {
                           );
                           stockC.selectedSupplier.value =
                               supplier['nama_supplier'];
-                          // controller.selectedSupplier.value = supplier;
+
                           Get.back();
                         } else {
                           print('gaada ap');
                         }
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: ColorStyle.grey),
+                      child: Material(
+                        elevation: 2,
+                        color: ColorStyle.white,
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.r),
-                          color: ColorStyle.white,
                         ),
+
                         child: Row(
                           children: [
                             Padding(
                               padding: EdgeInsets.all(10.w),
-                              child: CircleAvatar(
-                                radius: 30.r,
-                                backgroundColor: ColorStyle.grey,
+                              child: Container(
+                                width: 60.w,
+                                height: 60.h,
+                                decoration: BoxDecoration(
+                                  color: ColorStyle.grey,
+                                  borderRadius: BorderRadius.circular(15.r),
+                                ),
                                 child: Icon(
                                   Icons.person,
                                   color: ColorStyle.white,
@@ -101,7 +106,7 @@ class SupplierView extends GetView<SupplierController> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: ColorStyle.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.r),
+          borderRadius: BorderRadius.circular(10.r),
         ),
         onPressed: () {
           Get.toNamed(Routes.ADD_SUPPLIER);

@@ -24,37 +24,42 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 10.h),
-      child: TextField(
-        controller: controller,
-        keyboardType: inputType,
-        decoration: InputDecoration(
-          prefixIcon:
-              prefixIcon != null
-                  ? Icon(prefixIcon, color: ColorStyle.dark)
-                  : null,
-          suffixIcon:
-              suffixIcon != null
-                  ? Icon(suffixIcon, color: ColorStyle.dark)
-                  : null,
-          label: Text(title),
-          hintText: hintText,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.sp),
-            borderSide: BorderSide(
-              width: 6,
-              style: BorderStyle.solid,
-              color: ColorStyle.dark,
+      child: Material(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        elevation: 2,
+        child: TextField(
+          controller: controller,
+          keyboardType: inputType,
+
+          decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            prefixIcon:
+                prefixIcon != null
+                    ? Icon(prefixIcon, color: ColorStyle.dark)
+                    : null,
+            suffixIcon:
+                suffixIcon != null
+                    ? Icon(suffixIcon, color: ColorStyle.dark)
+                    : null,
+            label: Text(title),
+            labelStyle: TextStyle(fontSize: 14.sp, color: ColorStyle.dark),
+            hintText: hintText,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.sp),
+              borderSide: BorderSide.none,
+            ),
+            filled: true,
+            contentPadding: EdgeInsets.all(16),
+            fillColor: ColorStyle.white,
+            hintStyle: TextStyle(
+              fontSize: 14.sp,
+              color: ColorStyle.dark.withOpacity(0.5),
             ),
           ),
-          filled: true,
-          contentPadding: EdgeInsets.all(16),
-          fillColor: ColorStyle.white,
-          hintStyle: TextStyle(
-            fontSize: 14.sp,
-            color: ColorStyle.dark.withOpacity(0.5),
-          ),
+          style: TextStyle(fontSize: 14.sp, color: ColorStyle.dark),
         ),
-        style: TextStyle(fontSize: 14.sp, color: ColorStyle.dark),
       ),
     );
   }

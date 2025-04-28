@@ -112,6 +112,8 @@ class AppTranslations extends Translations {
       'delete-product': 'Delete Product',
       'are-you-sure': 'Are you sure?',
       'delete-product-success': 'Product deleted successfully',
+      'product-saved': 'Product saved successfully',
+      'product-saved-failed': 'Failed to save product',
     },
 
     'id': {
@@ -224,6 +226,8 @@ class AppTranslations extends Translations {
       'delete-product': 'Hapus Produk',
       'are-you-sure': 'Apakah Anda yakin?',
       'delete-product-success': 'Produk berhasil dihapus',
+      'product-saved': 'Produk berhasil disimpan',
+      'product-saved-failed': 'Gagal menyimpan produk',
     },
   };
 }

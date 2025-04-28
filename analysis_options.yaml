@@ -1,6 +1,8 @@
 analyzer:
   errors:
     avoid_print: ignore
-include: package:flutter_lints/flutter.yaml
+    deprecated_member_use: ignore
+    non_constant_identifier_names: ignore
+# include: package:flutter_lints/flutter.yaml
 linter:
   rules:

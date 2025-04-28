@@ -57,6 +57,7 @@ class EditProfileService {
       userBox.clear();
       final userMap = response.data['user'] as Map<String, dynamic>;
       final user = UserResponseModel.fromJson(userMap);
+      // ! langsung simpan ke box
       await userBox.put('user', user);
       Get.toNamed('/splash-screen');
       return UserModel.fromJson(userJson);

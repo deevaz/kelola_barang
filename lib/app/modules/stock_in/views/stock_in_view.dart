@@ -32,6 +32,7 @@ class StockInView extends GetView<StockInController> {
               SelectedProductsCard(selectedProduct: controller.stockInData),
               SizedBox(height: 10.h),
               SelectedSupplierCard(supplier: controller.selectedSupplier),
+              SizedBox(height: 10.h),
               Obx(
                 () => CustomFormTanggal(
                   title:

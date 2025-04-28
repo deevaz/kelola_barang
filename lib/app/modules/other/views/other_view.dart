@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/modules/other/views/widgets/change_language_bottom.dart';
-import 'package:kelola_barang/app/modules/other/views/widgets/profile_card.dart';
+import 'package:kelola_barang/app/modules/other/views/widgets/profile_info_card.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../../login/controllers/login_controller.dart';
 import '../controllers/other_controller.dart';
-import 'widgets/custom_container.dart';
 import 'widgets/other_info_row.dart';
 
 class OtherView extends GetView<OtherController> {
@@ -34,75 +34,78 @@ class OtherView extends GetView<OtherController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileCard(),
+            ProfileInfoCard(),
             SizedBox(height: 20.h),
             Text(
               'setting'.tr,
               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10.h),
-            CustomContainer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  OtherInfoRow(
-                    title: 'edit-profile'.tr,
-                    info: 'edit-profile-desc'.tr,
-                    icon: Ionicons.person,
-                    suffixIcon: Ionicons.chevron_forward,
-                    onTap: () {
-                      Get.toNamed('/other/edit-profile');
-                    },
-                  ),
-                  const Divider(),
-                  OtherInfoRow(
-                    title: 'change-password'.tr,
-                    info: 'desc-password'.tr,
-                    icon: Ionicons.lock_closed,
-                    suffixIcon: Ionicons.chevron_forward,
-                    onTap: () {
-                      Get.toNamed('/other/change-password');
-                    },
-                  ),
-                  const Divider(),
-                  OtherInfoRow(
-                    title: 'change-language'.tr,
-                    info: 'manage-language'.tr,
-                    icon: Ionicons.language,
-                    suffixIcon: Ionicons.chevron_forward,
-                    onTap: () {
-                      Get.bottomSheet(
-                        ChangeLanguageBottom(homeController: homeController),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 15.h),
-                  OtherInfoRow(
-                    title: 'licenses'.tr,
-                    info: 'licenses-desc'.tr,
-                    suffixIcon: Ionicons.chevron_forward,
-                    icon: Ionicons.shield_checkmark,
-                    onTap:
-                        () => showDialog(
-                          context: context,
-                          builder:
-                              (BuildContext context) => AboutDialog(
-                                applicationIcon: const Icon(Icons.code),
-                                applicationLegalese:
-                                    '© ${DateTime.now().year} Deevaz',
-                                applicationName: 'Kelola Barang',
-                                applicationVersion: '1.0',
-                              ),
-                        ),
-                  ),
-                ],
+            MaterialRounded(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    OtherInfoRow(
+                      title: 'edit-profile'.tr,
+                      info: 'edit-profile-desc'.tr,
+                      icon: Ionicons.person,
+                      suffixIcon: Ionicons.chevron_forward,
+                      onTap: () {
+                        Get.toNamed('/other/edit-profile');
+                      },
+                    ),
+                    const Divider(),
+                    OtherInfoRow(
+                      title: 'change-password'.tr,
+                      info: 'desc-password'.tr,
+                      icon: Ionicons.lock_closed,
+                      suffixIcon: Ionicons.chevron_forward,
+                      onTap: () {
+                        Get.toNamed('/other/change-password');
+                      },
+                    ),
+                    const Divider(),
+                    OtherInfoRow(
+                      title: 'change-language'.tr,
+                      info: 'manage-language'.tr,
+                      icon: Ionicons.language,
+                      suffixIcon: Ionicons.chevron_forward,
+                      onTap: () {
+                        Get.bottomSheet(
+                          ChangeLanguageBottom(homeController: homeController),
+                        );
+                      },
+                    ),
+                    const Divider(),
+                    OtherInfoRow(
+                      title: 'licenses'.tr,
+                      info: 'licenses-desc'.tr,
+                      suffixIcon: Ionicons.chevron_forward,
+                      icon: Ionicons.shield_checkmark,
+                      onTap:
+                          () => showDialog(
+                            context: context,
+                            builder:
+                                (BuildContext context) => AboutDialog(
+                                  applicationIcon: const Icon(Icons.code),
+                                  applicationLegalese:
+                                      '© ${DateTime.now().year} Deevaz',
+                                  applicationName: 'Kelola Barang',
+                                  applicationVersion: '1.0',
+                                ),
+                          ),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 20.h),
             SizedBox(
               width: double.infinity,
-              height: 50.h,
+              height: 45.h,
               child: ElevatedButton(
                 style: EvelatedButtonStyle.danger,
                 onPressed: () {

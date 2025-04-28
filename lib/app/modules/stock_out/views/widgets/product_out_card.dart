@@ -68,10 +68,10 @@ class ProductOutCard extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            '+$stokKeluar',
+            '-$stokKeluar',
             style: TextStyle(
               fontSize: 24.sp,
-              color: ColorStyle.success,
+              color: ColorStyle.danger,
               fontWeight: FontWeight.bold,
             ),
           ),

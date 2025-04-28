@@ -16,7 +16,7 @@ class HistoryController extends GetxController {
   final PdfService _pdfService = PdfService();
 
   final isLoading = false.obs;
-
+  // ! alert success
   void printDocument() async {
     try {
       final pdf = await _pdfService.generatePdf(

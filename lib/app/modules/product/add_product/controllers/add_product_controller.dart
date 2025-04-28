@@ -105,8 +105,8 @@ class AddProductController extends GetxController {
       if (response.statusCode == 201) {
         print('Success ${response.data}');
         Get.defaultDialog(
-          title: 'Success',
-          middleText: 'Product added successfully',
+          title: 'success'.tr,
+          middleText: 'product-saved'.tr,
           onConfirm: () {
             Get.back();
             if (again) {
@@ -117,6 +117,13 @@ class AddProductController extends GetxController {
           },
         );
       } else {
+        Get.defaultDialog(
+          title: 'failed'.tr,
+          middleText: 'product-saved-failed'.tr,
+          onConfirm: () {
+            Get.back();
+          },
+        );
         print('Failed to add product: ${response.statusCode}');
       }
     } catch (e) {

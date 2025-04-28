@@ -9,6 +9,7 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_form_tanggal.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../controllers/add_product_controller.dart';
 import 'widgets/custom_text_form_field.dart';
@@ -46,31 +47,20 @@ class AddProductView extends GetView<AddProductController> {
                     SizedBox(width: 10.w),
                     Padding(
                       padding: EdgeInsets.only(top: 10.h),
-                      child: Container(
-                        width: 50.w,
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: ColorStyle.dark),
-                          color: ColorStyle.white,
-                          borderRadius: BorderRadius.circular(10.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset: Offset(0, 1),
+                      child: MaterialRounded(
+                        child: SizedBox(
+                          height: 50.h,
+                          width: 50.w,
+                          child: IconButton(
+                            icon: Icon(
+                              Ionicons.barcode_outline,
+                              color: ColorStyle.dark,
                             ),
-                          ],
-                        ),
-                        child: IconButton(
-                          icon: Icon(
-                            Ionicons.barcode_outline,
-                            color: ColorStyle.dark,
+                            onPressed: () {
+                              controller.scanBarcode();
+                              // Get.toNamed(Routes.BARCODE_SCANNER);
+                            },
                           ),
-                          onPressed: () {
-                            controller.scanBarcode();
-                            // Get.toNamed(Routes.BARCODE_SCANNER);
-                          },
                         ),
                       ),
                     ),

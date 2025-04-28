@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
+import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/translations/app_translations.dart';
@@ -31,6 +32,14 @@ void main() async {
           defaultTransition: Transition.cupertino,
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
+          theme: new ThemeData(
+            scaffoldBackgroundColor: ColorStyle.light,
+            primaryColor: ColorStyle.primary,
+            colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.blue,
+              brightness: Brightness.light,
+            ),
+          ),
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

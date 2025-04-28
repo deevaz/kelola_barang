@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/modules/landing/views/widgets/chart_in_widget.dart';
 import 'package:kelola_barang/app/modules/landing/views/widgets/chart_out_widget.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../controllers/landing_controller.dart';
 import 'widgets/info_card.dart';
@@ -18,18 +18,6 @@ class LandingView extends GetView<LandingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.setStokKeluar();
-          controller.setStokMasuk();
-          controller.getStockIn();
-          controller.getStockOut();
-          // controller.getHistory();
-          print(controller.chartDataIn);
-          print(HistoryController.to.stokMasuk.length);
-          print(HistoryController.to.stokKeluar.length);
-        },
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
@@ -117,18 +105,7 @@ class LandingView extends GetView<LandingController> {
                 ],
               ),
               SizedBox(height: 15.h),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 5,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
+              MaterialRounded(
                 child: Column(
                   children: [
                     Padding(

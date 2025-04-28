@@ -8,6 +8,7 @@ import 'package:kelola_barang/app/modules/stock_in/views/widgets/product_in_card
 import 'package:kelola_barang/app/routes/app_pages.dart';
 
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 class SelectedProductsCard extends StatelessWidget {
   final RxList<ProductInModel> selectedProduct;
@@ -21,88 +22,78 @@ class SelectedProductsCard extends StatelessWidget {
         Get.toNamed(Routes.STOCK_IN_PRODUCT);
         print('Selected Products Card tapped');
       },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: ColorStyle.dark),
-          color: ColorStyle.white,
-          borderRadius: BorderRadius.circular(10.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: Offset(0, 1),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Ionicons.archive_outline,
-                        color: ColorStyle.dark,
-                      ),
-                      onPressed: () {},
-                    ),
-                    Text(
-                      'select-product'.tr,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: ColorStyle.grey,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Spacer(),
-                IconButton(
-                  icon: Icon(Ionicons.chevron_forward, color: ColorStyle.dark),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-            Obx(() {
-              if (selectedProduct.isNotEmpty) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Divider(color: ColorStyle.dark, height: 0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Barang yang dipilih',
+      child: MaterialRounded(
+        child: SizedBox(
+          height: 45.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(width: 10.w),
+                      Icon(Ionicons.archive_outline, color: ColorStyle.dark),
+                      SizedBox(width: 10.w),
+                      Text(
+                        'select-product'.tr,
                         style: TextStyle(
-                          fontSize: 16.sp,
-                          color: ColorStyle.dark,
+                          fontSize: 14.sp,
+                          color: ColorStyle.grey,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                    ],
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(
+                      Ionicons.chevron_forward,
+                      color: ColorStyle.dark,
                     ),
-                    ListView.builder(
-                      itemBuilder: (context, index) {
-                        return ProductInCard(
-                          namaBarang: selectedProduct[index].namaBarang,
-                          gambar: selectedProduct[index].gambar,
-                          harga: selectedProduct[index].harga,
-                          stokMasuk: selectedProduct[index].stokMasuk,
-                        );
-                      },
-                      itemCount: selectedProduct.length,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                    ),
-                  ],
-                );
-              } else {
-                return SizedBox.shrink();
-              }
-            }),
-          ],
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              Obx(() {
+                if (selectedProduct.isNotEmpty) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Divider(color: ColorStyle.dark, height: 0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Barang yang dipilih',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            color: ColorStyle.dark,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      ListView.builder(
+                        itemBuilder: (context, index) {
+                          return ProductInCard(
+                            namaBarang: selectedProduct[index].namaBarang,
+                            gambar: selectedProduct[index].gambar,
+                            harga: selectedProduct[index].harga,
+                            stokMasuk: selectedProduct[index].stokMasuk,
+                          );
+                        },
+                        itemCount: selectedProduct.length,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                      ),
+                    ],
+                  );
+                } else {
+                  return SizedBox.shrink();
+                }
+              }),
+            ],
+          ),
         ),
       ),
     );

@@ -29,6 +29,7 @@ class StockOutView extends GetView<StockOutController> {
                 hintText: 'buyer'.tr,
                 prefixIcon: Icons.person_2_outlined,
               ),
+              SizedBox(height: 10.h),
               Obx(
                 () => CustomFormTanggal(
                   title:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/history/views/history_view.dart';
@@ -30,7 +31,9 @@ class HomeView extends GetView<HomeController> {
           Get.toNamed(Routes.ADD_PRODUCT);
         },
         backgroundColor: ColorStyle.primary,
-        shape: const CircleBorder(),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.r),
+        ),
         child: Icon(Icons.add, color: ColorStyle.white),
       ),
     );

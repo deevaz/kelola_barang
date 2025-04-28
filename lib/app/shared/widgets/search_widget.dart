@@ -16,7 +16,7 @@ class SearchWidget extends StatelessWidget {
       child: SizedBox(
         height: 45.h,
         child: Material(
-          elevation: 1,
+          elevation: 2,
           borderRadius: BorderRadius.circular(15.r),
           child: TextField(
             onChanged: (value) => onChanged?.call(value),

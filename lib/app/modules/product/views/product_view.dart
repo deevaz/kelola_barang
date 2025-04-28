@@ -92,9 +92,9 @@ class ProductView extends GetView<ProductController> {
             ],
           ),
           if (controller.allProducts.isEmpty)
-            const Center(
+            Center(
               child: Text(
-                'Tidak ada produk',
+                'empty'.tr,
                 style: TextStyle(fontSize: 16, color: ColorStyle.dark),
               ),
             )
