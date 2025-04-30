@@ -7,7 +7,6 @@ import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
 import 'package:kelola_barang/app/shared/services/auth_services.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
 
 class LoginController extends GetxController {
   final usernameController = TextEditingController();
@@ -16,7 +15,7 @@ class LoginController extends GetxController {
   final AuthServices _authService = AuthServices();
 
   Dio dio = Dio();
-  var apiConstant = ApiConstant();
+
   final Box<UserResponseModel> userBox = Hive.box<UserResponseModel>('user');
   final Box<String> authBox = Hive.box<String>('auth');
 

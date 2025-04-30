@@ -7,7 +7,7 @@ class EvelatedButtonStyle {
   static final ButtonStyle mainRounded = ElevatedButton.styleFrom(
     backgroundColor: ColorStyle.primary,
     foregroundColor: ColorStyle.white,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
     padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
     textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
   );
@@ -15,8 +15,8 @@ class EvelatedButtonStyle {
   static final ButtonStyle rounded15 = ElevatedButton.styleFrom(
     backgroundColor: ColorStyle.primary,
     foregroundColor: ColorStyle.white,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-    padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+    padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 30.h),
     textStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
   );
 
@@ -24,9 +24,9 @@ class EvelatedButtonStyle {
     backgroundColor: ColorStyle.danger,
     foregroundColor: ColorStyle.white,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(15.0), // 15.sp
+      borderRadius: BorderRadius.circular(15.r), // 15.sp
     ),
-    padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
+    padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 30.h),
     textStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
   );
 }

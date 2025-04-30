@@ -114,6 +114,11 @@ class AppTranslations extends Translations {
       'delete-product-success': 'Product deleted successfully',
       'product-saved': 'Product saved successfully',
       'product-saved-failed': 'Failed to save product',
+      'old-password': 'Old Password',
+      'new-password': 'New Password',
+      'confirm-new-password': 'Confirm New Password',
+      'change-password-success': 'Password changed successfully',
+      'change-password-failed': 'Failed to change password',
     },
 
     'id': {
@@ -228,6 +233,11 @@ class AppTranslations extends Translations {
       'delete-product-success': 'Produk berhasil dihapus',
       'product-saved': 'Produk berhasil disimpan',
       'product-saved-failed': 'Gagal menyimpan produk',
+      'old-password': 'Sandi Lama',
+      'new-password': 'Sandi Baru',
+      'confirm-new-password': 'Konfirmasi Sandi Baru',
+      'change-password-success': 'Sandi berhasil diubah',
+      'change-password-failed': '',
     },
   };
 }

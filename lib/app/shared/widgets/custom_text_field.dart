@@ -51,7 +51,7 @@ class CustomTextField extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
             filled: true,
-            contentPadding: EdgeInsets.all(16),
+            contentPadding: EdgeInsets.all(16.sp),
             fillColor: ColorStyle.white,
             hintStyle: TextStyle(
               fontSize: 14.sp,
