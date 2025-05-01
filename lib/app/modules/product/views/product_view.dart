@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/product/views/widgets/category_bottom.dart';
 import 'package:kelola_barang/app/modules/product/views/widgets/product_card.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 import 'package:kelola_barang/app/shared/widgets/search_widget.dart';
 
 import '../controllers/product_controller.dart';
@@ -21,28 +23,14 @@ class ProductView extends GetView<ProductController> {
               Flexible(
                 child: SearchWidget(
                   onChanged: (value) {
-                    controller.filterProduct(value);
+                    controller.searchProduct(value);
                     controller.searchText.value = value;
                   },
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 20.w),
-                child: Container(
-                  width: 45.w,
-                  height: 45.h,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(0, 1),
-                      ),
-                    ],
-                  ),
+                child: MaterialRounded(
                   child: IconButton(
                     icon: Icon(
                       Icons.filter_alt_outlined,
@@ -52,40 +40,7 @@ class ProductView extends GetView<ProductController> {
                       controller.loadProducts();
                       print('🪳panjang produk ${controller.products.length}');
                       Get.bottomSheet(
-                        Container(
-                          padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(16),
-                            ),
-                          ),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ListTile(
-                                  title: Text('Semua Kategori'),
-                                  onTap: () {
-                                    // controller.filterByCategory('');
-                                    Get.back();
-                                  },
-                                ),
-                                ...controller.categories.map((kategori) {
-                                  return ListTile(
-                                    title: Text(kategori['name']),
-                                    onTap: () {
-                                      // controller.filterByCategory(
-                                      //   kategori['name'],
-                                      // );
-                                      Get.back();
-                                    },
-                                  );
-                                }),
-                              ],
-                            ),
-                          ),
-                        ),
+                        CategoryBottomSheet(controller: controller),
                       );
                     },
                   ),
@@ -97,7 +52,7 @@ class ProductView extends GetView<ProductController> {
             Center(
               child: Text(
                 'empty'.tr,
-                style: TextStyle(fontSize: 16, color: ColorStyle.dark),
+                style: TextStyle(fontSize: 16.sp, color: ColorStyle.dark),
               ),
             )
           else

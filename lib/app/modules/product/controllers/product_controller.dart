@@ -20,7 +20,7 @@ class ProductController extends GetxController {
     loadProducts();
   }
 
-  void filterProduct(String query) {
+  void searchProduct(String query) {
     final lowerQuery = query.toLowerCase();
     final filtered =
         products
@@ -30,6 +30,16 @@ class ProductController extends GetxController {
             )
             .toList();
     products.assignAll(filtered);
+  }
+
+  void filterByCategory(String category) async {
+    try {
+      final data = await _repo.fetchProductbyCategory(category);
+      products.assignAll(data);
+    } catch (e) {
+      print('Error loading products: $e');
+      Get.snackbar('Error', e.toString());
+    }
   }
 
   Future<void> loadProducts() async {

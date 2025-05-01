@@ -34,6 +34,31 @@ class ProductRepository {
     }
   }
 
+  Future<List<ProductResponse>> fetchProductbyCategory(String category) async {
+    try {
+      final userId = HomeController.to.userId;
+      final token = HomeController.to.token.value;
+      var headers = {'Authorization': 'Bearer $token'};
+      if (category == 'Semua Kategori') {
+        category = '';
+      }
+      var response = await dio.request(
+        '${apiConstant.BASE_URL}/products/$userId/$category',
+        options: Options(method: 'GET', headers: headers),
+      );
+      print(response.data.toString());
+      if (response.statusCode != 200) {
+        throw Exception('Failed to load products');
+      }
+
+      final List data = response.data['data'];
+      return data.map((item) => ProductResponse.fromJson(item)).toList();
+    } catch (e) {
+      print('gagal ambil data $e');
+      return [];
+    }
+  }
+
   Future<void> deleteProduct(String id) async {
     final token = HomeController.to.token.value;
     var headers = {'Authorization': 'Bearer $token'};

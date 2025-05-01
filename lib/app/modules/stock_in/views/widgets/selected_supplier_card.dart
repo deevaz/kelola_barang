@@ -21,70 +21,64 @@ class SelectedSupplierCard extends StatelessWidget {
         );
       },
       child: MaterialRounded(
-        child: SizedBox(
-          height: 45.h,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Ionicons.person_add_outline,
-                          color: ColorStyle.dark,
-                        ),
-                        onPressed: () {},
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Ionicons.person_add_outline,
+                        color: ColorStyle.dark,
                       ),
-                      Text(
-                        'Pilih Pemasok',
+                      onPressed: () {},
+                    ),
+                    Text(
+                      'Pilih Pemasok',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: ColorStyle.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                IconButton(
+                  icon: Icon(Ionicons.chevron_forward, color: ColorStyle.dark),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            Obx(() {
+              if (supplier.isNotEmpty) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Divider(color: ColorStyle.dark, height: 0),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Pemasok yang dipilih',
                         style: TextStyle(
-                          fontSize: 14.sp,
-                          color: ColorStyle.grey,
+                          fontSize: 16.sp,
+                          color: ColorStyle.dark,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  ),
-                  Spacer(),
-                  IconButton(
-                    icon: Icon(
-                      Ionicons.chevron_forward,
-                      color: ColorStyle.dark,
                     ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              Obx(() {
-                if (supplier.isNotEmpty) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Divider(color: ColorStyle.dark, height: 0),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Pemasok yang dipilih',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: ColorStyle.dark,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      SupplierInCard(supplier: supplier.value),
-                    ],
-                  );
-                } else {
-                  return SizedBox.shrink();
-                }
-              }),
-            ],
-          ),
+                    SizedBox(height: 10.h),
+                    SupplierInCard(supplier: supplier.value),
+                  ],
+                );
+              } else {
+                return SizedBox.shrink();
+              }
+            }),
+          ],
         ),
       ),
     );

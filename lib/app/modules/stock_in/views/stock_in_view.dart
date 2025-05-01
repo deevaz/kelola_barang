@@ -45,6 +45,7 @@ class StockInView extends GetView<StockInController> {
                   fontSize: 14.sp,
                 ),
               ),
+              SizedBox(height: 10.h),
               CustomTextFormField(
                 title: 'Catatan',
                 controller: controller.catatanC,
