@@ -119,6 +119,8 @@ class AppTranslations extends Translations {
       'confirm-new-password': 'Confirm New Password',
       'change-password-success': 'Password changed successfully',
       'change-password-failed': 'Failed to change password',
+      'confirm-password': 'Confirm Password',
+      'confirm-password-not-match': 'Confirm password does not match',
       'deskripsi-register': 'Please create an account to continue',
       'list-product': 'List Product',
       'history-detail': 'History Detail',
@@ -244,6 +246,8 @@ class AppTranslations extends Translations {
       'deskripsi-register': 'Silahkan buat akun untuk melanjutkan',
       'list-product': 'Rincian Produk',
       'history-detail': 'Detail Riwayat',
+      'confirm-password': 'Konfirmasi Kata Sandi',
+      'confirm-password-not-match': 'Konfirmasi kata sandi tidak cocok',
     },
   };
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class HistoryTable extends StatelessWidget {
@@ -23,28 +24,28 @@ class HistoryTable extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                'Nama Barang',
+                'product-name'.tr,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                'Harga',
+                'price'.tr,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                'Jumlah',
+                'total'.tr,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
-                'Total Stok',
+                'total-stock'.tr,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

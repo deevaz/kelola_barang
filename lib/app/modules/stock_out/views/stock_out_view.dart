@@ -42,6 +42,7 @@ class StockOutView extends GetView<StockOutController> {
                   fontSize: 14.sp,
                 ),
               ),
+              SizedBox(height: 10.h),
               CustomTextFormField(
                 title: 'note'.tr,
                 controller: controller.noteC,

@@ -42,7 +42,7 @@ class CBottomNavBar extends StatelessWidget {
                 NavButton(
                   c: controller,
                   title: 'home'.tr,
-                  icon: Icons.home,
+                  icon: Ionicons.home_outline,
                   tabIndex: 0,
                 ),
                 NavButton(

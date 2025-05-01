@@ -24,6 +24,7 @@ class OtherView extends GetView<OtherController> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        backgroundColor: ColorStyle.light,
         title: Text(
           'other'.tr,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.sp),

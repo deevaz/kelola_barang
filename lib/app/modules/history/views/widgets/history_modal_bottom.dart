@@ -95,7 +95,7 @@ class HistoryModalBottom extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Text(
-            'Catatan',
+            'note'.tr,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.bold,

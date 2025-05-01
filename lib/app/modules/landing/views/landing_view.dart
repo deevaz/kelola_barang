@@ -17,40 +17,15 @@ class LandingView extends GetView<LandingController> {
   const LandingView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 15.h),
               Row(
                 children: [
-                  Obx(() {
-                    final user = HomeController.to.name.value;
-                    return RichText(
-                      text: TextSpan(
-                        text: 'welcome'.tr,
-                        style: TextStyle(
-                          fontSize: 25.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '\n${user.isNotEmpty ? user : 'Guest'}',
-                            style: TextStyle(
-                              fontSize: 25.sp,
-                              fontWeight: FontWeight.bold,
-                              color: ColorStyle.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-                  Spacer(),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Obx(() {
@@ -71,9 +46,27 @@ class LandingView extends GetView<LandingController> {
                       }
                     }),
                   ),
+                  Spacer(),
+                  MaterialRounded(
+                    child: IconButton(
+                      onPressed: () {
+                        print('filter');
+                      },
+                      icon: Icon(Icons.filter_alt_outlined, size: 30.w),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 20.h),
+              Text(
+                HomeController.to.name.value,
+                style: TextStyle(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.bold,
+                  color: ColorStyle.dark,
+                ),
+              ),
+              SizedBox(height: 10.h),
               InfoDataCard(),
               SizedBox(height: 15.h),
               Row(

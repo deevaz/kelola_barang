@@ -15,7 +15,7 @@ class HistoryView extends GetView<HistoryController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: EdgeInsets.all(15.sp),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,7 +33,7 @@ class HistoryView extends GetView<HistoryController> {
                 MaterialRounded(
                   child: IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.print),
+                    icon: const Icon(Icons.filter_alt_outlined),
                   ),
                 ),
                 SizedBox(width: 10.w),
