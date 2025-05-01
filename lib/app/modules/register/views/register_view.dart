@@ -26,9 +26,9 @@ class RegisterView extends GetView<RegisterController> {
               ),
               SizedBox(height: 10.h),
               Text(
-                'deskripsi-judul'.tr,
+                'deskripsi-register'.tr,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 30.h),
               AddProfileImage(),
@@ -48,11 +48,13 @@ class RegisterView extends GetView<RegisterController> {
                 hintText: 'input-email'.tr,
                 controller: controller.emailController,
               ),
+              SizedBox(height: 10.h),
               RPasswordTextField(
                 title: 'password'.tr,
                 hintText: 'input-password'.tr,
                 controller: controller.passwordController,
               ),
+              SizedBox(height: 10.h),
               RPasswordTextField(
                 title: 'confirm-password'.tr,
                 hintText: 'input-password'.tr,

@@ -119,6 +119,7 @@ class AppTranslations extends Translations {
       'confirm-new-password': 'Confirm New Password',
       'change-password-success': 'Password changed successfully',
       'change-password-failed': 'Failed to change password',
+      'deskripsi-register': 'Please create an account to continue',
     },
 
     'id': {
@@ -237,7 +238,8 @@ class AppTranslations extends Translations {
       'new-password': 'Sandi Baru',
       'confirm-new-password': 'Konfirmasi Sandi Baru',
       'change-password-success': 'Sandi berhasil diubah',
-      'change-password-failed': '',
+      'change-password-failed': 'Gagal mengubah kata sandi',
+      'deskripsi-register': 'Silahkan buat akun untuk melanjutkan',
     },
   };
 }

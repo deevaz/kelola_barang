@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/login/controllers/login_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 class PasswordTextField extends StatelessWidget {
   final String title;
@@ -30,8 +31,7 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 10.h),
+    return MaterialRounded(
       child: Obx(
         () => TextField(
           obscureText: loginC.isPassword.value,
@@ -60,11 +60,7 @@ class PasswordTextField extends StatelessWidget {
             hintText: hintText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.sp),
-              borderSide: BorderSide(
-                width: 6,
-                style: BorderStyle.solid,
-                color: ColorStyle.dark,
-              ),
+              borderSide: BorderSide.none,
             ),
             filled: true,
             contentPadding: EdgeInsets.all(16),

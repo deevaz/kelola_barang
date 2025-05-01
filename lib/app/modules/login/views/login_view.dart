@@ -27,14 +27,15 @@ class LoginView extends GetView<LoginController> {
               Text(
                 'deskripsi-login'.tr,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
+              SizedBox(height: 15.h),
               CustomTextField(
                 title: 'Username',
                 hintText: 'input-username'.tr,
                 controller: controller.usernameController,
               ),
-              SizedBox(height: 5.h),
+              SizedBox(height: 10.h),
               PasswordTextField(
                 title: 'Password',
                 hintText: 'input-password'.tr,
