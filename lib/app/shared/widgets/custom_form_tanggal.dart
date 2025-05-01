@@ -27,7 +27,7 @@ class CustomFormTanggal extends StatelessWidget {
     return MaterialRounded(
       child: SizedBox(
         width: width ?? double.infinity,
-        height: 45.h,
+        height: 50.h,
         child: Row(
           children: [
             SizedBox(width: 10.w),

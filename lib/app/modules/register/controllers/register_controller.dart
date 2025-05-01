@@ -36,6 +36,7 @@ class RegisterController extends GetxController {
     );
     if (pickedFile != null) {
       selectedImage.value = pickedFile;
+      print('Image selected: ${pickedFile.path}');
     }
   }
 

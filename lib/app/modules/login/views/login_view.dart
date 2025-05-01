@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
-import 'package:kelola_barang/app/shared/widgets/password_text_field.dart';
+import 'package:kelola_barang/app/modules/login/views/widgets/password_text_field.dart';
 
 import '../controllers/login_controller.dart';
 

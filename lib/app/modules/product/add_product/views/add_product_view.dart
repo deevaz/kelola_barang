@@ -13,7 +13,7 @@ import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../controllers/add_product_controller.dart';
 import 'widgets/custom_text_form_field.dart';
-import 'widgets/kategori_barang_dropdown.dart';
+import 'widgets/product_category_dropdown.dart';
 import 'widgets/add_picture.dart';
 
 class AddProductView extends GetView<AddProductController> {
@@ -90,7 +90,8 @@ class AddProductView extends GetView<AddProductController> {
                             title: 'selling-price'.tr,
                             controller: controller.hargaJualC,
                           ),
-                          KategoriBarangDropdown(c: controller),
+                          SizedBox(height: 10.h),
+                          ProductCategoryDropdown(c: controller),
                         ],
                       ),
                     ),
@@ -98,6 +99,7 @@ class AddProductView extends GetView<AddProductController> {
                     AddPictureButton(c: controller),
                   ],
                 ),
+                SizedBox(height: 10.h),
                 Obx(
                   () => CustomFormTanggal(
                     title: controller.selectedDate.value.toString(),
@@ -108,6 +110,7 @@ class AddProductView extends GetView<AddProductController> {
                     },
                   ),
                 ),
+                SizedBox(height: 10.h),
                 CustomTextFormField(
                   title: 'deskripsi'.tr,
                   controller: controller.deskripsiC,

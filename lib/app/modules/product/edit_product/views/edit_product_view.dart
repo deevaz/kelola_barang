@@ -10,7 +10,7 @@ import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_form_tanggal.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
 
-import '../../add_product/views/widgets/kategori_barang_dropdown.dart';
+import '../../add_product/views/widgets/product_category_dropdown.dart';
 import '../controllers/edit_product_controller.dart';
 import 'widgets/edit_picture_button.dart';
 
@@ -102,7 +102,7 @@ class EditProductView extends GetView<EditProductController> {
                           ),
 
                           // ! BELUM SESUAI
-                          KategoriBarangDropdown(c: AddProductController.to),
+                          ProductCategoryDropdown(c: AddProductController.to),
                         ],
                       ),
                     ),

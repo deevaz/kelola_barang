@@ -38,6 +38,7 @@ class PasswordTextField extends StatelessWidget {
           controller: controller,
           keyboardType: inputType,
           decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             prefixIcon:
                 prefixIcon != null
                     ? Icon(prefixIcon, color: ColorStyle.dark)
@@ -63,6 +64,7 @@ class PasswordTextField extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
             filled: true,
+
             contentPadding: EdgeInsets.all(16),
             fillColor: ColorStyle.white,
             hintStyle: TextStyle(

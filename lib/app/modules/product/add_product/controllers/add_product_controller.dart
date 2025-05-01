@@ -46,6 +46,7 @@ class AddProductController extends GetxController {
       if (result != null) {
         print('Kode barcode diambil: $result');
         barcode.value = result;
+        kodeBarangC.text = result;
       }
       Get.snackbar(
         'Barcode terdeteksi',
