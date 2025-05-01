@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../controllers/history_controller.dart';
 import 'widgets/stock_out_card.dart';
@@ -29,12 +30,14 @@ class HistoryView extends GetView<HistoryController> {
                   ),
                 ),
                 const Spacer(),
-                Material(
-                  color: ColorStyle.white,
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                MaterialRounded(
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.print),
                   ),
+                ),
+                SizedBox(width: 10.w),
+                MaterialRounded(
                   child: IconButton(
                     onPressed: () {
                       controller.printDocument();

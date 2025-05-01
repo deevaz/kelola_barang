@@ -120,6 +120,8 @@ class AppTranslations extends Translations {
       'change-password-success': 'Password changed successfully',
       'change-password-failed': 'Failed to change password',
       'deskripsi-register': 'Please create an account to continue',
+      'list-product': 'List Product',
+      'history-detail': 'History Detail',
     },
 
     'id': {
@@ -240,6 +242,8 @@ class AppTranslations extends Translations {
       'change-password-success': 'Sandi berhasil diubah',
       'change-password-failed': 'Gagal mengubah kata sandi',
       'deskripsi-register': 'Silahkan buat akun untuk melanjutkan',
+      'list-product': 'Rincian Produk',
+      'history-detail': 'Detail Riwayat',
     },
   };
 }
