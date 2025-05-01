@@ -12,6 +12,7 @@ dependencies:
   fl_chart: ^0.70.2
   flutter:
     sdk: flutter
+  flutter_date_range_picker: ^0.1.1
   flutter_localizations:
     sdk: flutter
   flutter_native_contact_picker: ^0.0.10

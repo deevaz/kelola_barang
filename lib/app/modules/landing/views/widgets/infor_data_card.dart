@@ -58,7 +58,7 @@ class InfoDataCard extends StatelessWidget {
               children: [
                 InfoWidget(
                   title: 'profit'.tr,
-                  value: 'Rp. ${lc.omset.value}',
+                  value: 'Rp. ${lc.profit.value}',
                   textStyle: TextStyle(fontSize: 22.sp, color: ColorStyle.dark),
                 ),
               ],

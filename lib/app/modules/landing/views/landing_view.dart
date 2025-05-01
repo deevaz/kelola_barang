@@ -8,7 +8,6 @@ import 'package:kelola_barang/app/modules/landing/views/widgets/chart_out_widget
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
-
 import '../controllers/landing_controller.dart';
 import 'widgets/info_card.dart';
 import 'widgets/infor_data_card.dart';
@@ -51,6 +50,7 @@ class LandingView extends GetView<LandingController> {
                     child: IconButton(
                       onPressed: () {
                         print('filter');
+                        controller.pickDateRange(context);
                       },
                       icon: Icon(Icons.filter_alt_outlined, size: 30.w),
                     ),
