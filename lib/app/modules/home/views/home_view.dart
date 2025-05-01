@@ -34,7 +34,7 @@ class HomeView extends GetView<HomeController> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.r),
         ),
-        child: Icon(Icons.add, color: ColorStyle.white),
+        child: Icon(Icons.add, color: ColorStyle.white, size: 30.w),
       ),
     );
   }

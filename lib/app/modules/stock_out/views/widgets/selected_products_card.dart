@@ -25,7 +25,6 @@ class SelectedProductsCard extends StatelessWidget {
       },
       child: MaterialRounded(
         child: SizedBox(
-          height: 45.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
