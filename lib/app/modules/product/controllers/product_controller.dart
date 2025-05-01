@@ -9,6 +9,7 @@ class ProductController extends GetxController {
   final refreshController = RefreshController();
   final ProductRepository _repo = ProductRepository();
   final RxList<ProductResponse> products = <ProductResponse>[].obs;
+  final RxList<ProductResponse> filteredProducts = <ProductResponse>[].obs;
   final searchText = ''.obs;
   List<Map<String, dynamic>> get categories => _repo.categories;
 
@@ -21,15 +22,20 @@ class ProductController extends GetxController {
   }
 
   void searchProduct(String query) {
+    searchText.value = query;
     final lowerQuery = query.toLowerCase();
-    final filtered =
-        products
-            .where(
-              (item) => (item.namaBarang?.toString().toLowerCase() ?? "")
-                  .contains(lowerQuery),
-            )
-            .toList();
-    products.assignAll(filtered);
+
+    if (query.isEmpty) {
+      filteredProducts.assignAll(products);
+    } else {
+      final filtered =
+          products.where((item) {
+            final name = item.namaBarang?.toLowerCase() ?? '';
+            return name.contains(lowerQuery);
+          }).toList();
+
+      filteredProducts.assignAll(filtered);
+    }
   }
 
   void filterByCategory(String category) async {
@@ -47,7 +53,8 @@ class ProductController extends GetxController {
     try {
       final data = await _repo.fetchAllProducts();
       products.assignAll(data);
-      print('Panjang produk: ${products.length}');
+      filteredProducts.assignAll(data);
+      print('Panjang produk: ${filteredProducts.length}');
     } catch (e) {
       print('Error loading products: $e');
       Get.snackbar('Error', e.toString());

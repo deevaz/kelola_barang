@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../controllers/search_controller.dart';
 
@@ -15,9 +16,7 @@ class SearchWidget extends StatelessWidget {
       padding: EdgeInsets.all(16.sp),
       child: SizedBox(
         height: 45.h,
-        child: Material(
-          elevation: 2,
-          borderRadius: BorderRadius.circular(15.r),
+        child: MaterialRounded(
           child: TextField(
             onChanged: (value) => onChanged?.call(value),
             decoration: InputDecoration(

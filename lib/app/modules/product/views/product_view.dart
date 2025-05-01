@@ -48,7 +48,7 @@ class ProductView extends GetView<ProductController> {
               ),
             ],
           ),
-          if (controller.products.isEmpty)
+          if (controller.filteredProducts.isEmpty)
             Center(
               child: Text(
                 'empty'.tr,
@@ -59,9 +59,9 @@ class ProductView extends GetView<ProductController> {
             Expanded(
               child: Obx(
                 () => ListView.builder(
-                  itemCount: controller.products.length,
+                  itemCount: controller.filteredProducts.length,
                   itemBuilder: (context, index) {
-                    final item = controller.products[index];
+                    final item = controller.filteredProducts[index];
                     return ProductCard(
                       item: item,
                       onDelete: () {
