@@ -40,6 +40,7 @@ class StockInProductView extends GetView<StockInProductController> {
             ),
             Expanded(
               child: ListView.builder(
+                padding: EdgeInsets.only(bottom: 120.h),
                 itemCount: controller.listProducts.length,
                 itemBuilder: (context, index) {
                   final product = controller.listProducts;
