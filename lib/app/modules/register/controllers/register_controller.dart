@@ -31,8 +31,8 @@ class RegisterController extends GetxController {
     final XFile? pickedFile = await _picker.pickImage(
       source: isCamera ? ImageSource.camera : ImageSource.gallery,
       imageQuality: 50,
-      maxWidth: 200,
-      maxHeight: 200,
+      // maxWidth: 200,
+      // maxHeight: 200,
     );
     if (pickedFile != null) {
       selectedImage.value = pickedFile;

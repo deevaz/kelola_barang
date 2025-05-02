@@ -1,7 +1,7 @@
+// ignore: depend_on_referenced_packages
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// ignore: depend_on_referenced_packages
 import 'package:hive/hive.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 

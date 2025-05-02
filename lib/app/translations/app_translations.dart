@@ -126,6 +126,8 @@ class AppTranslations extends Translations {
       'history-detail': 'History Detail',
       'input-rekening': 'Please input your bank account number',
       'rekening': 'Bank Account Number',
+      'invalid-credentials': 'Invalid Username or Password',
+      'username-not-found': 'Username not found',
     },
 
     'id': {
@@ -252,6 +254,8 @@ class AppTranslations extends Translations {
       'confirm-password-not-match': 'Konfirmasi kata sandi tidak cocok',
       'input-rekening': 'Masukkan nomor rekening Anda',
       'rekening': 'Nomor Rekening',
+      'invalid-credentials': 'Username atau Password tidak valid',
+      'username-not-found': 'Username tidak ditemukan',
     },
   };
 }

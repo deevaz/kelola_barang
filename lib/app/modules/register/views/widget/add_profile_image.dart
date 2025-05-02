@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,9 +19,18 @@ class AddProfileImage extends StatelessWidget {
     final RegisterController c = Get.find<RegisterController>();
     return Obx(
       () => MaterialRounded(
-        child: SizedBox(
+        child: Container(
           width: 200.w,
           height: 130.h,
+          decoration: BoxDecoration(
+            image:
+                c.selectedImage.value != null
+                    ? DecorationImage(
+                      image: FileImage(File(c.selectedImage.value!.path)),
+                      fit: BoxFit.cover,
+                    )
+                    : null,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

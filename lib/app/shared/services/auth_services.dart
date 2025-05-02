@@ -28,7 +28,10 @@ class AuthServices {
 
     final response = await dioInstance.request(
       '${apiConstant.BASE_URL}/login',
-      options: dio.Options(method: 'POST'),
+      options: dio.Options(
+        method: 'POST',
+        validateStatus: (status) => status != null && status < 500,
+      ),
       data: {'username': username, 'password': password},
     );
 
@@ -48,6 +51,32 @@ class AuthServices {
         backgroundColor: ColorStyle.primary,
       );
       Get.offAllNamed('/home');
+    } else if (response.statusCode == 401) {
+      print('Invalid credentials');
+      print(response.data);
+      Get.snackbar(
+        'login-failed'.tr,
+        'invalid-credentials'.tr,
+        duration: const Duration(seconds: 2),
+        colorText: ColorStyle.white,
+        backgroundColor: ColorStyle.danger,
+      );
+    } else if (response.statusCode == 404) {
+      Get.snackbar(
+        'login-failed'.tr,
+        'username-not-found'.tr,
+        duration: const Duration(seconds: 2),
+        colorText: ColorStyle.white,
+        backgroundColor: ColorStyle.danger,
+      );
+    } else if (response.statusCode == 500) {
+      Get.snackbar(
+        'login-failed'.tr,
+        'server-error'.tr,
+        duration: const Duration(seconds: 2),
+        colorText: ColorStyle.white,
+        backgroundColor: ColorStyle.danger,
+      );
     } else {
       print('Login failed');
       print(response.statusCode);
