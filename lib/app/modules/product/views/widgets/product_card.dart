@@ -8,6 +8,7 @@ import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductCard extends StatelessWidget {
   final Function? onPress;
@@ -122,19 +123,43 @@ class ProductCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      item.gambar.toString(),
-                      width: 130.w,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          'assets/images/img_placeholder.png',
+                    child: Stack(
+                      children: [
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: 130.w,
+                            height: 100.h,
+                            color: Colors.white,
+                          ),
+                        ),
+
+                        Image.network(
+                          item.gambar.toString(),
                           width: 130.w,
+                          height: 100.h,
                           fit: BoxFit.cover,
-                        );
-                      },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return SizedBox(width: 130.w, height: 100.h);
+                            }
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              'assets/images/img_placeholder.png',
+                              width: 130.w,
+                              height: 100.h,
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
+
                   SizedBox(width: 10.w),
                   Expanded(
                     child: Column(

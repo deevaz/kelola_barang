@@ -18,15 +18,6 @@ class StockInProductView extends GetView<StockInProductController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('jumlah pilih: ${controller.selectedProduct.length}');
-          print('data: ${controller.selectedProduct}');
-          // controller.loadStokDariProduk();
-          // controller.getTotalHarga();
-          // print(controller.listProducts);
-        },
-      ),
       appBar: CustomAppBar(title: 'select-product'.tr, lightBg: false),
       body: Obx(
         () => Column(

@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../controllers/stock_in_product_controller.dart';
 
@@ -22,42 +24,47 @@ class SelectProductCard extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Container(
-          height: 120.h,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 1,
-                offset: const Offset(0, 1),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-          ),
+        child: MaterialRounded(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    items['gambar'] ?? '',
-                    width: 130.w,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 130.w,
-                        height: 130.h,
-                        color: Colors.grey[300],
-                        child: Icon(
-                          Icons.broken_image,
-                          size: 50.sp,
-                          color: Colors.grey,
+                  child: Stack(
+                    children: [
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: 130.w,
+                          height: 120.h,
+                          color: Colors.white,
                         ),
-                      );
-                    },
+                      ),
+
+                      Image.network(
+                        items['gambar'] ?? '',
+                        width: 130.w,
+                        height: 120.h,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return SizedBox(width: 130.w, height: 100.h);
+                          }
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/images/img_placeholder.png',
+                            width: 130.w,
+                            height: 100.h,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(width: 10.w),
