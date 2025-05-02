@@ -4,6 +4,7 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'en': {
+      'empty': 'Emopty',
       'login': 'Login',
       'email': 'Email',
       'password': 'Password',
@@ -128,6 +129,8 @@ class AppTranslations extends Translations {
       'rekening': 'Bank Account Number',
       'invalid-credentials': 'Invalid Username or Password',
       'username-not-found': 'Username not found',
+      'stock-in-empty': 'Stock In Empty',
+      'stock-out-empty': 'Stock Out Empty',
     },
 
     'id': {
@@ -256,6 +259,9 @@ class AppTranslations extends Translations {
       'rekening': 'Nomor Rekening',
       'invalid-credentials': 'Username atau Password tidak valid',
       'username-not-found': 'Username tidak ditemukan',
+      'empty': 'Kosong',
+      'stock-in-empty': 'Stok Masuk Kosong',
+      'stock-out-empty': 'Stok Keluar Kosong',
     },
   };
 }

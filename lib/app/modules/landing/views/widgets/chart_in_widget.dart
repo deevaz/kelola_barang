@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
 
@@ -14,9 +15,9 @@ class ChartInWidget extends StatelessWidget {
       if (controller.chartDataIn.isEmpty) {
         return Center(
           child: Text(
-            "Data chart kosong:\n${controller.chartDataIn.toString()}",
+            'stock-in-empty'.tr,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16.sp),
           ),
         );
       }
