@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
-import 'package:kelola_barang/app/modules/product/controllers/product_controller.dart';
+import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
-
+import 'package:path_provider/path_provider.dart';
 import '../../../../shared/controllers/barcode_controller.dart';
 
 class EditProductController extends GetxController {
@@ -46,18 +46,20 @@ class EditProductController extends GetxController {
     }
   }
 
-  void loadProductData(Map<String, dynamic> product) {
-    kodeBarangC.text = product['kode_barang'] ?? '';
-    namaBarangC.text = product['nama_barang'] ?? '';
-    stokAwalC.text = product['stok_awal'].toString();
-    hargaBeliC.text = product['harga_beli']?.toString() ?? '';
-    hargaJualC.text = product['harga_jual']?.toString() ?? '';
-    hargaGrosirC.text = product['harga_grosir']?.toString() ?? '';
-    selectedCategory.value = product['kategori'] ?? '';
-    deskripsiC.text = product['deskripsi'] ?? '';
+  void loadProductData(ProductResponse product) {
+    kodeBarangC.text = product.kodeBarang ?? '';
+    namaBarangC.text = product.namaBarang ?? '';
+    stokAwalC.text = product.stokAwal.toString();
+    hargaBeliC.text = product.hargaBeli?.toString() ?? '';
+    hargaJualC.text = product.hargaJual?.toString() ?? '';
+    selectedCategory.value = product.kategori ?? '';
+    deskripsiC.text = product.deskripsi ?? '';
     selectedImage = Rxn<XFile>();
-    selectedDate.value = DateTime.parse(product['kadaluarsa'] ?? '');
-    imageUrl.value = product['gambar'];
+    selectedDate.value =
+        product.kadaluarsa is DateTime
+            ? product.kadaluarsa as DateTime
+            : DateTime.now();
+    imageUrl.value = product.gambar;
   }
 
   final ImagePicker _picker = ImagePicker();
@@ -100,39 +102,12 @@ class EditProductController extends GetxController {
     var token = HomeController.to.token;
     var headers = {'Authorization': 'Bearer $token'};
 
-    try {
-      final userId = HomeController.to.userId;
-      var dio = Dio();
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/products/$userId/$productId',
-        options: Options(method: 'POST', headers: headers),
-        data: formData,
-      );
-
-      if (response.statusCode == 200) {
-        print('Product updated successfully');
-        print(response.data);
-        Get.back();
-        Get.back();
-        ProductController.to.loadProducts();
-        Get.back();
-        Get.snackbar(
-          'success'.tr,
-          'product-updated'.tr,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-      } else {
-        print('Failed to update product');
-      }
-      print('Success $formData');
-    } catch (e) {
-      if (e is dio.DioException) {
-        print('VALIDATION ERROR: ${e.response?.data}');
-      } else {
-        print(e);
-      }
-    }
+    await dio.Dio().request(
+      '${apiConstant.BASE_URL}/products/${HomeController.to.userId.value}/$productId',
+      options: dio.Options(method: 'POST', headers: headers),
+      data: formData,
+    );
+    print('Success ${formData}');
   }
 
   void pickDate(BuildContext context) async {
@@ -147,10 +122,24 @@ class EditProductController extends GetxController {
     }
   }
 
+  Future<void> prepareDownloadedImage(String imageUrl) async {
+    final dir = await getTemporaryDirectory();
+    final filename = imageUrl.split('/').last;
+    final filePath = '${dir.path}/$filename';
+
+    final response = await Dio().download(imageUrl, filePath);
+    if (response.statusCode == 200) {
+      selectedImage.value = XFile(filePath);
+      print('Gambar berhasil diunduh: $filePath');
+    } else {
+      print('Gagal download gambar');
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
-    final Map<String, dynamic> product = Get.arguments;
+    final ProductResponse product = Get.arguments;
     loadProductData(product);
   }
 }

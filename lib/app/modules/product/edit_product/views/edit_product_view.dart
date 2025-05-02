@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/product/add_product/views/widgets/custom_text_form_field.dart';
+import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_form_tanggal.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
+import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../controllers/edit_product_controller.dart';
 import 'widgets/edit_picture_button.dart';
@@ -16,13 +18,13 @@ import 'widgets/edit_product_category_dropdown.dart';
 class EditProductView extends GetView<EditProductController> {
   EditProductView({super.key});
 
-  final item = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    final ProductResponse item = Get.arguments as ProductResponse;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print(item['id']);
+          print(item.namaBarang);
         },
       ),
       appBar: CustomAppBar(title: 'edit-item'.tr, lightBg: false),
@@ -46,22 +48,7 @@ class EditProductView extends GetView<EditProductController> {
                     SizedBox(width: 10.w),
                     Padding(
                       padding: EdgeInsets.only(top: 10.h),
-                      child: Container(
-                        width: 50.w,
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: ColorStyle.dark),
-                          color: ColorStyle.white,
-                          borderRadius: BorderRadius.circular(10.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset: Offset(0, 1),
-                            ),
-                          ],
-                        ),
+                      child: MaterialRounded(
                         child: IconButton(
                           icon: Icon(
                             Ionicons.barcode_outline,
@@ -99,8 +86,7 @@ class EditProductView extends GetView<EditProductController> {
                             inputType: TextInputType.number,
                             controller: controller.hargaJualC,
                           ),
-
-                          // ! BELUM SESUAI
+                          SizedBox(height: 10.h),
                           EditProductCategoryD(c: EditProductController.to),
                         ],
                       ),
@@ -109,6 +95,7 @@ class EditProductView extends GetView<EditProductController> {
                     EditPictureButton(c: controller),
                   ],
                 ),
+                SizedBox(height: 10.h),
                 Obx(
                   () => CustomFormTanggal(
                     title: controller.selectedDate.value.toString(),
@@ -119,6 +106,7 @@ class EditProductView extends GetView<EditProductController> {
                     },
                   ),
                 ),
+                SizedBox(height: 10.h),
                 CustomTextFormField(
                   title: 'Deskripsi',
                   controller: controller.deskripsiC,
@@ -129,9 +117,9 @@ class EditProductView extends GetView<EditProductController> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          final id = item['id'].toString();
+                          final id = item.id.toString();
                           controller.updateProduct(id);
-                          print(item['id']);
+                          print(item.id);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: ColorStyle.primary,

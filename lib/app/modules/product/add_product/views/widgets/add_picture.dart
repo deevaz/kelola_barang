@@ -16,19 +16,20 @@ class AddPictureButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => MaterialRounded(
-        child: Container(
-          width: 155.w,
-          height: 100.h,
-          decoration: BoxDecoration(
-            image:
-                c.selectedImage.value != null
-                    ? DecorationImage(
-                      image: FileImage(File(c.selectedImage.value!.path)),
-                      fit: BoxFit.cover,
-                    )
-                    : null,
-          ),
+      () => Container(
+        margin: EdgeInsets.only(top: 10.h),
+        width: 155.w,
+        height: 120.h,
+        decoration: BoxDecoration(
+          image:
+              c.selectedImage.value != null
+                  ? DecorationImage(
+                    image: FileImage(File(c.selectedImage.value!.path)),
+                    fit: BoxFit.cover,
+                  )
+                  : null,
+        ),
+        child: MaterialRounded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
