@@ -28,7 +28,7 @@ class EditProfileView extends GetView<EditProfileController> {
                 controller: controller.nameController,
               ),
               CustomTextField(
-                title: 'Username',
+                title: 'username'.tr,
                 controller: controller.usernameController,
               ),
               CustomTextField(

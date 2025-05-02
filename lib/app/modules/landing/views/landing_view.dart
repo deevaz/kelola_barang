@@ -19,7 +19,7 @@ class LandingView extends GetView<LandingController> {
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

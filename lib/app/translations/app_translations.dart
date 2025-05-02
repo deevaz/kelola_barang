@@ -124,6 +124,8 @@ class AppTranslations extends Translations {
       'deskripsi-register': 'Please create an account to continue',
       'list-product': 'List Product',
       'history-detail': 'History Detail',
+      'input-rekening': 'Please input your bank account number',
+      'rekening': 'Bank Account Number',
     },
 
     'id': {
@@ -248,6 +250,8 @@ class AppTranslations extends Translations {
       'history-detail': 'Detail Riwayat',
       'confirm-password': 'Konfirmasi Kata Sandi',
       'confirm-password-not-match': 'Konfirmasi kata sandi tidak cocok',
+      'input-rekening': 'Masukkan nomor rekening Anda',
+      'rekening': 'Nomor Rekening',
     },
   };
 }

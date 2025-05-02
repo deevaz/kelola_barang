@@ -47,21 +47,9 @@ class EditProfileController extends GetxController {
       files: selectedImage.value != null ? [selectedImage.value!] : [],
     );
 
-    // try {
-    await service.updateUser(userId, user, token);
-    // print('✅ [CONTROLLER] Success: ${updated.toJson()}');
+    await service.updateUser(user);
 
     HomeController.to.getUserData();
-
-    // } catch (e) {
-    //   print('❌ [CONTROLLER] Error: $e');
-    //   Get.snackbar(
-    //     'error'.tr,
-    //     e.toString(),
-    //     backgroundColor: ColorStyle.danger,
-    //     colorText: ColorStyle.white,
-    //   );
-    // }
   }
 
   Future<void> pickImage(isCamera) async {

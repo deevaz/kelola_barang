@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -13,7 +14,9 @@ class EditProfileService {
   final Box<UserResponseModel> userBox = Hive.box<UserResponseModel>('user');
   final Box<String> authBox = Hive.box<String>('auth');
 
-  Future<UserModel> updateUser(String id, UserModel user, String token) async {
+  Future<UserModel> updateUser(UserModel user) async {
+    final token = HomeController.to.token.value;
+    final id = HomeController.to.userId.value;
     final dataMap = <String, dynamic>{
       'name': user.name,
       'username': user.username,
@@ -59,6 +62,18 @@ class EditProfileService {
       final user = UserResponseModel.fromJson(userMap);
       // ! langsung simpan ke box
       await userBox.put('user', user);
+      // final users = userBox.get('user');
+      // HomeController.to.name.value = users!.name;
+      // HomeController.to.image.value =
+      //     users.profilePicture.isNotEmpty
+      //         ? users.profilePicture
+      //         : 'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
+
+      // HomeController.to.email.value = users.email;
+      // print('Nama users: ${users.name}');
+      // print('Email users: ${users.email}');
+      // print('ID users: ${users.id}');
+      // HomeController.to.update();
       Get.toNamed('/splash-screen');
       return UserModel.fromJson(userJson);
     }

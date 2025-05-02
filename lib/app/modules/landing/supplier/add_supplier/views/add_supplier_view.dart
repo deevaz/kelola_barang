@@ -76,6 +76,7 @@ class AddSupplierView extends GetView<AddSupplierController> {
                 hintText: 'input-rekening'.tr,
                 prefixIcon: Ionicons.wallet_outline,
               ),
+              SizedBox(height: 10.h),
               CustomTextFormField(
                 title: 'note'.tr,
                 hintText: 'Masukkan catatan',

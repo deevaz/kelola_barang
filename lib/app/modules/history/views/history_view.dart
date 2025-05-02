@@ -15,7 +15,7 @@ class HistoryView extends GetView<HistoryController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.all(15.sp),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
