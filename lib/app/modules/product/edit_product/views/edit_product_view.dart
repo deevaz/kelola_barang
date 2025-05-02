@@ -22,11 +22,6 @@ class EditProductView extends GetView<EditProductController> {
   Widget build(BuildContext context) {
     final ProductResponse item = Get.arguments as ProductResponse;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print(item.namaBarang);
-        },
-      ),
       appBar: CustomAppBar(title: 'edit-item'.tr, lightBg: false),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),

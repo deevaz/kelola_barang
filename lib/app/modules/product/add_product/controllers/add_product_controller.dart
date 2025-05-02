@@ -25,7 +25,7 @@ class AddProductController extends GetxController {
   final RxString barcode = ''.obs;
 
   late final ProductRepository repo;
-  List<Map<String, dynamic>> get daftarKategori => repo.categories;
+  // List<Map<String, dynamic>> get daftarKategori => repo.categories;
 
   final selectedDate = DateTime.now().obs;
   final selectedCategory = ''.obs;

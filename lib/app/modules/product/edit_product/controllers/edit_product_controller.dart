@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/product/controllers/product_controller.dart';
 import 'package:kelola_barang/app/modules/product/models/product_response.dart';
+import 'package:kelola_barang/app/modules/product/repositories/product_repository.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,8 +14,9 @@ import '../../../../shared/controllers/barcode_controller.dart';
 
 class EditProductController extends GetxController {
   static EditProductController get to => Get.find();
-  final barcodeC = Get.put(BarcodeController());
+  late final ProductRepository repo;
 
+  final barcodeC = Get.put(BarcodeController());
   final kodeBarangC = TextEditingController();
   final namaBarangC = TextEditingController();
   final stokAwalC = TextEditingController();
@@ -25,13 +28,18 @@ class EditProductController extends GetxController {
   final RxString barcode = ''.obs;
 
   final selectedDate = DateTime.now().obs;
-  final selectedCategory = ''.obs;
+  final selectedCategory = 'Olahraga'.obs;
   var kategori = <Map<String, dynamic>>[].obs;
 
   var selectedImage = Rxn<XFile>();
   var imageUrl = Rxn<String>();
 
   var apiConstant = ApiConstant();
+
+  void fetchCategories() {
+    kategori.value = repo.categories;
+    print('Kategori: $kategori');
+  }
 
   Future<void> scanBarcode() async {
     try {
@@ -47,6 +55,8 @@ class EditProductController extends GetxController {
   }
 
   void loadProductData(ProductResponse product) {
+    imageUrl.value = product.gambar;
+    prepareDownloadedImage(imageUrl.value ?? '');
     kodeBarangC.text = product.kodeBarang ?? '';
     namaBarangC.text = product.namaBarang ?? '';
     stokAwalC.text = product.stokAwal.toString();
@@ -102,12 +112,42 @@ class EditProductController extends GetxController {
     var token = HomeController.to.token;
     var headers = {'Authorization': 'Bearer $token'};
 
-    await dio.Dio().request(
-      '${apiConstant.BASE_URL}/products/${HomeController.to.userId.value}/$productId',
-      options: dio.Options(method: 'POST', headers: headers),
-      data: formData,
-    );
-    print('Success ${formData}');
+    try {
+      final response = await dio.Dio().request(
+        '${apiConstant.BASE_URL}/products/${HomeController.to.userId.value}/$productId',
+        options: dio.Options(method: 'POST', headers: headers),
+        data: formData,
+      );
+
+      if (response.statusCode == 200) {
+        Get.back();
+        Get.back();
+        Get.snackbar(
+          'Success',
+          'Product updated successfully',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+        ProductController.to.loadProducts();
+      } else {
+        Get.snackbar(
+          'Error',
+          'Failed to update product: ${response.statusMessage}',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'An error occurred: $e',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 
   void pickDate(BuildContext context) async {
@@ -141,5 +181,7 @@ class EditProductController extends GetxController {
     super.onInit();
     final ProductResponse product = Get.arguments;
     loadProductData(product);
+    repo = ProductRepository();
+    fetchCategories();
   }
 }

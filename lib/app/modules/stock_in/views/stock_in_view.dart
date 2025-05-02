@@ -17,13 +17,7 @@ class StockInView extends GetView<StockInController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'stock-in'.tr, lightBg: false),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('data supplier: ${controller.selectedSupplier}');
-          print('jumlah pilih produk: ${controller.stockInData.length}');
-          print('data produk: ${controller.stockInData}');
-        },
-      ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),

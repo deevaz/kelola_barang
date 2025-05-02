@@ -14,10 +14,22 @@ class EditProductCategoryD extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryNames = c.kategori.map((e) => e['name']).toList();
+
+    final currentValue =
+        (categoryNames.contains(c.selectedCategory.value))
+            ? c.selectedCategory.value
+            : 'Lainnya';
+
+    if (!categoryNames.contains('Lainnya')) {
+      c.kategori.add({'name': 'Lainnya'});
+    }
     return MaterialRounded(
       child: DropdownButtonHideUnderline(
         child: DropdownButtonFormField<String>(
           isExpanded: true,
+          value: currentValue,
+
           decoration: InputDecoration(
             labelText: 'category'.tr,
             floatingLabelBehavior: FloatingLabelBehavior.never,
