@@ -7,7 +7,8 @@ import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
-class EditProfileService {
+class EditProfileRepo {
+  EditProfileRepo() {}
   final Dio _dio = Dio();
   final api = ApiConstant();
 
@@ -41,13 +42,7 @@ class EditProfileService {
       validateStatus: (_) => true,
     );
 
-    print('➡️ UPDATE USER ➡️ $url');
-    print('   Payload: $dataMap');
-
     final response = await _dio.request(url, options: options, data: formData);
-
-    print('⬅️ Response status: ${response.statusCode}');
-    print('⬅️ Response body:   ${response.data}');
 
     if (response.statusCode == 200) {
       final userJson = response.data['user'] as Map<String, dynamic>;
@@ -60,20 +55,9 @@ class EditProfileService {
       userBox.clear();
       final userMap = response.data['user'] as Map<String, dynamic>;
       final user = UserResponseModel.fromJson(userMap);
-      // ! langsung simpan ke box
-      await userBox.put('user', user);
-      // final users = userBox.get('user');
-      // HomeController.to.name.value = users!.name;
-      // HomeController.to.image.value =
-      //     users.profilePicture.isNotEmpty
-      //         ? users.profilePicture
-      //         : 'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
 
-      // HomeController.to.email.value = users.email;
-      // print('Nama users: ${users.name}');
-      // print('Email users: ${users.email}');
-      // print('ID users: ${users.id}');
-      // HomeController.to.update();
+      await userBox.put('user', user);
+
       Get.toNamed('/splash-screen');
       return UserModel.fromJson(userJson);
     }

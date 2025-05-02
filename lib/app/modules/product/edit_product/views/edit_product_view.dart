@@ -3,16 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kelola_barang/app/modules/product/add_product/controllers/add_product_controller.dart';
 import 'package:kelola_barang/app/modules/product/add_product/views/widgets/custom_text_form_field.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_form_tanggal.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
 
-import '../../add_product/views/widgets/product_category_dropdown.dart';
 import '../controllers/edit_product_controller.dart';
 import 'widgets/edit_picture_button.dart';
+import 'widgets/edit_product_category_dropdown.dart';
 
 class EditProductView extends GetView<EditProductController> {
   EditProductView({super.key});
@@ -102,7 +101,7 @@ class EditProductView extends GetView<EditProductController> {
                           ),
 
                           // ! BELUM SESUAI
-                          ProductCategoryDropdown(c: AddProductController.to),
+                          EditProductCategoryD(c: EditProductController.to),
                         ],
                       ),
                     ),
