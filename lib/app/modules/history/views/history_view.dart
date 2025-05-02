@@ -32,7 +32,9 @@ class HistoryView extends GetView<HistoryController> {
                 const Spacer(),
                 MaterialRounded(
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.pickDateRange(context);
+                    },
                     icon: const Icon(Icons.filter_alt_outlined),
                   ),
                 ),

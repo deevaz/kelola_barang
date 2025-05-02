@@ -26,7 +26,7 @@ class LandingView extends GetView<LandingController> {
               Row(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10.r),
                     child: Obx(() {
                       final image = HomeController.to.image.value;
                       if (image.isNotEmpty) {

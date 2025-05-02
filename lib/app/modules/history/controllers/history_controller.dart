@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/history/repositories/history_repository.dart';
 import 'package:kelola_barang/app/modules/history/services/pdf_service.dart';
 import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
@@ -13,6 +15,7 @@ class HistoryController extends GetxController {
       <Map<String, dynamic>>[].obs;
   late final HistoryRepository _historyRepo;
   final PdfService _pdfService = PdfService();
+  Rxn<DateTimeRange> selectedRange = Rxn<DateTimeRange>();
 
   final isLoading = false.obs;
   // ! alert success
@@ -26,6 +29,77 @@ class HistoryController extends GetxController {
       await Printing.layoutPdf(onLayout: (format) async => pdf.save());
     } catch (e) {
       print("Error saat print: $e");
+    }
+  }
+
+  void pickDateRange(BuildContext context) async {
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2022),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null) {
+      selectedRange.value = picked;
+
+      final formattedStartDate = DateFormat('yyyy-MM-dd').format(picked.start);
+      final formattedEndDate = DateFormat('yyyy-MM-dd').format(picked.end);
+
+      await loadFilteredStockData(formattedStartDate, formattedEndDate);
+    }
+  }
+
+  Future<void> loadFilteredStockData(String startDate, String endDate) async {
+    print('Filtering stock data from $startDate to $endDate');
+
+    try {
+      final stockInData = await _historyRepo.fetchStokMasukByDate(
+        startDate,
+        endDate,
+      );
+      final stockOutData = await _historyRepo.fetchStokKeluarByDate(
+        startDate,
+        endDate,
+      );
+
+      final listStokMasuk = List<Map<String, dynamic>>.from(stockInData);
+      stokMasuk.assignAll(listStokMasuk);
+      final listStokKeluar = List<Map<String, dynamic>>.from(stockOutData);
+      stokKeluar.assignAll(listStokKeluar);
+
+      final riwayatMasuk =
+          listStokMasuk.map((e) {
+            return {
+              'tanggal': e['tanggal_masuk'],
+              'tipe': 'masuk',
+              'isStokMasuk': true,
+              'isStokKeluar': false,
+              ...e,
+            };
+          }).toList();
+      final riwayatKeluar =
+          listStokKeluar.map((e) {
+            return {
+              'tanggal': e['tanggal_keluar'],
+              'tipe': 'keluar',
+              'isStokMasuk': false,
+              'isStokKeluar': true,
+              ...e,
+            };
+          }).toList();
+
+      semuaRiwayat.assignAll([...riwayatMasuk, ...riwayatKeluar]);
+
+      semuaRiwayat.sort((a, b) => b['tanggal'].compareTo(a['tanggal']));
+
+      print('Semua riwayat: ${semuaRiwayat.length}');
+      for (var riwayat in semuaRiwayat) {
+        print(
+          '${riwayat['tanggal']} - ${riwayat['tipe']} - masuk? ${riwayat['isStokMasuk']}, keluar? ${riwayat['isStokKeluar']}',
+        );
+      }
+    } catch (e) {
+      print("Error saat filter: $e");
     }
   }
 

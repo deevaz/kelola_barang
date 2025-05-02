@@ -53,4 +53,56 @@ class HistoryRepository {
       return [];
     }
   }
+
+  Future<Iterable<Map<String, dynamic>>> fetchStokMasukByDate(
+    String startDate,
+    String endDate,
+  ) async {
+    try {
+      final userId = HomeController.to.userId;
+      var token = HomeController.to.token;
+      var headers = {'Authorization': 'Bearer $token'};
+      var response = await dio.request(
+        '${apiConstant.BASE_URL}/stock-in/by-date-range/$userId',
+        options: Options(method: 'GET', headers: headers),
+        queryParameters: {'start_date': startDate, 'end_date': endDate},
+      );
+      print(response.data.toString());
+      if (response.statusCode != 200) {
+        throw Exception('Failed to load stock');
+      }
+      return (response.data as List).map(
+        (item) => item as Map<String, dynamic>,
+      );
+    } catch (e) {
+      print('gagal ambil data $e');
+      return [];
+    }
+  }
+
+  Future<Iterable<Map<String, dynamic>>> fetchStokKeluarByDate(
+    String startDate,
+    String endDate,
+  ) async {
+    try {
+      final userId = HomeController.to.userId;
+      var token = HomeController.to.token;
+      var headers = {'Authorization': 'Bearer $token'};
+      var response = await dio.request(
+        '${apiConstant.BASE_URL}/stock-out/by-date-range/$userId',
+        options: Options(method: 'GET', headers: headers),
+        queryParameters: {'start_date': startDate, 'end_date': endDate},
+      );
+      print(response.data.toString());
+      if (response.statusCode != 200) {
+        throw Exception('Failed to load stock out');
+      }
+      return (response.data as List).map(
+        (item) => item as Map<String, dynamic>,
+      );
+    } catch (e) {
+      print('gagal ambil data $e');
+      return [];
+    }
+  }
 }
