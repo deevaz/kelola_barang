@@ -33,7 +33,8 @@ class UserModel {
     );
 
     return FormData.fromMap({
-      'files': multipartFiles,
+      'profile_picture':
+          multipartFiles.isNotEmpty ? multipartFiles.first : null,
       'name': name,
       'username': username,
       'email': email,
