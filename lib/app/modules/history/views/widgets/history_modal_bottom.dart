@@ -28,116 +28,111 @@ class HistoryModalBottom extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: ColorStyle.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20.r),
-          topRight: Radius.circular(20.r),
-        ),
+        // borderRadius: BorderRadius.only(
+        //   topLeft: Radius.circular(20.r),
+        //   topRight: Radius.circular(20.r),
+        // ),
       ),
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 30.h),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: 104.w,
-              height: 2.h,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(10),
-              ),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'history-detail'.tr,
+                  style: TextStyle(
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  formatTanggal(item['tanggal']),
+                  style: TextStyle(fontSize: 16.sp),
+                ),
+              ],
             ),
-          ),
-          SizedBox(height: 20.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'history-detail'.tr,
-                style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                formatTanggal(item['tanggal']),
-                style: TextStyle(fontSize: 16.sp),
-              ),
-            ],
-          ),
-          const Divider(color: Colors.grey, thickness: 1),
-          SizedBox(height: 5.h),
-          item['tipe'] == 'masuk'
-              ? Text(
-                'supplier'.tr,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: ColorStyle.grey,
-                ),
-              )
-              : Text(
-                'buyer'.tr,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: ColorStyle.grey,
-                ),
-              ),
-
-          Text(
+            const Divider(color: Colors.grey, thickness: 1),
+            SizedBox(height: 5.h),
             item['tipe'] == 'masuk'
-                ? item['pemasok'] ?? '-'
-                : item['pembeli'] ?? '-',
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: ColorStyle.dark,
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            'note'.tr,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: ColorStyle.grey,
-            ),
-          ),
-          Text(
-            item['catatan'] ?? '-',
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: ColorStyle.dark,
-            ),
-          ),
+                ? Text(
+                  'supplier'.tr,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: ColorStyle.grey,
+                  ),
+                )
+                : Text(
+                  'buyer'.tr,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: ColorStyle.grey,
+                  ),
+                ),
 
-          SizedBox(height: 10.h),
-          Text(
-            'list-product'.tr,
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10.h),
-          HistoryTable(item: item),
-          SizedBox(height: 10.h),
-          Text(
-            'total-price'.tr,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: ColorStyle.grey,
+            Text(
+              item['tipe'] == 'masuk'
+                  ? item['pemasok'] ?? '-'
+                  : item['pembeli'] ?? '-',
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+                color: ColorStyle.dark,
+              ),
             ),
-          ),
-          Text(
-            currencyFormatter.format(
-              double.tryParse(item['total_harga']?.toString() ?? '0') ?? 0,
+            SizedBox(height: 10.h),
+            Text(
+              'note'.tr,
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+                color: ColorStyle.grey,
+              ),
             ),
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: ColorStyle.dark,
+            Text(
+              item['catatan'] ?? '-',
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+                color: ColorStyle.dark,
+              ),
             ),
-          ),
-        ],
+
+            SizedBox(height: 10.h),
+            Text(
+              'list-product'.tr,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10.h),
+            HistoryTable(item: item),
+            SizedBox(height: 10.h),
+            Text(
+              'total-price'.tr,
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+                color: ColorStyle.grey,
+              ),
+            ),
+            Text(
+              currencyFormatter.format(
+                double.tryParse(item['total_harga']?.toString() ?? '0') ?? 0,
+              ),
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+                color: ColorStyle.dark,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

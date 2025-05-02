@@ -19,7 +19,12 @@ class StockInCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         print(item);
-        Get.bottomSheet(HistoryModalBottom(item: item));
+        showDialog(
+          context: context,
+          builder: (_) {
+            return HistoryModalBottom(item: item);
+          },
+        );
       },
       child: Column(
         children: [
