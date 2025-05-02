@@ -26,13 +26,7 @@ class HistoryModalBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: ColorStyle.white,
-        // borderRadius: BorderRadius.only(
-        //   topLeft: Radius.circular(20.r),
-        //   topRight: Radius.circular(20.r),
-        // ),
-      ),
+      decoration: BoxDecoration(color: ColorStyle.white),
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 30.h),
       child: SingleChildScrollView(
@@ -40,7 +34,6 @@ class HistoryModalBottom extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
