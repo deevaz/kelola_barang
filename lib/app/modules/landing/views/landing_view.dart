@@ -50,7 +50,31 @@ class LandingView extends GetView<LandingController> {
                     child: IconButton(
                       onPressed: () {
                         print('filter');
-                        controller.pickDateRange(context);
+                        if (controller.selectedRange.value != null) {
+                          Get.defaultDialog(
+                            title: 'delete-filter'.tr,
+                            content: Text('are-you-sure-delete-filter'.tr),
+                            confirm: TextButton(
+                              onPressed: () {
+                                controller.clearFilter();
+                                Get.back();
+                              },
+                              child: Text(
+                                'yes'.tr,
+                                style: TextStyle(color: ColorStyle.danger),
+                              ),
+                            ),
+                            cancel: TextButton(
+                              onPressed: () {
+                                Get.back();
+                                controller.pickDateRange(context);
+                              },
+                              child: Text('edit'.tr),
+                            ),
+                          );
+                        } else {
+                          controller.pickDateRange(context);
+                        }
                       },
                       icon: Icon(Icons.filter_alt_outlined, size: 30.w),
                     ),

@@ -34,6 +34,16 @@ class LandingController extends GetxController {
     super.onClose();
   }
 
+  void clearFilter() {
+    selectedRange.value = null;
+    chartDataIn.clear();
+    chartDataOut.clear();
+    fetchStockIn();
+    fetchStockOut();
+    setStokMasuk();
+    setStokKeluar();
+  }
+
   void pickDateRange(BuildContext context) async {
     final DateTimeRange? picked = await showDateRangePicker(
       context: context,
@@ -73,17 +83,19 @@ class LandingController extends GetxController {
 
   void setStokMasuk() {
     stokMasuk.value = chartDataIn.length;
-    ;
+    print('Stok Masuk: ${chartDataIn.length}');
   }
 
   void setStokKeluar() {
     stokKeluar.value = chartDataOut.length;
+    print('Stok Keluar: ${chartDataOut.length}');
   }
 
   void fetchStockIn() async {
     try {
       final data = await _repo.getStockIn();
       chartDataIn.assignAll(data);
+      setStokMasuk();
     } catch (e) {
       print('Failed to fetch stock in: $e');
     }
@@ -93,6 +105,7 @@ class LandingController extends GetxController {
     try {
       final data = await _repo.getStockOut();
       chartDataOut.assignAll(data);
+      setStokKeluar();
     } catch (e) {
       print('Failed to fetch stock out: $e');
     }

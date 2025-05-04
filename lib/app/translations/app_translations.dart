@@ -131,6 +131,10 @@ class AppTranslations extends Translations {
       'username-not-found': 'Username not found',
       'stock-in-empty': 'Stock In Empty',
       'stock-out-empty': 'Stock Out Empty',
+      'are-you-sure-delete-filter':
+          'Are you sure you want to delete the filter?',
+      'delete-filter': 'Delete Filter',
+      'delete-filter-success': 'Filter deleted successfully',
     },
 
     'id': {
@@ -262,6 +266,9 @@ class AppTranslations extends Translations {
       'empty': 'Kosong',
       'stock-in-empty': 'Stok Masuk Kosong',
       'stock-out-empty': 'Stok Keluar Kosong',
+      'are-you-sure-delete-filter': 'Apakah Anda yakin ingin menghapus filter?',
+      'delete-filter': 'Hapus Filter',
+      'delete-filter-success': 'Filter berhasil dihapus',
     },
   };
 }
