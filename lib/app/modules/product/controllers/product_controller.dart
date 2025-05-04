@@ -41,7 +41,8 @@ class ProductController extends GetxController {
   void filterByCategory(String category) async {
     try {
       final data = await _repo.fetchProductbyCategory(category);
-      products.assignAll(data);
+      filteredProducts.assignAll(data);
+      print('Panjang produk: ${filteredProducts.length} $category');
     } catch (e) {
       print('Error loading products: $e');
       Get.snackbar('Error', e.toString());
