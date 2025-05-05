@@ -28,6 +28,7 @@ class EditProfilePicture extends StatelessWidget {
                       fit: BoxFit.cover,
                     )
                     : null,
+            borderRadius: BorderRadius.circular(10.r),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

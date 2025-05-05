@@ -66,18 +66,6 @@ class StockInProductController extends GetxController {
     return selectedProduct.length;
   }
 
-  // int getStokMasuk(String idBarang) {
-  //   final barang = selectedProduct.firstWhereOrNull(
-  //     (b) => b['id'].toString() == idBarang,
-  //   );
-
-  //   if (barang != null && (barang['jumlah_stok_masuk'] ?? 0) > 0) {
-  //     return barang['jumlah_stok_masuk'];
-  //   }
-
-  //   return 0;
-  // }
-
   int getTotalHarga() {
     print("Total harga: ${selectedProduct.length}");
     return selectedProduct.isNotEmpty

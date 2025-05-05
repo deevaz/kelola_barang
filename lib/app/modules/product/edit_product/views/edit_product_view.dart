@@ -103,7 +103,7 @@ class EditProductView extends GetView<EditProductController> {
                 ),
                 SizedBox(height: 10.h),
                 CustomTextFormField(
-                  title: 'Deskripsi',
+                  title: 'description'.tr,
                   controller: controller.deskripsiC,
                 ),
                 SizedBox(height: 30.h),
