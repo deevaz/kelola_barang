@@ -4,6 +4,7 @@ import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart'
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
+import '../controllers/product_controller.dart';
 import '../models/product_response.dart';
 
 class ProductRepository {
@@ -60,6 +61,7 @@ class ProductRepository {
   }
 
   Future<void> deleteProduct(String id) async {
+    final pc = Get.find<ProductController>();
     final token = HomeController.to.token.value;
     var headers = {'Authorization': 'Bearer $token'};
     final userId = HomeController.to.userId;
@@ -67,14 +69,26 @@ class ProductRepository {
       '${apiConstant.BASE_URL}/products/$userId/$id',
       options: Options(method: 'DELETE', headers: headers),
     );
-    print(response.data);
-    Get.snackbar(
-      'success'.tr,
-      'delete-product-succes'.tr,
-      backgroundColor: ColorStyle.success,
-      colorText: ColorStyle.white,
-      duration: Duration(seconds: 2),
-    );
+
+    if (response.statusCode == 200) {
+      Get.snackbar(
+        'Success',
+        'Product deleted successfully',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: ColorStyle.primary,
+        colorText: ColorStyle.white,
+      );
+      fetchAllProducts();
+      pc.loadProducts();
+    } else {
+      Get.snackbar(
+        'Error',
+        'Failed to delete product: ${response.statusMessage}',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: ColorStyle.danger,
+        colorText: ColorStyle.white,
+      );
+    }
   }
 
   final List<Map<String, dynamic>> categories = [

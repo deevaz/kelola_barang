@@ -11,11 +11,9 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 import '../models/stock_in_model.dart';
-// import '../service/stock_in_service.dart';
 
 class StockInController extends GetxController {
   static StockInController get to => Get.find();
-  // final StockInService _service = StockInService();
 
   final catatanC = TextEditingController();
   final RxString selectedSupplier = ''.obs;
@@ -90,7 +88,6 @@ class StockInController extends GetxController {
 
     if (pickedDate != null) {
       TimeOfDay? pickedTime = await showTimePicker(
-        // ignore: use_build_context_synchronously
         context: context,
         initialTime: TimeOfDay.now(),
       );

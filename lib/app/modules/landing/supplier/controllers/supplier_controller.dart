@@ -1,13 +1,13 @@
-import 'package:dio/dio.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+
 import 'package:kelola_barang/constants/api_constant.dart';
 
+import '../models/suppliers_model.dart';
 import '../repositories/supplier_repository.dart';
 
 class SupplierController extends GetxController {
+  static SupplierController get to => Get.find();
   late final SupplierRepository repo;
   final isLoading = false.obs;
 
@@ -38,46 +38,28 @@ class SupplierController extends GetxController {
 
   void addSupplier() async {
     print('Adding supplier...');
-    var data = dio.FormData.fromMap({
-      'nama_supplier': namaPemasokC.text,
-      'no_telp': teleponC.text,
-      'no_rekening': rekeningC.text,
-      'catatan': catatanC.text,
-    });
-    print('Data supplier: ${data.toString()}');
-    var token = HomeController.to.token;
-    var headers = {'Authorization': 'Bearer $token'};
+    final supplier = SuppliersModel(
+      namaSupplier: namaPemasokC.text,
+      noTelp: teleponC.text,
+      noRekening: rekeningC.text,
+      catatan: catatanC.text,
+    );
+    repo.addSupplier(supplier);
+  }
 
-    try {
-      final userId = HomeController.to.userId;
-      var dio = Dio();
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/suppliers/$userId',
-        options: Options(method: 'POST', headers: headers),
-        data: data,
-      );
+  void editSupplier(String id) async {
+    print('Editing supplier...');
+    final data = SuppliersModel(
+      namaSupplier: namaPemasokC.text,
+      noTelp: teleponC.text,
+      noRekening: rekeningC.text,
+      catatan: catatanC.text,
+    );
+    repo.editSupplier(data, id);
+  }
 
-      if (response.statusCode == 201) {
-        print('Supplier added successfully');
-        clearForm();
-        Get.snackbar(
-          'success'.tr,
-          'success-add-supplier'.tr,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-        getAllSuppliers();
-        Get.back();
-      } else if (response.statusCode == 422) {
-        print('Validation error: ${response.data}');
-      } else if (response.statusCode == 401) {
-        print('Unauthorized: ${response.data}');
-      } else {
-        print(response.statusMessage);
-      }
-    } catch (e) {
-      print('Failed to add supplier $e');
-    }
+  void deleteSupplier(String id) {
+    repo.deleteSupplier(id);
   }
 
   void clearForm() {

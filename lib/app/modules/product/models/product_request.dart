@@ -48,4 +48,18 @@ class ProductRequestModel {
       'deskripsi': deskripsi,
     });
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'kode_barang': kodeBarang,
+      'nama_barang': namaBarang,
+      'stok_awal': stokAwal,
+      'harga_beli': hargaBeli,
+      'harga_jual': hargaJual,
+      'kadaluarsa': kadaluarsa,
+      'kategori': kategori,
+      'total_stok': totalStok,
+      'deskripsi': deskripsi,
+    };
+  }
 }

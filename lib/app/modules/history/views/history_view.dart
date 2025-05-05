@@ -33,7 +33,31 @@ class HistoryView extends GetView<HistoryController> {
                 MaterialRounded(
                   child: IconButton(
                     onPressed: () {
-                      controller.pickDateRange(context);
+                      if (controller.selectedRange.value != null) {
+                        Get.defaultDialog(
+                          title: 'delete-filter'.tr,
+                          content: Text('are-you-sure-delete-filter'.tr),
+                          confirm: TextButton(
+                            onPressed: () {
+                              controller.clearFilter();
+                              Get.back();
+                            },
+                            child: Text(
+                              'yes'.tr,
+                              style: TextStyle(color: ColorStyle.danger),
+                            ),
+                          ),
+                          cancel: TextButton(
+                            onPressed: () {
+                              Get.back();
+                              controller.pickDateRange(context);
+                            },
+                            child: Text('edit'.tr),
+                          ),
+                        );
+                      } else {
+                        controller.pickDateRange(context);
+                      }
                     },
                     icon: const Icon(Icons.filter_alt_outlined),
                   ),

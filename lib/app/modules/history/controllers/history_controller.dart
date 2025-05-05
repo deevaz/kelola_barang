@@ -18,7 +18,6 @@ class HistoryController extends GetxController {
   Rxn<DateTimeRange> selectedRange = Rxn<DateTimeRange>();
 
   final isLoading = false.obs;
-  // ! alert success
   void printDocument() async {
     try {
       final pdf = await _pdfService.generatePdf(
@@ -30,6 +29,14 @@ class HistoryController extends GetxController {
     } catch (e) {
       print("Error saat print: $e");
     }
+  }
+
+  void clearFilter() {
+    selectedRange.value = null;
+    semuaRiwayat.clear();
+    stokMasuk.clear();
+    stokKeluar.clear();
+    getHistory();
   }
 
   void pickDateRange(BuildContext context) async {

@@ -1,9 +1,11 @@
-import 'package:dio/dio.dart' as dio;
-import 'package:dio/dio.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/product/add_product/repositories/add_product_repository.dart';
+
+import 'package:kelola_barang/app/modules/product/models/product_request.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/controllers/barcode_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -14,6 +16,7 @@ import '../../repositories/product_repository.dart';
 class AddProductController extends GetxController {
   static AddProductController get to => Get.put(AddProductController());
   final barcodeC = Get.put(BarcodeController());
+  AddProductRepository _addProductRepo = AddProductRepository();
 
   final kodeBarangC = TextEditingController();
   final namaBarangC = TextEditingController();
@@ -25,7 +28,6 @@ class AddProductController extends GetxController {
   final RxString barcode = ''.obs;
 
   late final ProductRepository repo;
-  // List<Map<String, dynamic>> get daftarKategori => repo.categories;
 
   final selectedDate = DateTime.now().obs;
   final selectedCategory = ''.obs;
@@ -49,13 +51,20 @@ class AddProductController extends GetxController {
         kodeBarangC.text = result;
       }
       Get.snackbar(
-        'Barcode terdeteksi',
+        'barcode-scanned'.tr,
         'Kode: $result',
         backgroundColor: ColorStyle.success,
         colorText: Colors.white,
         duration: const Duration(seconds: 2),
       );
     } catch (e) {
+      Get.snackbar(
+        'error'.tr,
+        'barcode-scan-failed'.tr,
+        backgroundColor: ColorStyle.danger,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 2),
+      );
       print('Terjadi error saat scan barcode: $e');
     }
   }
@@ -64,72 +73,19 @@ class AddProductController extends GetxController {
     print('Adding Product');
 
     final file = selectedImage.value;
-    dio.FormData formData = dio.FormData.fromMap({
-      if (file != null)
-        'gambar': await dio.MultipartFile.fromFile(
-          file.path,
-          filename: file.name,
-        ),
-      'nama_barang': namaBarangC.text,
-      'kode_barang':
-          barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
-      'stok_awal': int.tryParse(stokAwalC.text) ?? 0,
-      'total_stok': int.tryParse(stokAwalC.text) ?? 0,
-      'harga_beli': int.tryParse(hargaBeliC.text) ?? 0,
-      'harga_jual': int.tryParse(hargaJualC.text) ?? 0,
-      'deskripsi': deskripsiC.text,
-      'kategori': selectedCategory.value,
-      'kadaluarsa': selectedDate.value.toIso8601String(),
-    });
-
-    postProduct(formData, again);
-  }
-
-  Future<void> postProduct(dio.FormData formData, bool again) async {
-    var token = HomeController.to.token;
-    var headers = {'Authorization': 'Bearer $token'};
-
-    try {
-      final userId = HomeController.to.userId;
-      var dio = Dio();
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/products/$userId',
-        options: Options(
-          method: 'POST',
-          headers: headers,
-          // headers:
-        ),
-        data: formData,
-      );
-      print('Success ${formData}');
-
-      if (response.statusCode == 201) {
-        print('Success ${response.data}');
-        Get.defaultDialog(
-          title: 'success'.tr,
-          middleText: 'product-saved'.tr,
-          onConfirm: () {
-            Get.back();
-            if (again) {
-              Get.back();
-            } else {
-              Get.offAllNamed('/home');
-            }
-          },
-        );
-      } else {
-        Get.defaultDialog(
-          title: 'failed'.tr,
-          middleText: 'product-saved-failed'.tr,
-          onConfirm: () {
-            Get.back();
-          },
-        );
-        print('Failed to add product: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('gagal tambah data $e ');
-    }
+    final product = ProductRequestModel(
+      imageFile: file != null ? File(file.path) : null,
+      namaBarang: namaBarangC.text,
+      kodeBarang: barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
+      stokAwal: int.tryParse(stokAwalC.text) ?? 0,
+      totalStok: int.tryParse(stokAwalC.text) ?? 0,
+      hargaBeli: int.tryParse(hargaBeliC.text) ?? 0,
+      hargaJual: int.tryParse(hargaJualC.text) ?? 0,
+      deskripsi: deskripsiC.text,
+      kategori: selectedCategory.value,
+      kadaluarsa: selectedDate.value.toIso8601String(),
+    );
+    _addProductRepo.postProduct(product, again);
   }
 
   final ImagePicker _picker = ImagePicker();

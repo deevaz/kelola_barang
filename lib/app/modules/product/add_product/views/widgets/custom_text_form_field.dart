@@ -38,10 +38,7 @@ class CustomTextFormField extends StatelessWidget {
             color: ColorStyle.dark.withOpacity(0.5),
           ),
         ),
-        style: TextStyle(
-          fontSize: 14.sp,
-          color: ColorStyle.dark.withOpacity(0.5),
-        ),
+        style: TextStyle(fontSize: 14.sp, color: ColorStyle.dark),
       ),
     );
   }

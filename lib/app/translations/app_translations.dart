@@ -135,6 +135,8 @@ class AppTranslations extends Translations {
           'Are you sure you want to delete the filter?',
       'delete-filter': 'Delete Filter',
       'delete-filter-success': 'Filter deleted successfully',
+      'barcode-scanned': 'Barcode scanned successfully',
+      'change-supplier-success': 'Supplier changed successfully',
     },
 
     'id': {
@@ -269,6 +271,8 @@ class AppTranslations extends Translations {
       'are-you-sure-delete-filter': 'Apakah Anda yakin ingin menghapus filter?',
       'delete-filter': 'Hapus Filter',
       'delete-filter-success': 'Filter berhasil dihapus',
+      'barcode-scanned': 'Kode batang berhasil dipindai',
+      'change-supplier-success': 'Supplier berhasil diubah',
     },
   };
 }

@@ -18,6 +18,7 @@ class AddSupplierView extends GetView<AddSupplierController> {
   @override
   Widget build(BuildContext context) {
     final pc = Get.put(SupplierController());
+    final arguments = Get.arguments;
     return Scaffold(
       appBar: CustomAppBar(title: 'supplier'.tr, lightBg: false),
       body: SingleChildScrollView(
@@ -28,7 +29,7 @@ class AddSupplierView extends GetView<AddSupplierController> {
               CustomTextField(
                 title: 'supplier-name'.tr,
                 controller: pc.namaPemasokC,
-                hintText: 'Masukkan nama pemasok',
+                hintText: 'input-nama-supplier'.tr,
                 prefixIcon: Ionicons.person_outline,
               ),
 
@@ -53,7 +54,6 @@ class AddSupplierView extends GetView<AddSupplierController> {
                         child: IconButton(
                           onPressed: () {
                             print('pilih nomor telepon');
-                            // Get.to(ContactListView());
                             controller.selectContact();
                             print(
                               'Selected Phone Number: ${controller.selectedPhoneNumber.value}',
@@ -79,7 +79,7 @@ class AddSupplierView extends GetView<AddSupplierController> {
               SizedBox(height: 10.h),
               CustomTextFormField(
                 title: 'note'.tr,
-                hintText: 'Masukkan catatan',
+                hintText: 'input-catatan'.tr,
                 controller: pc.catatanC,
               ),
               SizedBox(height: 20.h),
@@ -89,7 +89,11 @@ class AddSupplierView extends GetView<AddSupplierController> {
                 child: ElevatedButton(
                   style: EvelatedButtonStyle.rounded15,
                   onPressed: () {
-                    pc.addSupplier();
+                    if (arguments != null) {
+                      pc.editSupplier(arguments);
+                    } else {
+                      pc.addSupplier();
+                    }
                   },
                   child: Text('save'.tr),
                 ),

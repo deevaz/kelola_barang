@@ -13,8 +13,6 @@ class ProductController extends GetxController {
   final searchText = ''.obs;
   List<Map<String, dynamic>> get categories => _repo.categories;
 
-  void delProduct(String id) => deleteProduct(id);
-
   @override
   void onInit() {
     super.onInit();
@@ -77,9 +75,8 @@ class ProductController extends GetxController {
       cancelTextColor: ColorStyle.dark,
       buttonColor: ColorStyle.danger,
       onConfirm: () async {
-        await _repo.deleteProduct(id);
-        refreshController.refreshCompleted();
         Get.back();
+        await _repo.deleteProduct(id);
       },
       onCancel: () => Get.back(),
     );

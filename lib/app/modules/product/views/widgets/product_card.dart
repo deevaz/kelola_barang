@@ -84,6 +84,7 @@ class ProductCard extends StatelessWidget {
                       if (onEdit != null) {
                         onEdit!();
                       }
+                      Slidable.of(context)?.close();
                     },
                   ),
                   SizedBox(width: 10.w),
@@ -94,6 +95,7 @@ class ProductCard extends StatelessWidget {
                       if (onDelete != null) {
                         onDelete!();
                       }
+                      Slidable.of(context)?.close();
                     },
                   ),
                 ],
@@ -134,7 +136,6 @@ class ProductCard extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-
                         Image.network(
                           item.gambar.toString(),
                           width: 130.w,
@@ -159,7 +160,6 @@ class ProductCard extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   SizedBox(width: 10.w),
                   Expanded(
                     child: Column(

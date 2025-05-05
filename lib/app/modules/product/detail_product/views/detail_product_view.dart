@@ -24,7 +24,7 @@ class DetailProductView extends GetView<DetailProductController> {
 
   @override
   Widget build(BuildContext context) {
-    final ProductResponse items = Get.arguments as ProductResponse;
+    final ProductResponse items = Get.arguments;
     return Scaffold(
       appBar: CustomAppBar(title: 'product-detail'.tr, lightBg: false),
       body: Padding(

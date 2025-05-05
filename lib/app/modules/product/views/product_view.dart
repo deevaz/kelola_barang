@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/modules/product/views/widgets/category_bottom.dart';
 import 'package:kelola_barang/app/modules/product/views/widgets/product_card.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
@@ -61,11 +62,11 @@ class ProductView extends GetView<ProductController> {
                 () => ListView.builder(
                   itemCount: controller.filteredProducts.length,
                   itemBuilder: (context, index) {
-                    final item = controller.filteredProducts[index];
+                    ProductResponse item = controller.filteredProducts[index];
                     return ProductCard(
                       item: item,
                       onDelete: () {
-                        controller.delProduct(item.id.toString());
+                        controller.deleteProduct(item.id.toString());
                       },
                       onEdit: () {
                         Get.toNamed(Routes.EDIT_PRODUCT, arguments: item);
