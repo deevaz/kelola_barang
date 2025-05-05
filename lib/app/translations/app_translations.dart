@@ -137,6 +137,7 @@ class AppTranslations extends Translations {
       'delete-filter-success': 'Filter deleted successfully',
       'barcode-scanned': 'Barcode scanned successfully',
       'change-supplier-success': 'Supplier changed successfully',
+      'supplier-added': 'Supplier added successfully',
     },
 
     'id': {
@@ -273,6 +274,7 @@ class AppTranslations extends Translations {
       'delete-filter-success': 'Filter berhasil dihapus',
       'barcode-scanned': 'Kode batang berhasil dipindai',
       'change-supplier-success': 'Supplier berhasil diubah',
+      'supplier-added': 'Pemasok berhasil ditambahkan',
     },
   };
 }

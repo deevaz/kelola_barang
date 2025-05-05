@@ -31,7 +31,7 @@ class StockInView extends GetView<StockInController> {
                 () => CustomFormTanggal(
                   title:
                       controller.selectedDate.value == null
-                          ? 'Pilih Tanggal'
+                          ? 'select-date'.tr
                           : controller.selectedDate.value.toString(),
                   onTap: () {
                     controller.pickDate(context);

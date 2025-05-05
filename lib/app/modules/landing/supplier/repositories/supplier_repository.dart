@@ -27,7 +27,7 @@ class SupplierRepository {
     if (response.statusCode == 200) {
       Get.snackbar(
         'success'.tr,
-        'Supplier berhasil ditambahkan',
+        'supplier-added'.tr,
         backgroundColor: ColorStyle.success,
         colorText: ColorStyle.white,
       );

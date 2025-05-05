@@ -8,7 +8,6 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/barcode_button.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
-import 'package:kelola_barang/app/shared/widgets/filter_button.dart';
 import 'package:kelola_barang/app/shared/widgets/search_widget.dart';
 
 import '../controllers/stock_in_product_controller.dart';
@@ -27,14 +26,12 @@ class StockInProductView extends GetView<StockInProductController> {
               child: Row(
                 children: [
                   Flexible(child: SearchWidget()),
-                  SizedBox(width: 10.w),
                   BarcodeButton(
                     onTap: () {
                       controller.scanBarcode();
                     },
                   ),
-                  SizedBox(width: 10.w),
-                  FilterButton(),
+                  SizedBox(width: 5.w),
                 ],
               ),
             ),
