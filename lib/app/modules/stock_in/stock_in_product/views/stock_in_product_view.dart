@@ -25,7 +25,14 @@ class StockInProductView extends GetView<StockInProductController> {
               padding: EdgeInsets.only(right: 15.w),
               child: Row(
                 children: [
-                  Flexible(child: SearchWidget()),
+                  Flexible(
+                    child: SearchWidget(
+                      onChanged: (value) {
+                        controller.searchProduct(value);
+                        controller.searchText.value = value;
+                      },
+                    ),
+                  ),
                   BarcodeButton(
                     onTap: () {
                       controller.scanBarcode();
@@ -38,9 +45,9 @@ class StockInProductView extends GetView<StockInProductController> {
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.only(bottom: 120.h),
-                itemCount: controller.listProducts.length,
+                itemCount: controller.filteredProducts.length,
                 itemBuilder: (context, index) {
-                  final product = controller.listProducts;
+                  final product = controller.filteredProducts;
                   return SelectProductCard(
                     items: product[index],
                     onTap: () {

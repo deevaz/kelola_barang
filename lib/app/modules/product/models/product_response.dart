@@ -108,4 +108,41 @@ class ProductResponse {
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
   };
+
+  factory ProductResponse.fromMap(Map<String, dynamic> map) => ProductResponse(
+    id: map["id"],
+    kodeBarang: map["kode_barang"],
+    namaBarang: map["nama_barang"],
+    stokAwal: map["stok_awal"],
+    hargaBeli: map["harga_beli"],
+    hargaJual: map["harga_jual"],
+    kadaluarsa:
+        map["kadaluarsa"] == null ? null : DateTime.parse(map["kadaluarsa"]),
+    deskripsi: map["deskripsi"],
+    gambar: map["gambar"],
+    kategori: map["kategori"],
+    totalStok: map["total_stok"],
+    userId: map["user_id"],
+    createdAt:
+        map["created_at"] == null ? null : DateTime.parse(map["created_at"]),
+    updatedAt:
+        map["updated_at"] == null ? null : DateTime.parse(map["updated_at"]),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id": id,
+    "kode_barang": kodeBarang,
+    "nama_barang": namaBarang,
+    "stok_awal": stokAwal,
+    "harga_beli": hargaBeli,
+    "harga_jual": hargaJual,
+    "kadaluarsa": kadaluarsa?.toIso8601String(),
+    "deskripsi": deskripsi,
+    "gambar": gambar,
+    "kategori": kategori,
+    "total_stok": totalStok,
+    "user_id": userId,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+  };
 }

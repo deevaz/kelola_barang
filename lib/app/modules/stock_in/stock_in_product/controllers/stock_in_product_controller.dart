@@ -14,13 +14,15 @@ class StockInProductController extends GetxController {
   static StockInProductController get to => Get.find();
   RxString barcode = ''.obs;
   final RxList selectedProduct = [].obs;
-  final RxList listProducts = [].obs;
+
   final RxList<Map<String, dynamic>> filteredProducts =
       <Map<String, dynamic>>[].obs;
+  final RxList<Map<String, dynamic>> products = <Map<String, dynamic>>[].obs;
   RxString searchText = ''.obs;
   var apiConstant = ApiConstant();
   RxInt stockIn = 0.obs;
   RxInt price = 0.obs;
+  final RxMap<String, int> tempStockChanges = <String, int>{}.obs;
 
   @override
   void onInit() {
@@ -28,31 +30,53 @@ class StockInProductController extends GetxController {
     loadStokDariProduk();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void tambahStokSementara(String idBarang) {
+    tempStockChanges[idBarang] =
+        (tempStockChanges[idBarang] ?? getStokMasuk(idBarang)) + 1;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void kurangStokSementara(String idBarang) {
+    int current = tempStockChanges[idBarang] ?? getStokMasuk(idBarang);
+    if (current > 0) {
+      tempStockChanges[idBarang] = current - 1;
+    }
+  }
+
+  void searchProduct(String query) {
+    print("Mencari produk dengan query: $query");
+    searchText.value = query;
+    final lowerQuery = query.toLowerCase();
+
+    if (query.isEmpty) {
+      filteredProducts.assignAll(products);
+      print("Menampilkan semua produk.");
+    } else {
+      final filtered =
+          products.where((item) {
+            final name = item['nama_barang']?.toLowerCase() ?? '';
+            return name.contains(lowerQuery);
+          }).toList();
+
+      print("Produk yang ditemukan: ${filtered.length}");
+      filteredProducts.assignAll(filtered);
+    }
   }
 
   int getTotalBarang() {
     return selectedProduct.length;
   }
 
-  int getStokMasuk(String idBarang) {
-    final barang = selectedProduct.firstWhereOrNull(
-      (b) => b['id'].toString() == idBarang,
-    );
+  // int getStokMasuk(String idBarang) {
+  //   final barang = selectedProduct.firstWhereOrNull(
+  //     (b) => b['id'].toString() == idBarang,
+  //   );
 
-    if (barang != null && (barang['jumlah_stok_masuk'] ?? 0) > 0) {
-      return barang['jumlah_stok_masuk'];
-    }
+  //   if (barang != null && (barang['jumlah_stok_masuk'] ?? 0) > 0) {
+  //     return barang['jumlah_stok_masuk'];
+  //   }
 
-    return 0;
-  }
+  //   return 0;
+  // }
 
   int getTotalHarga() {
     print("Total harga: ${selectedProduct.length}");
@@ -74,15 +98,15 @@ class StockInProductController extends GetxController {
       }
       print("Mencari barang dengan barcode: $kode");
 
-      final barang = listProducts.firstWhereOrNull(
+      final barang = filteredProducts.firstWhereOrNull(
         (b) => b['kode_barang'] == kode,
       );
 
       if (barang != null) {
         print("Barang ditemukan: ${barang['nama_barang']}");
         Get.snackbar(
-          'Barang ditemukan',
-          'Nama: ${barang['nama_barang']}',
+          'product-found'.tr,
+          'Name: ${barang['nama_barang']}',
           backgroundColor: ColorStyle.success,
           colorText: ColorStyle.white,
           duration: const Duration(seconds: 5),
@@ -139,11 +163,15 @@ class StockInProductController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        listProducts.clear();
-        listProducts.value = response.data['data'];
-        listProducts.refresh();
+        filteredProducts.clear();
+        filteredProducts.value = List<Map<String, dynamic>>.from(
+          response.data['data'],
+        );
+        products.assignAll(filteredProducts);
+
+        filteredProducts.refresh();
         print("Data produk berhasil dimuat.");
-        print("Data produk: ${listProducts.length} barang.");
+        print("Data produk: ${filteredProducts.length} barang.");
       } else {
         print("Gagal memuat data produk: ${response.statusMessage}");
       }
@@ -153,7 +181,7 @@ class StockInProductController extends GetxController {
   }
 
   void tambahStok(String idBarang) {
-    final barang = listProducts.firstWhereOrNull(
+    final barang = filteredProducts.firstWhereOrNull(
       (b) => b['id']?.toString() == idBarang,
     );
     if (barang != null) {
@@ -163,7 +191,7 @@ class StockInProductController extends GetxController {
               : 0;
       current++;
       barang['stok_masuk'] = current;
-      listProducts.refresh();
+      filteredProducts.refresh();
 
       final existing = selectedProduct.firstWhereOrNull(
         (b) => b['id']?.toString() == idBarang,
@@ -188,7 +216,7 @@ class StockInProductController extends GetxController {
   }
 
   void kurangStok(String idBarang) {
-    final barang = listProducts.firstWhereOrNull(
+    final barang = filteredProducts.firstWhereOrNull(
       (b) => b['id']?.toString() == idBarang,
     );
     if (barang != null) {
@@ -199,7 +227,7 @@ class StockInProductController extends GetxController {
       if (current > 0) {
         current--;
         barang['stok_masuk'] = current;
-        listProducts.refresh();
+        filteredProducts.refresh();
         final existing = selectedProduct.firstWhereOrNull(
           (b) => b['id']?.toString() == idBarang,
         );
@@ -219,40 +247,42 @@ class StockInProductController extends GetxController {
   }
 
   void simpanStok(String idBarang) {
-    final barang = listProducts.firstWhereOrNull(
-      (b) => b['id']?.toString() == idBarang,
+    final amount = tempStockChanges[idBarang] ?? 0;
+    if (amount <= 0) return;
+
+    final barang = filteredProducts.firstWhereOrNull(
+      (b) => b['id'].toString() == idBarang,
     );
-    if (barang != null) {
-      int current =
-          barang['stok_masuk'] != null
-              ? int.tryParse(barang['stok_masuk'].toString()) ?? 0
-              : 0;
-      if (current > 0) {
-        final existing = selectedProduct.firstWhereOrNull(
-          (b) => b['id']?.toString() == idBarang,
-        );
-        if (existing != null) {
-          existing['jumlah_stok_masuk'] = current;
-          // Jika stokMasuk menjadi nol, hapus produk
-          if (current == 0) {
-            selectedProduct.removeWhere((b) => b['id']?.toString() == idBarang);
-          }
-        } else {
-          selectedProduct.add({
-            'id': barang['id'],
-            'nama': barang['nama_barang'],
-            'harga': barang['harga_jual'],
-            'jumlah_stok_masuk': current,
-            'totalStok': barang['total_stok'],
-          });
-        }
-        print(
-          "Stok disimpan: ${barang['nama_barang']} - $current x ${barang['harga_jual']}",
-        );
-        listProducts.refresh();
-        selectedProduct.refresh();
-      }
+    if (barang == null) return;
+
+    final existing = selectedProduct.firstWhereOrNull(
+      (b) => b['id'].toString() == idBarang,
+    );
+
+    if (existing != null) {
+      existing['jumlah_stok_masuk'] = amount;
+    } else {
+      selectedProduct.add({
+        'id': barang['id'],
+        'gambar': barang['gambar'],
+        'nama': barang['nama_barang'],
+        'harga': barang['harga_jual'],
+        'jumlah_stok_masuk': amount,
+        'totalStok': barang['total_stok'],
+      });
     }
+    selectedProduct.refresh();
+    tempStockChanges.remove(idBarang);
+  }
+
+  int getStokMasuk(String idBarang) {
+    final barang = selectedProduct.firstWhereOrNull(
+      (b) => b['id'].toString() == idBarang,
+    );
+    if (barang != null && barang['jumlah_stok_masuk'] != null) {
+      return barang['jumlah_stok_masuk'];
+    }
+    return 0;
   }
 
   void savestockin() {
