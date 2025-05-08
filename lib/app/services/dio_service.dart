@@ -21,18 +21,15 @@ class DioService extends GetxService {
 
   static Dio dioCall({
     Duration timeout = timeoutInMiliSeconds,
-    String? token,
+
     String? authorization,
   }) {
+    String? token = BaseController.to.token.value;
     var headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
     };
-
-    token ??= BaseController.to.token.value;
-    if (token != null) {
-      headers['token'] = token;
-    }
 
     if (authorization != null) {
       headers['Authorization'] = authorization;

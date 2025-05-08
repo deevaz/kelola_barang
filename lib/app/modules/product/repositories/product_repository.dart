@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/services/dio_service.dart';
+import 'package:kelola_barang/app/services/snackbbar_service.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 import '../controllers/product_controller.dart';
@@ -10,17 +11,17 @@ import '../models/product_response.dart';
 class ProductRepository {
   ProductRepository();
 
+  final dio.Dio dioInstance = DioService.dioCall();
   var apiConstant = ApiConstant();
-  final dio = Dio();
+
   final userId = BaseController.to.userId.value;
   final token = BaseController.to.token.value;
 
   Future<List<ProductResponse>> fetchAllProducts() async {
     try {
-      var headers = {'Authorization': 'Bearer $token'};
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/products/$userId',
-        options: Options(method: 'GET', headers: headers),
+      var response = await dioInstance.request(
+        '/products/$userId',
+        options: dio.Options(method: 'GET'),
       );
       print(response.data.toString());
       if (response.statusCode != 200) {
@@ -41,9 +42,9 @@ class ProductRepository {
       if (category == 'Semua Kategori') {
         category = '';
       }
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/products/$userId/$category',
-        options: Options(method: 'GET', headers: headers),
+      var response = await dioInstance.request(
+        '/products/$userId/$category',
+        options: dio.Options(method: 'GET', headers: headers),
       );
       print(response.data.toString());
       if (response.statusCode != 200) {
@@ -61,29 +62,18 @@ class ProductRepository {
   Future<void> deleteProduct(String id) async {
     final pc = Get.find<ProductController>();
     var headers = {'Authorization': 'Bearer $token'};
-    var response = await dio.request(
-      '${apiConstant.BASE_URL}/products/$userId/$id',
-      options: Options(method: 'DELETE', headers: headers),
+    var response = await dioInstance.request(
+      '/products/$userId/$id',
+      options: dio.Options(method: 'DELETE', headers: headers),
     );
 
     if (response.statusCode == 200) {
-      Get.snackbar(
-        'Success',
-        'Product deleted successfully',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: ColorStyle.primary,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.success('succes'.tr, 'delete-product-success'.tr);
       fetchAllProducts();
       pc.loadProducts();
     } else {
-      Get.snackbar(
-        'Error',
-        'Failed to delete product: ${response.statusMessage}',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: ColorStyle.danger,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.error('error'.tr, 'delete-product-failed'.tr);
+      print('gagal hapus data $id');
     }
   }
 
