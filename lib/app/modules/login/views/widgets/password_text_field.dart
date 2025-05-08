@@ -57,14 +57,16 @@ class PasswordTextField extends StatelessWidget {
                       ),
                     )
                     : null,
-            label: Text(title),
+            label: Text(
+              title,
+              style: TextStyle(color: ColorStyle.dark, fontSize: 14.sp),
+            ),
             hintText: hintText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.sp),
               borderSide: BorderSide.none,
             ),
             filled: true,
-
             contentPadding: EdgeInsets.all(16),
             fillColor: ColorStyle.white,
             hintStyle: TextStyle(

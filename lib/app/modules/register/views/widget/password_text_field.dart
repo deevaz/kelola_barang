@@ -56,10 +56,7 @@ class RPasswordTextField extends StatelessWidget {
             floatingLabelBehavior: FloatingLabelBehavior.never,
             label: Text(
               title,
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: ColorStyle.dark.withOpacity(0.5),
-              ),
+              style: TextStyle(fontSize: 14.sp, color: ColorStyle.dark),
             ),
             hintText: hintText,
             border: OutlineInputBorder(
@@ -74,10 +71,7 @@ class RPasswordTextField extends StatelessWidget {
               color: ColorStyle.dark.withOpacity(0.5),
             ),
           ),
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: ColorStyle.dark.withOpacity(0.5),
-          ),
+          style: TextStyle(fontSize: 14.sp, color: ColorStyle.dark),
         ),
       ),
     );

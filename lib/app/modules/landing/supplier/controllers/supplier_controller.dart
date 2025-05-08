@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -59,7 +60,20 @@ class SupplierController extends GetxController {
   }
 
   void deleteSupplier(String id) {
-    repo.deleteSupplier(id);
+    Get.defaultDialog(
+      title: 'delete-supplier'.tr,
+      middleText: 'are-you-sure'.tr,
+      textConfirm: 'yes'.tr,
+      textCancel: 'no'.tr,
+      confirmTextColor: ColorStyle.white,
+      cancelTextColor: ColorStyle.dark,
+      buttonColor: ColorStyle.danger,
+      onConfirm: () async {
+        Get.back();
+        await repo.deleteSupplier(id);
+      },
+      onCancel: () => Get.back(),
+    );
   }
 
   void clearForm() {

@@ -48,7 +48,7 @@ class AuthServices {
         'welcome'.trParams({'name': response.data['user']['name']}),
         duration: const Duration(seconds: 2),
         colorText: ColorStyle.white,
-        backgroundColor: ColorStyle.primary,
+        backgroundColor: ColorStyle.success,
       );
       Get.offAllNamed('/home');
     } else if (response.statusCode == 401) {

@@ -134,7 +134,7 @@ class AddProductController extends GetxController {
     Get.snackbar(
       'success'.tr,
       'item-saved'.tr,
-      backgroundColor: ColorStyle.success,
+
       colorText: Colors.white,
       duration: const Duration(seconds: 2),
     );

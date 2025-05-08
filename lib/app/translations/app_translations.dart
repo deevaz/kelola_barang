@@ -138,6 +138,12 @@ class AppTranslations extends Translations {
       'barcode-scanned': 'Barcode scanned successfully',
       'change-supplier-success': 'Supplier changed successfully',
       'supplier-added': 'Supplier added successfully',
+      'delete-supplier': 'Delete Supplier',
+      'phone-number': 'Phone Number',
+
+      'close': 'Close',
+      'delete': 'Delete',
+      'no': 'No',
     },
 
     'id': {
@@ -275,6 +281,9 @@ class AppTranslations extends Translations {
       'barcode-scanned': 'Kode batang berhasil dipindai',
       'change-supplier-success': 'Supplier berhasil diubah',
       'supplier-added': 'Pemasok berhasil ditambahkan',
+      'delete-supplier': 'Hapus Pemasok',
+      'phone-number': 'Nomor Telepon',
+      'close': 'Tutup',
     },
   };
 }

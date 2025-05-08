@@ -61,8 +61,8 @@ class DetailProductView extends GetView<DetailProductController> {
                       errorBuilder: (context, error, stackTrace) {
                         return Image.asset(
                           'assets/images/img_placeholder.png',
-                          width: 130.w,
-                          height: 100.h,
+                          width: 375.w,
+                          height: 220.h,
                           fit: BoxFit.cover,
                         );
                       },

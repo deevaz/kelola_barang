@@ -95,21 +95,21 @@ class OnboardingView extends GetView<OnboardingController> {
                       SizedBox(height: 30.h),
                       Text.rich(
                         TextSpan(
-                          text: 'Dengan melanjutkan, Anda menyetujui',
+                          text: 'By continuing, you agree to',
                           children: <TextSpan>[
                             TextSpan(
-                              text: ' Syarat & Ketentuan ',
+                              text: ' Term of Service ',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: ColorStyle.primary,
                               ),
                             ),
                             TextSpan(
-                              text: ' serta ',
+                              text: ' and ',
                               style: TextStyle(color: Colors.black),
                             ),
                             TextSpan(
-                              text: ' Kebijakan Privasi Barangku ',
+                              text: ' Privacy Policy Kelola Barang',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: ColorStyle.primary,

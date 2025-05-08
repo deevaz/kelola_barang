@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/product/add_product/views/widgets/custom_text_form_field.dart';
 import 'package:kelola_barang/app/modules/product/models/product_response.dart';
@@ -93,7 +94,9 @@ class EditProductView extends GetView<EditProductController> {
                 SizedBox(height: 10.h),
                 Obx(
                   () => CustomFormTanggal(
-                    title: controller.selectedDate.value.toString(),
+                    title: DateFormat(
+                      'dd MMMM yyyy, HH:mm',
+                    ).format(controller.selectedDate.value),
                     width: double.infinity,
                     selectedDate: controller.selectedDate.value,
                     onTap: () {

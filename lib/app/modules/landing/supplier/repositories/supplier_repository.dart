@@ -21,10 +21,14 @@ class SupplierRepository {
     var dio = Dio();
     var response = await dio.request(
       '${apiConstant.BASE_URL}/suppliers/$userId',
-      options: Options(method: 'POST', headers: headers),
+      options: Options(
+        method: 'POST',
+        headers: headers,
+        contentType: 'application/json',
+      ),
       data: supplier,
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       Get.snackbar(
         'success'.tr,
         'supplier-added'.tr,
