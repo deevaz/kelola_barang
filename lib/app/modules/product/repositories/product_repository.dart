@@ -13,7 +13,6 @@ class ProductRepository {
   final dio.Dio dioInstance = DioService.dioCall();
 
   final userId = BaseController.to.userId.value;
-  final token = BaseController.to.token.value;
 
   Future<List<ProductResponse>> fetchAllProducts() async {
     try {
@@ -36,13 +35,12 @@ class ProductRepository {
 
   Future<List<ProductResponse>> fetchProductbyCategory(String category) async {
     try {
-      var headers = {'Authorization': 'Bearer $token'};
       if (category == 'Semua Kategori') {
         category = '';
       }
       var response = await dioInstance.request(
         '/products/$userId/$category',
-        options: dio.Options(method: 'GET', headers: headers),
+        options: dio.Options(method: 'GET'),
       );
       print(response.data.toString());
       if (response.statusCode != 200) {
@@ -59,10 +57,10 @@ class ProductRepository {
 
   Future<void> deleteProduct(String id) async {
     final pc = Get.find<ProductController>();
-    var headers = {'Authorization': 'Bearer $token'};
+
     var response = await dioInstance.request(
       '/products/$userId/$id',
-      options: dio.Options(method: 'DELETE', headers: headers),
+      options: dio.Options(method: 'DELETE'),
     );
 
     if (response.statusCode == 200) {

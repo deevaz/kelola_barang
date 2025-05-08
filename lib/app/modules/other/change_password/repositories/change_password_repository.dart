@@ -4,7 +4,7 @@ import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart'
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
-import '../models/change_password.dart';
+import '../models/change_password_model.dart';
 
 class ChangePasswordRepository {
   ChangePasswordRepository();
@@ -24,7 +24,7 @@ class ChangePasswordRepository {
           },
         ),
         data:
-            ChangePassword(
+            ChangePasswordModel(
               currentPassword: oldPassword,
               newPassword: newPassword,
               newPasswordConfirmation: newPassword,

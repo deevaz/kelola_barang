@@ -1,16 +1,16 @@
-class ChangePassword {
+class ChangePasswordModel {
   final String currentPassword;
   final String newPassword;
   final String newPasswordConfirmation;
 
-  ChangePassword({
+  ChangePasswordModel({
     required this.currentPassword,
     required this.newPassword,
     required this.newPasswordConfirmation,
   });
 
-  factory ChangePassword.fromJson(Map<String, dynamic> json) {
-    return ChangePassword(
+  factory ChangePasswordModel.fromJson(Map<String, dynamic> json) {
+    return ChangePasswordModel(
       currentPassword: json['current_password'],
       newPassword: json['new_password'],
       newPasswordConfirmation: json['new_password_confirmation'],
