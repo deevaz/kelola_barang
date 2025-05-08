@@ -62,12 +62,16 @@ class InfoDataCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InfoWidget(
-                  title: 'profit'.tr,
-                  value: currencyFormatter.format(lc.profit.value),
+                Obx(
+                  () => InfoWidget(
+                    title: 'profit'.tr,
+                    value: currencyFormatter.format(lc.profit.value),
 
-                  //  'Rp. ${lc.profit.value}',
-                  textStyle: TextStyle(fontSize: 22.sp, color: ColorStyle.dark),
+                    textStyle: TextStyle(
+                      fontSize: 22.sp,
+                      color: ColorStyle.dark,
+                    ),
+                  ),
                 ),
               ],
             ),

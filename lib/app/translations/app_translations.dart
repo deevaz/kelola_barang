@@ -145,6 +145,8 @@ class AppTranslations extends Translations {
       'delete': 'Delete',
       'no': 'No',
       'form-not-filled': 'Form is not filled in completely',
+
+      'profile-updated-success': 'Profile updated successfully',
     },
 
     'id': {
@@ -286,6 +288,7 @@ class AppTranslations extends Translations {
       'phone-number': 'Nomor Telepon',
       'close': 'Tutup',
       'form-not-filled': 'Form tidak terisi lengkap',
+      'profile-updated-success': 'Profil berhasil diperbarui',
     },
   };
 }

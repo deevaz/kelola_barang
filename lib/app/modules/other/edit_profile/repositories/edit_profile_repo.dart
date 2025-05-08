@@ -21,7 +21,6 @@ class EditProfileRepo {
       'name': user.name,
       'username': user.username,
       'email': user.email,
-      '_method': 'PUT',
     };
     if (user.password != null && user.password!.isNotEmpty) {
       dataMap['password'] = user.password;
@@ -34,7 +33,11 @@ class EditProfileRepo {
 
     final formData = FormData.fromMap(dataMap);
 
-    final response = await dioInstance.request('/user/$id', data: formData);
+    final response = await dioInstance.request(
+      '/user/$id',
+      options: dio.Options(method: 'PUT'),
+      data: formData,
+    );
 
     if (response.statusCode == 200) {
       final userJson = response.data['user'] as Map<String, dynamic>;
