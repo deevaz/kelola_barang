@@ -18,20 +18,11 @@ class HomeController extends GetxController {
   Rxn<DateTimeRange> selectedRange = Rxn<DateTimeRange>();
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   void onReady() {
     super.onReady();
     fetchStockIn();
     fetchStockOut();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
+    loadProfit();
   }
 
   void clearFilter() {
@@ -56,8 +47,31 @@ class HomeController extends GetxController {
 
       final formattedStartDate = DateFormat('yyyy-MM-dd').format(picked.start);
       final formattedEndDate = DateFormat('yyyy-MM-dd').format(picked.end);
-
+      await loadFilteredProfit(formattedStartDate, formattedEndDate);
       await loadFilteredStockData(formattedStartDate, formattedEndDate);
+    }
+  }
+
+  Future<void> loadProfit() async {
+    try {
+      final profitData = await _repo.fetchProfit();
+
+      profit.value = profitData;
+      print('Profit loaded: ${profit.value}');
+    } catch (e, stack) {
+      print('❌ Error loading profit: $e');
+      print(stack);
+    }
+  }
+
+  Future<void> loadFilteredProfit(String startDate, String endDate) async {
+    try {
+      final profitData = await _repo.fetchFilteredProfit(startDate, endDate);
+      profit.value = profitData;
+      print('Filtered Profit loaded: ${profit.value}');
+    } catch (e, stack) {
+      print('❌ Error loading filtered profit: $e');
+      print(stack);
     }
   }
 

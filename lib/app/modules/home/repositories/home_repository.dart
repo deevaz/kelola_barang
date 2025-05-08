@@ -1,26 +1,51 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/home/models/chart_data_in.dart';
 import 'package:kelola_barang/app/modules/home/models/chart_data_out.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/services/dio_service.dart';
 
 class HomeRepository {
-  final Dio _dio;
-  HomeRepository({Dio? dio}) : _dio = dio ?? Dio();
+  HomeRepository();
 
-  final apiConstant = ApiConstant();
+  final dio.Dio dioInstance = DioService.dioCall();
+
   final userId = BaseController.to.userId;
   final String token = BaseController.to.token.value;
+
+  Future<int> fetchProfit() async {
+    final response = await dioInstance.get('/profit/$userId');
+    if (response.statusCode == 200) {
+      print('Profit: ${response.data}');
+      return response.data['total_profit'];
+    } else {
+      throw Exception(
+        'Failed to fetch string from API: ${response.statusMessage}',
+      );
+    }
+  }
+
+  Future<int> fetchFilteredProfit(String startDate, String endDate) async {
+    final response = await dioInstance.get(
+      '/profit/$userId',
+      queryParameters: {'start_date': startDate, 'end_date': endDate},
+    );
+    if (response.statusCode == 200) {
+      print('Filter profit: ${response.data}');
+      return response.data['total_profit'];
+    } else {
+      throw Exception(
+        'Failed to fetch string from API: ${response.statusMessage}',
+      );
+    }
+  }
 
   Future<List<ChartDataIn>> loadFilteredStockIn(
     String startDate,
     String endDate,
   ) async {
-    final headers = {'Authorization': 'Bearer $token'};
+    final response = await dioInstance.get(
+      '/stock-in/by-date-range/$userId',
 
-    final response = await _dio.get(
-      '${apiConstant.BASE_URL}/stock-in/by-date-range/$userId',
-      options: Options(headers: headers),
       queryParameters: {'start_date': startDate, 'end_date': endDate},
     );
     if (response.statusCode == 200) {
@@ -38,11 +63,8 @@ class HomeRepository {
     String startDate,
     String endDate,
   ) async {
-    final headers = {'Authorization': 'Bearer $token'};
-
-    final response = await _dio.get(
-      '${apiConstant.BASE_URL}/stock-out/by-date-range/$userId',
-      options: Options(headers: headers),
+    final response = await dioInstance.get(
+      '/stock-out/by-date-range/$userId',
       queryParameters: {'start_date': startDate, 'end_date': endDate},
     );
     if (response.statusCode == 200) {
@@ -56,12 +78,7 @@ class HomeRepository {
   }
 
   Future<List<ChartDataIn>> getStockIn() async {
-    final headers = {'Authorization': 'Bearer $token'};
-    final response = await _dio.get(
-      '${apiConstant.BASE_URL}/stockin/$userId',
-      options: Options(headers: headers),
-    );
-
+    final response = await dioInstance.get('/stockin/$userId');
     if (response.statusCode == 200) {
       final List data = response.data;
       return data.map((e) => ChartDataIn.fromJson(e)).toList();
@@ -71,12 +88,7 @@ class HomeRepository {
   }
 
   Future<List<ChartDataOut>> getStockOut() async {
-    final headers = {'Authorization': 'Bearer $token'};
-    final response = await _dio.get(
-      '${apiConstant.BASE_URL}/stockout/$userId',
-      options: Options(headers: headers),
-    );
-
+    final response = await dioInstance.get('/stockout/$userId');
     if (response.statusCode == 200) {
       final List data = response.data;
       return data.map((e) => ChartDataOut.fromJson(e)).toList();

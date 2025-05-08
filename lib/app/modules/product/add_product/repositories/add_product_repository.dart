@@ -6,12 +6,10 @@ import 'package:kelola_barang/app/modules/product/models/product_request.dart';
 import 'package:kelola_barang/app/services/dialog_service.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
 
 class AddProductRepository {
   AddProductRepository();
   final dio.Dio dioInstance = DioService.dioCall();
-  var apiConstant = ApiConstant();
   final userId = BaseController.to.userId.value;
   String token = BaseController.to.token.value;
 

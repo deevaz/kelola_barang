@@ -10,7 +10,7 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/info_card.dart';
-import 'widgets/infor_data_card.dart';
+import 'widgets/info_data_card.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});

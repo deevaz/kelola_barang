@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
@@ -8,7 +9,12 @@ import '../../controllers/home_controller.dart';
 import 'info_widget.dart';
 
 class InfoDataCard extends StatelessWidget {
-  const InfoDataCard({super.key});
+  InfoDataCard({super.key});
+  final currencyFormatter = NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp. ',
+    decimalDigits: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +64,9 @@ class InfoDataCard extends StatelessWidget {
               children: [
                 InfoWidget(
                   title: 'profit'.tr,
-                  value: 'Rp. ${lc.profit.value}',
+                  value: currencyFormatter.format(lc.profit.value),
+
+                  //  'Rp. ${lc.profit.value}',
                   textStyle: TextStyle(fontSize: 22.sp, color: ColorStyle.dark),
                 ),
               ],
