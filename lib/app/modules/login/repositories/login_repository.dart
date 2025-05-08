@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/services/hive_service.dart';
-import 'package:kelola_barang/app/services/snackbbar_service.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
-import 'package:kelola_barang/app/services/snackbbar_service.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 import '../controllers/product_controller.dart';

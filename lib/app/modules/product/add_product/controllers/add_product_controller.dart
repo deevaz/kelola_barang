@@ -7,7 +7,7 @@ import 'package:kelola_barang/app/modules/product/add_product/repositories/add_p
 
 import 'package:kelola_barang/app/modules/product/models/product_request.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
-import 'package:kelola_barang/app/services/snackbbar_service.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 
 import 'package:kelola_barang/app/shared/controllers/barcode_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
