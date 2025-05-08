@@ -91,7 +91,7 @@ class AppTranslations extends Translations {
       'licenses': 'Licenses',
       'licenses-desc': 'Licenses for the libraries used in this application',
       'create-account-success':
-          'Account created successfully, please login to continue',
+          'Account created successfully, Welcome to Kelola Barang',
       'create-account-failed': 'Account creation failed',
       'failed': 'Failed',
       'success': 'Success',

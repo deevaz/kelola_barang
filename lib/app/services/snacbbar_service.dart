@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
@@ -6,6 +7,7 @@ class SnackbarService {
     Get.snackbar(
       title,
       message,
+      icon: const Icon(Icons.check_circle, color: ColorStyle.white),
       duration: const Duration(seconds: 2),
       colorText: ColorStyle.white,
       backgroundColor: ColorStyle.success,
@@ -16,6 +18,8 @@ class SnackbarService {
     Get.snackbar(
       title,
       message,
+      icon: const Icon(Icons.error, color: ColorStyle.white),
+
       duration: const Duration(seconds: 2),
       colorText: ColorStyle.white,
       backgroundColor: ColorStyle.danger,
@@ -26,6 +30,7 @@ class SnackbarService {
     Get.snackbar(
       title,
       message,
+      icon: const Icon(Icons.warning, color: ColorStyle.white),
       duration: const Duration(seconds: 2),
       colorText: ColorStyle.white,
       backgroundColor: ColorStyle.warning,
@@ -36,6 +41,7 @@ class SnackbarService {
     Get.snackbar(
       title,
       message,
+      icon: const Icon(Icons.info, color: ColorStyle.white),
       duration: const Duration(seconds: 2),
       colorText: ColorStyle.white,
       backgroundColor: ColorStyle.primary,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:image_picker/image_picker.dart';
+import 'package:kelola_barang/app/modules/register/repositories/register_repository.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
-import 'package:kelola_barang/app/shared/services/auth_services.dart';
+
 import 'package:kelola_barang/constants/api_constant.dart';
 
 class RegisterController extends GetxController {
@@ -15,7 +16,7 @@ class RegisterController extends GetxController {
   var selectedImage = Rxn<XFile>();
   var apiConstant = ApiConstant();
   final ImagePicker _picker = ImagePicker();
-  final AuthServices _authService = AuthServices();
+  final RegisterRepository _registRepo = RegisterRepository();
 
   void showPassword() {
     if (isPassword.value == true) {
@@ -31,8 +32,8 @@ class RegisterController extends GetxController {
     final XFile? pickedFile = await _picker.pickImage(
       source: isCamera ? ImageSource.camera : ImageSource.gallery,
       imageQuality: 50,
-      // maxWidth: 200,
-      // maxHeight: 200,
+      maxWidth: 200,
+      maxHeight: 200,
     );
     if (pickedFile != null) {
       selectedImage.value = pickedFile;
@@ -80,6 +81,6 @@ class RegisterController extends GetxController {
 
     final formData = await user.toFormData();
 
-    await _authService.postUser(formData);
+    await _registRepo.postUser(formData);
   }
 }

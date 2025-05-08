@@ -3,16 +3,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:kelola_barang/app/modules/login/repositories/login_repository.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
-import 'package:kelola_barang/app/shared/services/auth_services.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class LoginController extends GetxController {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final RxBool isPassword = true.obs;
-  final AuthServices _authService = AuthServices();
+  final LoginRepository _loginRepo = LoginRepository();
 
   Dio dio = Dio();
 
@@ -46,6 +46,6 @@ class LoginController extends GetxController {
     String username = usernameController.text.trim();
     String password = passwordController.text;
 
-    await _authService.login(username, password);
+    await _loginRepo.login(username, password);
   }
 }
