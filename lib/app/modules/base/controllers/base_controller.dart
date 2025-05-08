@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
-class HomeController extends GetxController {
-  static HomeController get to => Get.put(HomeController());
+class BaseController extends GetxController {
+  static BaseController get to => Get.put(BaseController());
 
   final RxString name = ''.obs;
   final RxString image = ''.obs;
@@ -49,15 +49,5 @@ class HomeController extends GetxController {
     print('ID user: ${user.id}');
     token.value = authBox.get('token') ?? '';
     // print('Token: $token');
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

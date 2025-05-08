@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/product/controllers/product_controller.dart';
 import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/modules/product/repositories/product_repository.dart';
@@ -109,12 +109,12 @@ class EditProductController extends GetxController {
       '_method': 'PUT',
     });
 
-    var token = HomeController.to.token;
+    var token = BaseController.to.token;
     var headers = {'Authorization': 'Bearer $token'};
 
     try {
       final response = await dio.Dio().request(
-        '${apiConstant.BASE_URL}/products/${HomeController.to.userId.value}/$productId',
+        '${apiConstant.BASE_URL}/products/${BaseController.to.userId.value}/$productId',
         options: dio.Options(method: 'POST', headers: headers),
         data: formData,
       );

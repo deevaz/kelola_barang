@@ -10,10 +10,10 @@ import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/c_bottom_nav_bar.dart';
 
-import '../controllers/home_controller.dart';
+import '../controllers/base_controller.dart';
 
-class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+class BaseView extends GetView<BaseController> {
+  const BaseView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

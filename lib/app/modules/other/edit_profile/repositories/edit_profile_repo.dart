@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -16,8 +16,8 @@ class EditProfileRepo {
   final Box<String> authBox = Hive.box<String>('auth');
 
   Future<UserModel> updateUser(UserModel user) async {
-    final token = HomeController.to.token.value;
-    final id = HomeController.to.userId.value;
+    final token = BaseController.to.token.value;
+    final id = BaseController.to.userId.value;
     final dataMap = <String, dynamic>{
       'name': user.name,
       'username': user.username,

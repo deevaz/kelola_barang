@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/other/edit_profile/repositories/edit_profile_repo.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
@@ -17,8 +17,8 @@ class EditProfileController extends GetxController {
   var selectedImage = Rxn<XFile>();
 
   final _repo = EditProfileRepo();
-  final userId = HomeController.to.userId.value;
-  final token = HomeController.to.token.value;
+  final userId = BaseController.to.userId.value;
+  final token = BaseController.to.token.value;
 
   @override
   void onInit() {
@@ -54,7 +54,7 @@ class EditProfileController extends GetxController {
 
     await _repo.updateUser(user);
 
-    HomeController.to.getUserData();
+    BaseController.to.getUserData();
   }
 
   Future<void> pickImage(isCamera) async {

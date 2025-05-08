@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/landing/supplier/controllers/supplier_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
@@ -11,12 +11,11 @@ class SupplierRepository {
   SupplierRepository();
 
   var apiConstant = ApiConstant();
-  final userId = HomeController.to.userId.value;
+  final userId = BaseController.to.userId.value;
   final dio = Dio();
-  String token = HomeController.to.token.value;
+  String token = BaseController.to.token.value;
 
   Future<void> addSupplier(SuppliersModel supplier) async {
-    var token = HomeController.to.token;
     var headers = {'Authorization': 'Bearer $token'};
     var dio = Dio();
     var response = await dio.request(
@@ -46,7 +45,6 @@ class SupplierRepository {
   }
 
   Future<void> editSupplier(SuppliersModel supplier, String id) async {
-    var token = HomeController.to.token.value;
     var headers = {'Authorization': 'Bearer $token'};
     var dio = Dio();
     var response = await dio.request(
@@ -82,7 +80,6 @@ class SupplierRepository {
   }
 
   Future<Iterable<Map<String, dynamic>>> fetchAllSuppliers() async {
-    var token = HomeController.to.token;
     var headers = {'Authorization': 'Bearer $token'};
     try {
       var dio = Dio();
@@ -117,7 +114,6 @@ class SupplierRepository {
   }
 
   Future<void> deleteSupplier(String id) async {
-    var token = HomeController.to.token;
     var headers = {'Authorization': 'Bearer $token'};
     var dio = Dio();
     var response = await dio.request(

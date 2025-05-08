@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/product/controllers/product_controller.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -129,12 +129,12 @@ class StockOutProductController extends GetxController {
   }
 
   void loadStokDariProduk() async {
-    var token = HomeController.to.token;
+    var token = BaseController.to.token;
     var headers = {'Authorization': 'Bearer $token'};
     var dio = Dio();
     try {
       var response = await dio.request(
-        '${apiConstant.BASE_URL}/products/${HomeController.to.userId}',
+        '${apiConstant.BASE_URL}/products/${BaseController.to.userId}',
         options: Options(method: 'GET', headers: headers),
       );
 

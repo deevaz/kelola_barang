@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
 import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -22,7 +22,8 @@ class StockInController extends GetxController {
   final RxList<ProductInModel> stockInData = <ProductInModel>[].obs;
 
   final dio = Dio();
-  final userId = HomeController.to.userId.value;
+  final userId = BaseController.to.userId.value;
+  String token = BaseController.to.token.value;
 
   var apiConstant = ApiConstant();
 
@@ -47,7 +48,6 @@ class StockInController extends GetxController {
           }).toList(),
     );
     try {
-      var token = HomeController.to.token.value;
       final headers = {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',

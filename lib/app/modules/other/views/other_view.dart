@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/other/views/widgets/profile_info_card.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
@@ -18,7 +18,7 @@ class OtherView extends GetView<OtherController> {
   const OtherView({super.key});
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.put(HomeController());
+    final baseController = Get.put(BaseController());
     final loginC = Get.put(LoginController());
 
     return Scaffold(
@@ -79,10 +79,10 @@ class OtherView extends GetView<OtherController> {
                           ChangeLangBottomSheet(
                             title: 'change-language'.tr,
                             onTap: (value) {
-                              homeController.changeLang(value);
+                              baseController.changeLang(value);
                               Get.back();
                             },
-                            selectedLang: homeController.lang.value,
+                            selectedLang: baseController.lang.value,
                           ),
                         );
                       },

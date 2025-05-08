@@ -5,8 +5,8 @@ import '../modules/barcode_scanner/views/barcode_scanner_view.dart';
 import '../modules/history/bindings/history_binding.dart';
 
 import '../modules/history/views/history_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
+import '../modules/base/bindings/base_binding.dart';
+import '../modules/base/views/base_view.dart';
 import '../modules/landing/bindings/landing_binding.dart';
 import '../modules/landing/supplier/add_supplier/bindings/add_supplier_binding.dart';
 import '../modules/landing/supplier/add_supplier/views/add_supplier_view.dart';
@@ -54,8 +54,8 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
+      page: () => const BaseView(),
+      binding: BaseBinding(),
     ),
     GetPage(
       name: _Paths.SPLASH_SCREEN,

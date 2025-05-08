@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -12,11 +12,11 @@ class ProductRepository {
 
   var apiConstant = ApiConstant();
   final dio = Dio();
+  final userId = BaseController.to.userId.value;
+  final token = BaseController.to.token.value;
 
   Future<List<ProductResponse>> fetchAllProducts() async {
     try {
-      final userId = HomeController.to.userId;
-      final token = HomeController.to.token.value;
       var headers = {'Authorization': 'Bearer $token'};
       var response = await dio.request(
         '${apiConstant.BASE_URL}/products/$userId',
@@ -37,8 +37,6 @@ class ProductRepository {
 
   Future<List<ProductResponse>> fetchProductbyCategory(String category) async {
     try {
-      final userId = HomeController.to.userId;
-      final token = HomeController.to.token.value;
       var headers = {'Authorization': 'Bearer $token'};
       if (category == 'Semua Kategori') {
         category = '';
@@ -62,9 +60,7 @@ class ProductRepository {
 
   Future<void> deleteProduct(String id) async {
     final pc = Get.find<ProductController>();
-    final token = HomeController.to.token.value;
     var headers = {'Authorization': 'Bearer $token'};
-    final userId = HomeController.to.userId;
     var response = await dio.request(
       '${apiConstant.BASE_URL}/products/$userId/$id',
       options: Options(method: 'DELETE', headers: headers),

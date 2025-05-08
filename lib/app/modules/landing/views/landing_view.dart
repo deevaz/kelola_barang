@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/landing/views/widgets/chart_in_widget.dart';
 import 'package:kelola_barang/app/modules/landing/views/widgets/chart_out_widget.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
@@ -28,7 +28,7 @@ class LandingView extends GetView<LandingController> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10.r),
                     child: Obx(() {
-                      final image = HomeController.to.image.value;
+                      final image = BaseController.to.image.value;
                       if (image.isNotEmpty) {
                         return Image.network(
                           image,
@@ -83,7 +83,7 @@ class LandingView extends GetView<LandingController> {
               ),
               SizedBox(height: 20.h),
               Text(
-                HomeController.to.name.value,
+                BaseController.to.name.value,
                 style: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.bold,

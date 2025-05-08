@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/product/models/product_request.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -9,8 +9,8 @@ class EditProductRepo {
   final api = ApiConstant();
 
   Future<void> updateProduct({required ProductRequestModel product, id}) async {
-    final userId = HomeController.to.userId.value;
-    final token = HomeController.to.token.value;
+    final userId = BaseController.to.userId.value;
+    final token = BaseController.to.token.value;
 
     final formData = FormData.fromMap({
       if (product.imageFile != null)

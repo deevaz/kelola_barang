@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/landing/models/chart_data_in.dart';
 import 'package:kelola_barang/app/modules/landing/models/chart_data_out.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
@@ -9,8 +9,8 @@ class LandingRepository {
   LandingRepository({Dio? dio}) : _dio = dio ?? Dio();
 
   final apiConstant = ApiConstant();
-  final userId = HomeController.to.userId;
-  final String token = HomeController.to.token.value;
+  final userId = BaseController.to.userId;
+  final String token = BaseController.to.token.value;
 
   Future<List<ChartDataIn>> loadFilteredStockIn(
     String startDate,

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -13,7 +13,7 @@ class ChangePasswordRepository {
 
   Future<void> changePassword(String oldPassword, String newPassword) async {
     try {
-      final token = HomeController.to.token.value;
+      final token = BaseController.to.token.value;
       var response = await dio.post(
         '${apiConstant.BASE_URL}/change-password',
         options: Options(

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class CBottomNavBar extends StatelessWidget {
   CBottomNavBar({super.key});
 
-  final controller = Get.put(HomeController());
+  final controller = Get.put(BaseController());
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class CBottomNavBar extends StatelessWidget {
 class NavButton extends StatelessWidget {
   final String title;
   final IconData icon;
-  final HomeController c;
+  final BaseController c;
   final int tabIndex;
 
   const NavButton({

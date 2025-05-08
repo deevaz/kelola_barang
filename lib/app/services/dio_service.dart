@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
+import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 class DioService extends GetxService {
@@ -11,8 +11,7 @@ class DioService extends GetxService {
   static final DioService dioService = DioService._();
 
   static final api = ApiConstant();
-  final userId = HomeController.to.userId;
-  var token = HomeController.to.token;
+  final userId = BaseController.to.userId;
 
   factory DioService() {
     return dioService;
@@ -30,6 +29,7 @@ class DioService extends GetxService {
       'Accept': 'application/json',
     };
 
+    token ??= BaseController.to.token.value;
     if (token != null) {
       headers['token'] = token;
     }
