@@ -144,6 +144,7 @@ class AppTranslations extends Translations {
       'close': 'Close',
       'delete': 'Delete',
       'no': 'No',
+      'form-is-not-filled': 'form is not filled in completely',
     },
 
     'id': {
@@ -284,6 +285,7 @@ class AppTranslations extends Translations {
       'delete-supplier': 'Hapus Pemasok',
       'phone-number': 'Nomor Telepon',
       'close': 'Tutup',
+      'form-is-not-filled': 'Form tidak terisi dengan lengkap',
     },
   };
 }

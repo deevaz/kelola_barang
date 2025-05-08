@@ -7,6 +7,8 @@ import 'package:kelola_barang/app/modules/product/add_product/repositories/add_p
 
 import 'package:kelola_barang/app/modules/product/models/product_request.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
+import 'package:kelola_barang/app/services/snackbbar_service.dart';
+
 import 'package:kelola_barang/app/shared/controllers/barcode_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
@@ -17,6 +19,7 @@ class AddProductController extends GetxController {
   static AddProductController get to => Get.put(AddProductController());
   final barcodeC = Get.put(BarcodeController());
   AddProductRepository _addProductRepo = AddProductRepository();
+  ProductRepository repo = ProductRepository();
 
   final kodeBarangC = TextEditingController();
   final namaBarangC = TextEditingController();
@@ -26,8 +29,6 @@ class AddProductController extends GetxController {
   final hargaGrosirC = TextEditingController();
   final deskripsiC = TextEditingController();
   final RxString barcode = ''.obs;
-
-  late final ProductRepository repo;
 
   final selectedDate = DateTime.now().obs;
   final selectedCategory = ''.obs;
@@ -70,6 +71,16 @@ class AddProductController extends GetxController {
   }
 
   void addProduct(bool again) async {
+    if (namaBarangC.text.isEmpty ||
+        (barcode.value.isEmpty && kodeBarangC.text.isEmpty) ||
+        stokAwalC.text.isEmpty ||
+        hargaBeliC.text.isEmpty ||
+        hargaJualC.text.isEmpty ||
+        selectedCategory.value.isEmpty) {
+      SnackbarService.error('error'.tr, 'form-is-not-filled'.tr);
+      return;
+    }
+
     print('Adding Product');
 
     final file = selectedImage.value;
@@ -161,7 +172,6 @@ class AddProductController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    repo = ProductRepository();
     fetchCategories();
   }
 }
