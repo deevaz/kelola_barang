@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class StockOutRequest {
+class StockOutResponseModel {
   String? id;
   String? pembeli;
   String? userId;
@@ -10,7 +10,7 @@ class StockOutRequest {
   int? totalKeluar;
   List<Barang>? barang;
 
-  StockOutRequest({
+  StockOutResponseModel({
     this.id,
     this.pembeli,
     this.userId,
@@ -21,7 +21,7 @@ class StockOutRequest {
     this.barang,
   });
 
-  StockOutRequest copyWith({
+  StockOutResponseModel copyWith({
     String? id,
     String? pembeli,
     String? userId,
@@ -30,7 +30,7 @@ class StockOutRequest {
     DateTime? tanggalKeluar,
     int? totalKeluar,
     List<Barang>? barang,
-  }) => StockOutRequest(
+  }) => StockOutResponseModel(
     id: id ?? this.id,
     pembeli: pembeli ?? this.pembeli,
     userId: userId ?? this.userId,
@@ -41,13 +41,13 @@ class StockOutRequest {
     barang: barang ?? this.barang,
   );
 
-  factory StockOutRequest.fromRawJson(String str) =>
-      StockOutRequest.fromJson(json.decode(str));
+  factory StockOutResponseModel.fromRawJson(String str) =>
+      StockOutResponseModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory StockOutRequest.fromJson(Map<String, dynamic> json) =>
-      StockOutRequest(
+  factory StockOutResponseModel.fromJson(Map<String, dynamic> json) =>
+      StockOutResponseModel(
         id: json["id"],
         pembeli: json["pembeli"],
         userId: json["userId"],

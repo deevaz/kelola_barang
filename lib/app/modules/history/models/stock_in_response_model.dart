@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class StockinRequest {
+class StockInResponseModel {
   String? id;
   String? pemasok;
   String? userId;
@@ -10,7 +10,7 @@ class StockinRequest {
   int? totalMasuk;
   List<Barang>? barang;
 
-  StockinRequest({
+  StockInResponseModel({
     this.id,
     this.pemasok,
     this.userId,
@@ -21,7 +21,7 @@ class StockinRequest {
     this.barang,
   });
 
-  StockinRequest copyWith({
+  StockInResponseModel copyWith({
     String? id,
     String? pemasok,
     String? userId,
@@ -30,7 +30,7 @@ class StockinRequest {
     DateTime? tanggalMasuk,
     int? totalMasuk,
     List<Barang>? barang,
-  }) => StockinRequest(
+  }) => StockInResponseModel(
     id: id ?? this.id,
     pemasok: pemasok ?? this.pemasok,
     userId: userId ?? this.userId,
@@ -41,27 +41,30 @@ class StockinRequest {
     barang: barang ?? this.barang,
   );
 
-  factory StockinRequest.fromRawJson(String str) =>
-      StockinRequest.fromJson(json.decode(str));
+  factory StockInResponseModel.fromRawJson(String str) =>
+      StockInResponseModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory StockinRequest.fromJson(Map<String, dynamic> json) => StockinRequest(
-    id: json["id"],
-    pemasok: json["pemasok"],
-    userId: json["userId"],
-    catatan: json["catatan"],
-    totalHarga: json["total_harga"],
-    tanggalMasuk:
-        json["tanggal_masuk"] == null
-            ? null
-            : DateTime.parse(json["tanggal_masuk"]),
-    totalMasuk: json["total_masuk"],
-    barang:
-        json["barang"] == null
-            ? []
-            : List<Barang>.from(json["barang"]!.map((x) => Barang.fromJson(x))),
-  );
+  factory StockInResponseModel.fromJson(Map<String, dynamic> json) =>
+      StockInResponseModel(
+        id: json["id"],
+        pemasok: json["pemasok"],
+        userId: json["userId"],
+        catatan: json["catatan"],
+        totalHarga: json["total_harga"],
+        tanggalMasuk:
+            json["tanggal_masuk"] == null
+                ? null
+                : DateTime.parse(json["tanggal_masuk"]),
+        totalMasuk: json["total_masuk"],
+        barang:
+            json["barang"] == null
+                ? []
+                : List<Barang>.from(
+                  json["barang"]!.map((x) => Barang.fromJson(x)),
+                ),
+      );
 
   Map<String, dynamic> toJson() => {
     "id": id,

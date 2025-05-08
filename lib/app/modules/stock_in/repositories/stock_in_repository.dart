@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart' as dio;
 
-import 'package:kelola_barang/app/modules/stock_in/models/stock_in_model.dart';
+import 'package:kelola_barang/app/modules/stock_in/models/stock_in_request_model.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 class StockInService {
@@ -12,7 +12,7 @@ class StockInService {
   Future<dio.Response> postStockIn({
     required String userId,
     required String token,
-    required StockInModel data,
+    required StockInRequestModel data,
   }) {
     final headers = {
       'Authorization': 'Bearer $token',

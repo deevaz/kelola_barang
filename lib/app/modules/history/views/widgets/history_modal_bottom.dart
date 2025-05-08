@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kelola_barang/app/modules/history/models/history_model.dart';
 import 'package:kelola_barang/app/modules/history/views/widgets/history_table.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart'
     show ColorStyle;
 
 class HistoryModalBottom extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final HistoryModel item;
   HistoryModalBottom({super.key, required this.item});
 
-  String formatTanggal(String input) {
-    DateTime dateTime = DateTime.parse(input);
-    String tanggal = DateFormat('d MMMM yyyy', 'id_ID').format(dateTime);
-    String jam = DateFormat('HH.mm').format(dateTime);
+  String formatTanggal(DateTime input) {
+    String tanggal = DateFormat('d MMMM yyyy', 'id_ID').format(input);
+    String jam = DateFormat('HH.mm').format(input);
     return '$tanggal - $jam';
   }
 
@@ -45,14 +45,14 @@ class HistoryModalBottom extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  formatTanggal(item['tanggal']),
+                  formatTanggal(item.tanggal),
                   style: TextStyle(fontSize: 16.sp),
                 ),
               ],
             ),
             const Divider(color: Colors.grey, thickness: 1),
             SizedBox(height: 5.h),
-            item['tipe'] == 'masuk'
+            item.tipe == 'masuk'
                 ? Text(
                   'supplier'.tr,
                   style: TextStyle(
@@ -71,9 +71,7 @@ class HistoryModalBottom extends StatelessWidget {
                 ),
 
             Text(
-              item['tipe'] == 'masuk'
-                  ? item['pemasok'] ?? '-'
-                  : item['pembeli'] ?? '-',
+              item.tipe == 'masuk' ? item.pemasok ?? '-' : item.pembeli ?? '-',
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
@@ -90,7 +88,7 @@ class HistoryModalBottom extends StatelessWidget {
               ),
             ),
             Text(
-              item['catatan'] ?? '-',
+              item.catatan ?? '-',
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
@@ -116,7 +114,7 @@ class HistoryModalBottom extends StatelessWidget {
             ),
             Text(
               currencyFormatter.format(
-                double.tryParse(item['total_harga']?.toString() ?? '0') ?? 0,
+                double.tryParse(item.totalHarga.toString()) ?? 0,
               ),
               style: TextStyle(
                 fontSize: 20.sp,

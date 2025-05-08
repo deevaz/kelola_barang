@@ -21,12 +21,17 @@ class HistoryView extends GetView<HistoryController> {
           children: [
             Row(
               children: [
-                Text(
-                  'history'.tr,
-                  style: TextStyle(
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.w600,
-                    color: ColorStyle.dark,
+                GestureDetector(
+                  onDoubleTap: () {
+                    controller.loadStockIn();
+                  },
+                  child: Text(
+                    'history'.tr,
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
+                      color: ColorStyle.dark,
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -66,7 +71,8 @@ class HistoryView extends GetView<HistoryController> {
                 MaterialRounded(
                   child: IconButton(
                     onPressed: () {
-                      controller.printDocument();
+                      // controller.printDocument();
+                      print('Print pdf');
                       print(controller.stokMasuk);
                       print(controller.stokKeluar);
                     },
@@ -83,7 +89,7 @@ class HistoryView extends GetView<HistoryController> {
                   itemCount: riwayatList.length,
                   itemBuilder: (context, index) {
                     final riwayat = riwayatList[index];
-                    if (riwayat['tipe'] == 'masuk') {
+                    if (riwayat.tipe == 'masuk') {
                       return StockInCard(item: riwayat);
                     } else {
                       return StockOutCard(item: riwayat);

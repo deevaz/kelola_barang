@@ -10,7 +10,7 @@ import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart'
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
-import '../models/stock_in_model.dart';
+import '../models/stock_in_request_model.dart';
 
 class StockInController extends GetxController {
   static StockInController get to => Get.find();
@@ -32,7 +32,7 @@ class StockInController extends GetxController {
   }
 
   Future<void> postStockIn() async {
-    final stockData = StockInModel(
+    final stockData = StockInRequestModel(
       pemasok: selectedSupplier.value,
       catatan: catatanC.text,
       tanggalMasuk: selectedDate.value?.toIso8601String() ?? '',

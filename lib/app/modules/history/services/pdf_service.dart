@@ -1,12 +1,14 @@
 import 'package:intl/intl.dart';
+import 'package:kelola_barang/app/modules/history/models/stock_in_response_model.dart';
+import 'package:kelola_barang/app/modules/history/models/stock_out_response_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
 class PdfService {
   Future<pw.Document> generatePdf({
-    required List<Map<String, dynamic>> stokMasuk,
-    required List<Map<String, dynamic>> stokKeluar,
+    required List<StockInResponseModel> stokMasuk,
+    required List<StockOutResponseModel> stokKeluar,
   }) async {
     final pdf = pw.Document();
     final now = DateTime.now();
@@ -59,7 +61,10 @@ class PdfService {
                 ),
               ),
               pw.SizedBox(height: 8),
-              _buildTable(stokMasuk, isStockIn: true),
+              _buildTable(
+                stokMasuk.map((item) => item.toJson()).toList(),
+                isStockIn: true,
+              ),
               // pw.SizedBox(height: 10),
               // pw.Text(
               //   'Total Harga Barang : Rp ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(stokMasuk.fold<double>(0, (sum, item) => sum + (item['barang'] as List<dynamic>? ?? []).fold<double>(0, (subSum, barang) => subSum + (double.tryParse(barang['harga']?.toString() ?? '0') ?? 0) * (double.tryParse(barang['jumlah_stok_masuk']?.toString() ?? '0') ?? 0))))}',
@@ -79,7 +84,10 @@ class PdfService {
                 ),
               ),
               pw.SizedBox(height: 8),
-              _buildTable(stokKeluar, isStockIn: false),
+              _buildTable(
+                stokKeluar.map((item) => item.toJson()).toList(),
+                isStockIn: false,
+              ),
               // pw.SizedBox(height: 10),
               // pw.Text(
               //   'Rp. 20',

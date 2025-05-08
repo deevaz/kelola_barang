@@ -5,12 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:intl/intl.dart';
+import 'package:kelola_barang/app/modules/history/models/history_model.dart';
 import 'package:kelola_barang/app/modules/history/views/widgets/history_modal_bottom.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 class StockOutCard extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final HistoryModel item;
   StockOutCard({super.key, required this.item});
 
   @override
@@ -44,7 +45,7 @@ class StockOutCard extends StatelessWidget {
                           child: Text(
                             DateFormat(
                               'dd MMM yyyy – HH:mm',
-                            ).format(DateTime.parse(item['tanggal'] ?? '')),
+                            ).format(item.tanggal),
                             style: TextStyle(color: ColorStyle.grey),
                           ),
                         ),
@@ -65,26 +66,25 @@ class StockOutCard extends StatelessWidget {
                             ),
                             SizedBox(width: 5.w),
                             Text(
-                              '(${item.length} Barang)'.tr,
+                              '(${item.barang.length} Barang)'.tr,
                               style: TextStyle(color: ColorStyle.grey),
                             ),
                           ],
                         ),
                         SizedBox(height: 30.h),
-                        ...item['barang']!.map((barang) {
+                        ...item.barang.map((barang) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                barang['nama'] ?? '-',
+                                barang.nama,
                                 style: TextStyle(
                                   color: ColorStyle.grey,
                                   fontSize: 14.sp,
                                 ),
                               ),
                               Text(
-                                '- ${barang['jumlah_stok_keluar'] ?? 0} Barang'
-                                    .tr,
+                                '- ${barang.jumlahStokKeluar ?? 0} Product'.tr,
                                 style: TextStyle(
                                   color: ColorStyle.grey,
                                   fontSize: 14.sp,
@@ -97,7 +97,7 @@ class StockOutCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '- ${item['total_keluar']}',
+                    '- ${item.totalKeluar}',
                     style: TextStyle(
                       color: ColorStyle.danger,
                       fontSize: 35.sp,

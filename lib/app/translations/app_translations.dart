@@ -147,6 +147,8 @@ class AppTranslations extends Translations {
       'form-not-filled': 'Form is not filled in completely',
 
       'profile-updated-success': 'Profile updated successfully',
+      'product-updated': 'Product updated successfully',
+      'product-updated-failed': 'Failed to update product',
     },
 
     'id': {
@@ -289,6 +291,8 @@ class AppTranslations extends Translations {
       'close': 'Tutup',
       'form-not-filled': 'Form tidak terisi lengkap',
       'profile-updated-success': 'Profil berhasil diperbarui',
+      'product-updated': 'Produk berhasil diperbarui',
+      'product-updated-failed': 'Gagal memperbarui produk',
     },
   };
 }

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kelola_barang/app/modules/history/models/history_model.dart';
 
 class HistoryTable extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final HistoryModel item;
   const HistoryTable({super.key, required this.item});
 
   @override
@@ -51,33 +52,30 @@ class HistoryTable extends StatelessWidget {
             ),
           ],
         ),
-        ...item['barang'].map<TableRow>((barang) {
+        ...item.barang.map<TableRow>((barang) {
           return TableRow(
             children: [
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: Text(barang['nama'] ?? '-'),
-              ),
+              Padding(padding: EdgeInsets.all(8), child: Text(barang.nama)),
               Padding(
                 padding: EdgeInsets.all(8),
                 child: Text(
                   NumberFormat.currency(
                     locale: 'id',
                     symbol: 'Rp ',
-                  ).format(double.parse(barang['harga'] ?? '0')),
+                  ).format(double.parse((barang.harga as String?) ?? '0')),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(8),
                 child: Text(
-                  item['tipe'] == 'masuk'
-                      ? (barang['jumlah_stok_masuk'] ?? 0).toString()
-                      : (barang['jumlah_stok_keluar'] ?? 0).toString(),
+                  item.tipe == 'masuk'
+                      ? (barang.jumlahStokMasuk ?? 0).toString()
+                      : (barang.jumlahStokKeluar ?? 0).toString(),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(8.sp),
-                child: Text('${barang['total_stok']}'),
+                child: Text('${barang.totalStok}'),
               ),
             ],
           );

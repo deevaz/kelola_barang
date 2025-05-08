@@ -1,11 +1,11 @@
-class StockInModel {
+class StockInRequestModel {
   final String pemasok;
   final String catatan;
   final String tanggalMasuk;
   final int totalHarga;
   final List<Barang> barang;
 
-  StockInModel({
+  StockInRequestModel({
     required this.pemasok,
     required this.catatan,
     required this.tanggalMasuk,

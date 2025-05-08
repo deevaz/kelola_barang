@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/product/add_product/repositories/add_product_repository.dart';
 
-import 'package:kelola_barang/app/modules/product/models/product_request.dart';
+import 'package:kelola_barang/app/modules/product/models/product_request_model.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
 
@@ -83,9 +81,12 @@ class AddProductController extends GetxController {
 
     print('Adding Product');
 
-    final file = selectedImage.value;
-    final product = ProductRequestModel(
-      imageFile: file != null ? File(file.path) : null,
+    final file = <XFile>[];
+    if (selectedImage.value != null) {
+      file.add(selectedImage.value!);
+    }
+    final product = ProductRequestModel.fromXfiles(
+      image: file,
       namaBarang: namaBarangC.text,
       kodeBarang: barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
       stokAwal: int.tryParse(stokAwalC.text) ?? 0,

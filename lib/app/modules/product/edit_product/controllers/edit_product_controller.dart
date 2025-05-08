@@ -1,10 +1,9 @@
-import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/product/controllers/product_controller.dart';
+import 'package:kelola_barang/app/modules/product/edit_product/repositories/edit_product_repository.dart';
+import 'package:kelola_barang/app/modules/product/models/product_request_model.dart';
 import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/modules/product/repositories/product_repository.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
@@ -15,6 +14,7 @@ import '../../../../shared/controllers/barcode_controller.dart';
 class EditProductController extends GetxController {
   static EditProductController get to => Get.find();
   late final ProductRepository repo;
+  EditProductRepo repoEdit = EditProductRepo();
 
   final barcodeC = Get.put(BarcodeController());
   final kodeBarangC = TextEditingController();
@@ -86,68 +86,26 @@ class EditProductController extends GetxController {
     }
   }
 
-  Future<void> updateProduct(String productId) async {
+  void updateProduct(String productId) async {
     print('Updating Product');
 
-    final file = selectedImage.value;
-    dio.FormData formData = dio.FormData.fromMap({
-      if (file != null)
-        'gambar': await dio.MultipartFile.fromFile(
-          file.path,
-          filename: file.name,
-        ),
-      'kode_barang':
-          barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
-      'nama_barang': namaBarangC.text,
-      'stok_awal': int.tryParse(stokAwalC.text) ?? 0,
-      'total_stok': int.tryParse(stokAwalC.text) ?? 0,
-      'harga_beli': int.tryParse(hargaBeliC.text) ?? 0,
-      'harga_jual': int.tryParse(hargaJualC.text) ?? 0,
-      'kadaluarsa': selectedDate.value.toIso8601String(),
-      'deskripsi': deskripsiC.text,
-      'kategori': selectedCategory.value,
-      '_method': 'PUT',
-    });
-
-    var token = BaseController.to.token;
-    var headers = {'Authorization': 'Bearer $token'};
-
-    try {
-      final response = await dio.Dio().request(
-        '${apiConstant.BASE_URL}/products/${BaseController.to.userId.value}/$productId',
-        options: dio.Options(method: 'POST', headers: headers),
-        data: formData,
-      );
-
-      if (response.statusCode == 200) {
-        Get.back();
-        Get.back();
-        Get.snackbar(
-          'Success',
-          'Product updated successfully',
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-        ProductController.to.loadProducts();
-      } else {
-        Get.snackbar(
-          'Error',
-          'Failed to update product: ${response.statusMessage}',
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-      }
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'An error occurred: $e',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+    final file = <XFile>[];
+    if (selectedImage.value != null) {
+      file.add(selectedImage.value!);
     }
+    final product = ProductRequestModel.fromXfiles(
+      image: file,
+      namaBarang: namaBarangC.text,
+      kodeBarang: barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
+      stokAwal: int.tryParse(stokAwalC.text) ?? 0,
+      totalStok: int.tryParse(stokAwalC.text) ?? 0,
+      hargaBeli: int.tryParse(hargaBeliC.text) ?? 0,
+      hargaJual: int.tryParse(hargaJualC.text) ?? 0,
+      deskripsi: deskripsiC.text,
+      kategori: selectedCategory.value,
+      kadaluarsa: selectedDate.value.toIso8601String(),
+    );
+    await repoEdit.updateProduct(product, productId);
   }
 
   void pickDate(BuildContext context) async {

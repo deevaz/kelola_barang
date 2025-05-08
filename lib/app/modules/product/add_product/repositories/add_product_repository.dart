@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' as dio;
 
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/product/models/product_request.dart';
+import 'package:kelola_barang/app/modules/product/models/product_request_model.dart';
 import 'package:kelola_barang/app/services/dialog_service.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -11,17 +11,17 @@ class AddProductRepository {
   AddProductRepository();
   final dio.Dio dioInstance = DioService.dioCall();
   final userId = BaseController.to.userId.value;
-  String token = BaseController.to.token.value;
 
   Future<void> postProduct(ProductRequestModel data, bool again) async {
     try {
+      var formData = await data.toFormData();
       var response = await dioInstance.request(
         '/products/$userId',
         options: dio.Options(
           method: 'POST',
           validateStatus: (status) => status != null && status < 500,
         ),
-        data: data.toJson(),
+        data: formData,
       );
       print('Success ${response.data}');
       print('Status Code: ${response.statusCode}');

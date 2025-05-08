@@ -5,13 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:intl/intl.dart';
+import 'package:kelola_barang/app/modules/history/models/history_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import 'history_modal_bottom.dart';
 
 class StockInCard extends StatelessWidget {
-  final Map<String, dynamic> item;
+  final HistoryModel item;
   StockInCard({super.key, required this.item});
 
   @override
@@ -44,7 +45,7 @@ class StockInCard extends StatelessWidget {
                           child: Text(
                             DateFormat(
                               'dd MMM yyyy – HH:mm',
-                            ).format(DateTime.parse(item['tanggal'] ?? '')),
+                            ).format(item.tanggal),
                             style: TextStyle(color: ColorStyle.grey),
                           ),
                         ),
@@ -65,25 +66,25 @@ class StockInCard extends StatelessWidget {
                             ),
                             SizedBox(width: 5.w),
                             Text(
-                              '(${item['barang']?.length ?? 0} ${'product'.tr})',
+                              '(${item.barang.length} ${'product'.tr})',
                               style: TextStyle(color: ColorStyle.grey),
                             ),
                           ],
                         ),
                         SizedBox(height: 30.h),
-                        ...item['barang']!.map((barang) {
+                        ...item.barang.map((barang) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                barang['nama'] ?? '-',
+                                barang.nama,
                                 style: TextStyle(
                                   color: ColorStyle.grey,
                                   fontSize: 14.sp,
                                 ),
                               ),
                               Text(
-                                '- ${barang['jumlah_stok_masuk'] ?? 0} ${'product'.tr}',
+                                '- ${barang.jumlahStokMasuk ?? 0} ${'product'.tr}',
                                 style: TextStyle(
                                   color: ColorStyle.grey,
                                   fontSize: 14.sp,
@@ -96,7 +97,7 @@ class StockInCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '+ ${item['total_masuk']}',
+                    '+ ${item.totalMasuk}',
                     style: TextStyle(
                       color: ColorStyle.success,
                       fontSize: 35.sp,
