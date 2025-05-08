@@ -1,26 +1,28 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
+
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/product/models/product_request.dart';
+import 'package:kelola_barang/app/services/dialog_service.dart';
+import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 class AddProductRepository {
   AddProductRepository();
-
+  final dio.Dio dioInstance = DioService.dioCall();
   var apiConstant = ApiConstant();
-  final dio = Dio();
   final userId = BaseController.to.userId.value;
   String token = BaseController.to.token.value;
 
   Future<void> postProduct(ProductRequestModel data, bool again) async {
-    var headers = {'Authorization': 'Bearer $token'};
-
     try {
-      var dio = Dio();
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/products/$userId',
-        options: Options(method: 'POST', headers: headers),
+      var response = await dioInstance.request(
+        '/products/$userId',
+        options: dio.Options(
+          method: 'POST',
+          validateStatus: (status) => status != null && status < 500,
+        ),
         data: data.toJson(),
       );
       print('Success ${response.data}');
@@ -30,29 +32,30 @@ class AddProductRepository {
         print('Success ${response.data}');
         Get.defaultDialog(
           title: 'success'.tr,
-          backgroundColor: ColorStyle.success,
+          backgroundColor: ColorStyle.white,
           middleText: 'product-saved'.tr,
           onConfirm: () {
             Get.back();
             if (again) {
               Get.back();
             } else {
-              Get.offAllNamed('/home');
+              Get.offAllNamed('/base');
             }
           },
         );
       } else {
-        Get.defaultDialog(
+        DialogService.showError(
           title: 'failed'.tr,
-          middleText: 'product-saved-failed'.tr,
+          message: 'product-saved-failed'.tr,
           onConfirm: () {
             Get.back();
           },
         );
+
         print('Failed to add product: ${response.statusCode}');
       }
     } catch (e) {
-      print('gagal tambah data $e ');
+      print('Error occurred: $e');
     }
   }
 }
