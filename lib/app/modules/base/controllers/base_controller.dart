@@ -37,16 +37,24 @@ class BaseController extends GetxController {
 
   void getUserData() {
     final user = userBox.get('user');
-    name.value = user!.name;
-    image.value =
-        user.profilePicture.isNotEmpty
-            ? user.profilePicture
-            : 'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
-    userId.value = user.id.toString();
-    email.value = user.email;
-    print('Nama user: ${user.name}');
-    print('Email user: ${user.email}');
-    print('ID user: ${user.id}');
+    if (user != null) {
+      name.value = user.name;
+      image.value =
+          user.profilePicture.isNotEmpty
+              ? user.profilePicture
+              : 'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
+      userId.value = user.id.toString();
+      email.value = user.email;
+    } else {
+      name.value = 'Guest';
+      image.value =
+          'https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_640.png';
+      userId.value = '';
+      email.value = '';
+    }
+    // print('Nama user: ${user.name}');
+    // print('Email user: ${user.email}');
+    // print('ID user: ${user.id}');
     token.value = authBox.get('token') ?? '';
     // print('Token: $token');
   }
