@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/history/repositories/history_repository.dart';
 import 'package:kelola_barang/app/modules/history/services/pdf_service.dart';
-import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
+import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:printing/printing.dart';
 
 class HistoryController extends GetxController {
@@ -155,8 +155,8 @@ class HistoryController extends GetxController {
       print(
         'History fetched ${stokMasuk.length} dan keluar ${stokKeluar.length}',
       );
-      LandingController.to.setStokMasuk();
-      LandingController.to.setStokKeluar();
+      HomeController.to.setStokMasuk();
+      HomeController.to.setStokKeluar();
     } catch (e) {
       print("Error fetching stok: $e");
     } finally {

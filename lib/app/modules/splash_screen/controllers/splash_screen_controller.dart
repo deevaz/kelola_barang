@@ -15,7 +15,7 @@ class SplashScreenController extends GetxController {
     final userBox = Hive.box<UserResponseModel>('user');
     final user = userBox.get('user');
     if (user != null) {
-      Get.offAllNamed('/home');
+      Get.offAllNamed('/base');
     } else {
       Get.offAllNamed('/onboarding');
     }

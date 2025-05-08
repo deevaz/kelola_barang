@@ -3,21 +3,21 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-  static const HOME = _Paths.HOME;
+  static const BASE = _Paths.BASE;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const LOGIN = _Paths.LOGIN;
   static const ONBOARDING = _Paths.ONBOARDING;
   static const REGISTER = _Paths.REGISTER;
-  static const LANDING = _Paths.LANDING;
+  static const HOME = _Paths.HOME;
   static const PRODUCT = _Paths.PRODUCT;
   static const HISTORY = _Paths.HISTORY;
   static const OTHER = _Paths.OTHER;
   static const DETAIL_PRODUCT = _Paths.PRODUCT + _Paths.DETAIL_PRODUCT;
   static const ADD_PRODUCT = _Paths.PRODUCT + _Paths.ADD_PRODUCT;
   static const EDIT_PRODUCT = _Paths.PRODUCT + _Paths.EDIT_PRODUCT;
-  static const SUPPLIER = _Paths.LANDING + _Paths.SUPPLIER;
+  static const SUPPLIER = _Paths.HOME + _Paths.SUPPLIER;
   static const ADD_SUPPLIER =
-      _Paths.LANDING + _Paths.SUPPLIER + _Paths.ADD_SUPPLIER;
+      _Paths.HOME + _Paths.SUPPLIER + _Paths.ADD_SUPPLIER;
   static const BARCODE_SCANNER = _Paths.BARCODE_SCANNER;
   static const STOCK_IN = _Paths.STOCK_IN;
   static const STOCK_IN_PRODUCT = _Paths.STOCK_IN + _Paths.STOCK_IN_PRODUCT;
@@ -30,12 +30,12 @@ abstract class Routes {
 
 abstract class _Paths {
   _Paths._();
-  static const HOME = '/home';
+  static const BASE = '/base';
   static const SPLASH_SCREEN = '/splash-screen';
   static const LOGIN = '/login';
   static const ONBOARDING = '/onboarding';
   static const REGISTER = '/register';
-  static const LANDING = '/landing';
+  static const HOME = '/home';
   static const PRODUCT = '/product';
   static const HISTORY = '/history';
   static const OTHER = '/other';

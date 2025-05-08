@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
+import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
@@ -68,7 +68,7 @@ class StockInController extends GetxController {
           colorText: Colors.white,
         );
         Get.offAllNamed('/home');
-        LandingController.to.selectedChart.value = 'in';
+        HomeController.to.selectedChart.value = 'in';
         HistoryController.to.getHistory();
       } else {
         print('Gagal: ${response.statusMessage}');

@@ -48,7 +48,7 @@ class LoginRepository {
         'login-success'.tr,
         'welcome'.trParams({'name': user.name}),
       );
-      Get.offAllNamed('/home');
+      Get.offAllNamed('/base');
     } else if (response.statusCode == 401) {
       print('Invalid credentials');
       print(response.data);

@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/landing/models/chart_data_in.dart';
-import 'package:kelola_barang/app/modules/landing/models/chart_data_out.dart';
+import 'package:kelola_barang/app/modules/home/models/chart_data_in.dart';
+import 'package:kelola_barang/app/modules/home/models/chart_data_out.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
-class LandingRepository {
+class HomeRepository {
   final Dio _dio;
-  LandingRepository({Dio? dio}) : _dio = dio ?? Dio();
+  HomeRepository({Dio? dio}) : _dio = dio ?? Dio();
 
   final apiConstant = ApiConstant();
   final userId = BaseController.to.userId;

@@ -2,13 +2,13 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
+import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class ChartOutWidget extends StatelessWidget {
   ChartOutWidget({super.key});
 
-  final LandingController controller = Get.put(LandingController());
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {

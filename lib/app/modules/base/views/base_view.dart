@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/history/views/history_view.dart';
-import 'package:kelola_barang/app/modules/landing/views/landing_view.dart';
+import 'package:kelola_barang/app/modules/home/views/home_view.dart';
 import 'package:kelola_barang/app/modules/other/views/other_view.dart';
 import 'package:kelola_barang/app/modules/product/views/product_view.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
@@ -20,7 +20,7 @@ class BaseView extends GetView<BaseController> {
       body: Obx(
         () => IndexedStack(
           index: controller.tabIndex.value,
-          children: [LandingView(), ProductView(), HistoryView(), OtherView()],
+          children: [HomeView(), ProductView(), HistoryView(), OtherView()],
         ),
       ),
       bottomNavigationBar: CBottomNavBar(),

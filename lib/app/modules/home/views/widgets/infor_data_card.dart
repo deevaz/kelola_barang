@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
-import '../../controllers/landing_controller.dart';
+import '../../controllers/home_controller.dart';
 import 'info_widget.dart';
 
 class InfoDataCard extends StatelessWidget {
@@ -12,7 +12,7 @@ class InfoDataCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lc = Get.put(LandingController());
+    final lc = Get.put(HomeController());
 
     return MaterialRounded(
       child: Padding(

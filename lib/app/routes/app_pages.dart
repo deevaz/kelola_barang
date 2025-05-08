@@ -7,12 +7,12 @@ import '../modules/history/bindings/history_binding.dart';
 import '../modules/history/views/history_view.dart';
 import '../modules/base/bindings/base_binding.dart';
 import '../modules/base/views/base_view.dart';
-import '../modules/landing/bindings/landing_binding.dart';
-import '../modules/landing/supplier/add_supplier/bindings/add_supplier_binding.dart';
-import '../modules/landing/supplier/add_supplier/views/add_supplier_view.dart';
-import '../modules/landing/supplier/bindings/supplier_binding.dart';
-import '../modules/landing/supplier/views/supplier_view.dart';
-import '../modules/landing/views/landing_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/supplier/add_supplier/bindings/add_supplier_binding.dart';
+import '../modules/home/supplier/add_supplier/views/add_supplier_view.dart';
+import '../modules/home/supplier/bindings/supplier_binding.dart';
+import '../modules/home/supplier/views/supplier_view.dart';
+import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
@@ -53,7 +53,7 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
+      name: _Paths.BASE,
       page: () => const BaseView(),
       binding: BaseBinding(),
     ),
@@ -78,9 +78,9 @@ class AppPages {
       binding: RegisterBinding(),
     ),
     GetPage(
-      name: _Paths.LANDING,
-      page: () => const LandingView(),
-      binding: LandingBinding(),
+      name: _Paths.HOME,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
       children: [
         GetPage(
           name: _Paths.SUPPLIER,

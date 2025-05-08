@@ -52,10 +52,7 @@ class BaseController extends GetxController {
       userId.value = '';
       email.value = '';
     }
-    // print('Nama user: ${user.name}');
-    // print('Email user: ${user.email}');
-    // print('ID user: ${user.id}');
+
     token.value = authBox.get('token') ?? '';
-    // print('Token: $token');
   }
 }

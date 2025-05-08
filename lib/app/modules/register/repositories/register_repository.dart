@@ -31,7 +31,7 @@ class RegisterRepository {
         await HiveService.saveUser(user);
         await HiveService.saveToken(response.data['token'] as String);
         print(json.encode(response.data));
-        Get.offAllNamed('/home');
+        Get.offAllNamed('/base');
       } else if (response.statusCode == 422) {
         print('VALIDATION ERROR: ${response.data}');
       } else {

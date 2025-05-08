@@ -1,7 +1,7 @@
 import 'package:flutter_native_contact_picker/flutter_native_contact_picker.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/landing/models/contact.dart';
-import 'package:kelola_barang/app/modules/landing/supplier/controllers/supplier_controller.dart';
+import 'package:kelola_barang/app/modules/home/models/contact.dart';
+import 'package:kelola_barang/app/modules/home/supplier/controllers/supplier_controller.dart';
 
 class AddSupplierController extends GetxController {
   final pc = Get.put(SupplierController());

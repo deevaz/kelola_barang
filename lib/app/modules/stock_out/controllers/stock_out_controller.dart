@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/landing/controllers/landing_controller.dart';
+import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -71,7 +71,7 @@ class StockOutController extends GetxController {
           colorText: Colors.white,
         );
         Get.offAllNamed('/home');
-        LandingController.to.selectedChart.value = 'out';
+        HomeController.to.selectedChart.value = 'out';
         HistoryController.to.getHistory();
       } else {
         print('Gagal kirim stock out: ${response.statusCode}');

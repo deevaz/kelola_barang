@@ -3,17 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/landing/views/widgets/chart_in_widget.dart';
-import 'package:kelola_barang/app/modules/landing/views/widgets/chart_out_widget.dart';
+import 'package:kelola_barang/app/modules/home/views/widgets/chart_in_widget.dart';
+import 'package:kelola_barang/app/modules/home/views/widgets/chart_out_widget.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
-import '../controllers/landing_controller.dart';
+import '../controllers/home_controller.dart';
 import 'widgets/info_card.dart';
 import 'widgets/infor_data_card.dart';
 
-class LandingView extends GetView<LandingController> {
-  const LandingView({super.key});
+class HomeView extends GetView<HomeController> {
+  const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
     return SafeArea(

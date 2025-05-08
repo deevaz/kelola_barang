@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import 'package:kelola_barang/app/modules/landing/models/chart_data_in.dart';
-import 'package:kelola_barang/app/modules/landing/models/chart_data_out.dart';
-import 'package:kelola_barang/app/modules/landing/repositories/landing_repository.dart';
+import 'package:kelola_barang/app/modules/home/models/chart_data_in.dart';
+import 'package:kelola_barang/app/modules/home/models/chart_data_out.dart';
+import 'package:kelola_barang/app/modules/home/repositories/home_repository.dart';
 
-class LandingController extends GetxController {
-  static LandingController get to => Get.find();
-  final LandingRepository _repo = LandingRepository();
+class HomeController extends GetxController {
+  static HomeController get to => Get.find();
+  final HomeRepository _repo = HomeRepository();
   RxInt profit = 0.obs;
   RxInt stokMasuk = 0.obs;
   RxInt stokKeluar = 0.obs;
