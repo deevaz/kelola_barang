@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
 
 import '../controllers/product_controller.dart';
 import '../models/product_response.dart';
@@ -12,7 +11,6 @@ class ProductRepository {
   ProductRepository();
 
   final dio.Dio dioInstance = DioService.dioCall();
-  var apiConstant = ApiConstant();
 
   final userId = BaseController.to.userId.value;
   final token = BaseController.to.token.value;

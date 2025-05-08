@@ -47,6 +47,7 @@ class HomeController extends GetxController {
 
       final formattedStartDate = DateFormat('yyyy-MM-dd').format(picked.start);
       final formattedEndDate = DateFormat('yyyy-MM-dd').format(picked.end);
+
       await loadFilteredProfit(formattedStartDate, formattedEndDate);
       await loadFilteredStockData(formattedStartDate, formattedEndDate);
     }

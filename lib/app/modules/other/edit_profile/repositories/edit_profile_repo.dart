@@ -1,22 +1,21 @@
 import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
+import 'package:kelola_barang/app/services/dio_service.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
 
 class EditProfileRepo {
   EditProfileRepo() {}
-  final Dio _dio = Dio();
-  final api = ApiConstant();
+  final dio.Dio dioInstance = DioService.dioCall();
 
   final Box<UserResponseModel> userBox = Hive.box<UserResponseModel>('user');
   final Box<String> authBox = Hive.box<String>('auth');
 
   Future<UserModel> updateUser(UserModel user) async {
-    final token = BaseController.to.token.value;
     final id = BaseController.to.userId.value;
     final dataMap = <String, dynamic>{
       'name': user.name,
@@ -34,28 +33,15 @@ class EditProfileRepo {
     }
 
     final formData = FormData.fromMap(dataMap);
-    final url = '${api.BASE_URL}/user/$id';
 
-    final options = Options(
-      method: 'POST',
-      headers: {'Authorization': 'Bearer $token'},
-      validateStatus: (_) => true,
-    );
-
-    final response = await _dio.request(url, options: options, data: formData);
+    final response = await dioInstance.request('/user/$id', data: formData);
 
     if (response.statusCode == 200) {
       final userJson = response.data['user'] as Map<String, dynamic>;
-      Get.snackbar(
-        'success'.tr,
-        'user-updated-success'.tr,
-        backgroundColor: ColorStyle.success,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.success('success'.tr, 'profile-updated-success'.tr);
       userBox.clear();
       final userMap = response.data['user'] as Map<String, dynamic>;
       final user = UserResponseModel.fromJson(userMap);
-
       await userBox.put('user', user);
 
       Get.toNamed('/splash-screen');
@@ -63,12 +49,7 @@ class EditProfileRepo {
     }
 
     if (response.statusCode == 422) {
-      Get.snackbar(
-        'failed'.tr,
-        'user-updated-failed'.tr,
-        backgroundColor: ColorStyle.danger,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.error('error'.tr, 'user-updated-failed'.tr);
       final errs = (response.data['errors'] as Map).map(
         (k, v) => MapEntry(k, (v as List).join(', ')),
       );
