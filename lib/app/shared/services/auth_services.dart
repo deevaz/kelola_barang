@@ -3,13 +3,16 @@ import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart' hide FormData;
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kelola_barang/app/services/dio_service.dart';
+import 'package:kelola_barang/app/services/snacbbar_service.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
+import '../../services/hive_service.dart';
 import '../models/user_response_model.dart';
 
 class AuthServices {
-  final dio.Dio dioInstance = dio.Dio();
+  final dio.Dio dioInstance = DioService.dioCall();
   var apiConstant = ApiConstant();
   final userBox = Hive.box<UserResponseModel>('user');
   final Box<String> authBox = Hive.box<String>('auth');
@@ -27,7 +30,7 @@ class AuthServices {
     }
 
     final response = await dioInstance.request(
-      '${apiConstant.BASE_URL}/login',
+      '/login',
       options: dio.Options(
         method: 'POST',
         validateStatus: (status) => status != null && status < 500,
@@ -40,43 +43,22 @@ class AuthServices {
 
       final userMap = response.data['user'] as Map<String, dynamic>;
       final user = UserResponseModel.fromJson(userMap);
-      await userBox.put('user', user);
-      await authBox.put('token', response.data['token'] as String);
+      await HiveService.saveUser(user);
+      await HiveService.saveToken(response.data['token'] as String);
 
-      Get.snackbar(
+      SnackbarService.success(
         'login-success'.tr,
-        'welcome'.trParams({'name': response.data['user']['name']}),
-        duration: const Duration(seconds: 2),
-        colorText: ColorStyle.white,
-        backgroundColor: ColorStyle.success,
+        'welcome'.trParams({'name': user.name}),
       );
       Get.offAllNamed('/home');
     } else if (response.statusCode == 401) {
       print('Invalid credentials');
       print(response.data);
-      Get.snackbar(
-        'login-failed'.tr,
-        'invalid-credentials'.tr,
-        duration: const Duration(seconds: 2),
-        colorText: ColorStyle.white,
-        backgroundColor: ColorStyle.danger,
-      );
+      SnackbarService.error('login-failed'.tr, 'invalid-credentials'.tr);
     } else if (response.statusCode == 404) {
-      Get.snackbar(
-        'login-failed'.tr,
-        'username-not-found'.tr,
-        duration: const Duration(seconds: 2),
-        colorText: ColorStyle.white,
-        backgroundColor: ColorStyle.danger,
-      );
+      SnackbarService.error('login-failed'.tr, 'username-not-found'.tr);
     } else if (response.statusCode == 500) {
-      Get.snackbar(
-        'login-failed'.tr,
-        'server-error'.tr,
-        duration: const Duration(seconds: 2),
-        colorText: ColorStyle.white,
-        backgroundColor: ColorStyle.danger,
-      );
+      SnackbarService.error('login-failed'.tr, 'server-error'.tr);
     } else {
       print('Login failed');
       print(response.statusCode);
@@ -89,7 +71,7 @@ class AuthServices {
   Future<void> postUser(dio.FormData formData) async {
     try {
       final response = await dioInstance.request(
-        '${apiConstant.BASE_URL}/register',
+        '/register',
         options: dio.Options(method: 'POST'),
         data: formData,
       );
@@ -97,8 +79,8 @@ class AuthServices {
       if (response.statusCode == 201) {
         final userMap = response.data['user'] as Map<String, dynamic>;
         final user = UserResponseModel.fromJson(userMap);
-        await userBox.put('user', user);
-        await authBox.put('token', response.data['token'] as String);
+        await HiveService.saveUser(user);
+        await HiveService.saveToken(response.data['token'] as String);
         print(json.encode(response.data));
         Get.offAllNamed('/home');
       } else if (response.statusCode == 422) {
@@ -107,43 +89,19 @@ class AuthServices {
         print(response.statusMessage);
       }
       print('Berhasil mendaftar');
-      Get.snackbar(
-        'success'.tr,
-        'create-account-success'.tr,
-        duration: const Duration(seconds: 2),
-        colorText: ColorStyle.white,
-        backgroundColor: ColorStyle.success,
-      );
+      SnackbarService.success('success'.tr, 'create-account-success'.tr);
     } catch (e) {
       if (e is dio.DioException) {
         if (e.type == dio.DioExceptionType.connectionError) {
           print('Connection Error: ${e.message}');
-          Get.snackbar(
-            'failed'.tr,
-            'connection-error'.tr,
-            duration: const Duration(seconds: 2),
-            colorText: ColorStyle.white,
-            backgroundColor: ColorStyle.danger,
-          );
+          SnackbarService.error('failed'.tr, 'connection-error'.tr);
         } else {
           print('VALIDATION ERROR: ${e.response?.data}');
-          Get.snackbar(
-            'failed'.tr,
-            'create-account-failed'.tr,
-            duration: const Duration(seconds: 2),
-            colorText: ColorStyle.white,
-            backgroundColor: ColorStyle.danger,
-          );
+          SnackbarService.error('failed'.tr, 'validation-error'.tr);
         }
       } else {
         print('Unexpected Error: $e');
-        Get.snackbar(
-          'failed'.tr,
-          'unexpected-error'.tr,
-          duration: const Duration(seconds: 2),
-          colorText: ColorStyle.white,
-          backgroundColor: ColorStyle.danger,
-        );
+        SnackbarService.error('failed'.tr, 'unexpected-error'.tr);
       }
     }
   }
