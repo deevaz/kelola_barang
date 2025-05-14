@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/services/dialog_service.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 
 class OtherRepository {
   OtherRepository();
@@ -27,7 +28,10 @@ class OtherRepository {
         );
       } else {
         print('gagal hapus akun');
-        throw Exception('Failed to delete account');
+        SnackbarService.error(
+          'error'.tr,
+          response.data['message'] ?? 'delete-account-failed'.tr,
+        );
       }
     } catch (e) {
       print('gagal hapus akun $e');

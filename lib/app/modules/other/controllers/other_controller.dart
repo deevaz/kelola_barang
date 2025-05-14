@@ -13,10 +13,10 @@ class OtherController extends GetxController {
   void showPassword() {
     if (hide.value == true) {
       hide.value = false;
-      debugPrint('Password is visible');
+      print('Password tampil');
     } else {
       hide.value = true;
-      debugPrint('Password is hidden');
+      print('Password sembunyi');
     }
   }
 
