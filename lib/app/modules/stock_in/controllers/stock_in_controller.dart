@@ -67,7 +67,7 @@ class StockInController extends GetxController {
           backgroundColor: ColorStyle.success,
           colorText: Colors.white,
         );
-        Get.offAllNamed('/home');
+        Get.offAllNamed('/base');
         HomeController.to.selectedChart.value = 'in';
         HistoryController.to.getHistory();
       } else {

@@ -42,7 +42,7 @@ class AddProductRepository {
           },
         );
       } else {
-        DialogService.showError(
+        DialogService.error(
           title: 'failed'.tr,
           message: 'product-saved-failed'.tr,
           onConfirm: () {

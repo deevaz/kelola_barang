@@ -4,7 +4,7 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'en': {
-      'empty': 'Emopty',
+      'empty': 'Emppty',
       'login': 'Login',
       'email': 'Email',
       'password': 'Password',
@@ -149,6 +149,10 @@ class AppTranslations extends Translations {
       'profile-updated-success': 'Profile updated successfully',
       'product-updated': 'Product updated successfully',
       'product-updated-failed': 'Failed to update product',
+
+      'delete-account': 'Delete Account',
+      'desc-delete':
+          'Deleting your account will remove all your data and cannot be undone',
     },
 
     'id': {
@@ -293,6 +297,10 @@ class AppTranslations extends Translations {
       'profile-updated-success': 'Profil berhasil diperbarui',
       'product-updated': 'Produk berhasil diperbarui',
       'product-updated-failed': 'Gagal memperbarui produk',
+      'delete-account': 'Hapus Akun',
+      'delete-account-success': 'Akun berhasil dihapus',
+      'desc-delete':
+          'Menghapus akun Anda akan menghapus semua data Anda dan tidak dapat dibatalkan',
     },
   };
 }

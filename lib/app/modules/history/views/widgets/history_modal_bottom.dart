@@ -92,7 +92,7 @@ class HistoryModalBottom extends StatelessWidget {
               ),
             ),
             Text(
-              item.catatan ?? '-',
+              item.catatan,
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,

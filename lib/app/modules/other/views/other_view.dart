@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
+import 'package:kelola_barang/app/modules/other/views/delete_account_view.dart';
 import 'package:kelola_barang/app/modules/other/views/widgets/profile_info_card.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
@@ -66,6 +67,17 @@ class OtherView extends GetView<OtherController> {
                       suffixIcon: Ionicons.chevron_forward,
                       onTap: () {
                         Get.toNamed('/other/change-password');
+                      },
+                    ),
+                    const Divider(),
+                    OtherInfoRow(
+                      title: 'delete-account'.tr,
+                      info: 'desc-delete'.tr,
+                      icon: Ionicons.trash,
+                      suffixIcon: Ionicons.chevron_forward,
+                      onTap: () {
+                        print('delete account');
+                        Get.to(DeleteAccountView());
                       },
                     ),
                     const Divider(),

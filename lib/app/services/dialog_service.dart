@@ -3,26 +3,25 @@ import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class DialogService {
-  static void showSuccess({
-    required String title,
+  static void success({
     required String message,
     required VoidCallback onConfirm,
   }) {
     Get.defaultDialog(
-      title: title,
+      title: 'success'.tr,
       backgroundColor: ColorStyle.white,
       middleText: message,
       onConfirm: onConfirm,
     );
   }
 
-  static void showError({
+  static void error({
     required String title,
     required String message,
     VoidCallback? onConfirm,
   }) {
     Get.defaultDialog(
-      title: title,
+      title: title == '' ? 'error'.tr : title,
       middleText: message,
       backgroundColor: Colors.red.shade100,
       onConfirm: onConfirm ?? () => Get.back(),

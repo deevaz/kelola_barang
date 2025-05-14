@@ -2,11 +2,10 @@ import 'package:get/get.dart';
 
 import '../modules/barcode_scanner/bindings/barcode_scanner_binding.dart';
 import '../modules/barcode_scanner/views/barcode_scanner_view.dart';
-import '../modules/history/bindings/history_binding.dart';
-
-import '../modules/history/views/history_view.dart';
 import '../modules/base/bindings/base_binding.dart';
 import '../modules/base/views/base_view.dart';
+import '../modules/history/bindings/history_binding.dart';
+import '../modules/history/views/history_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/supplier/add_supplier/bindings/add_supplier_binding.dart';
 import '../modules/home/supplier/add_supplier/views/add_supplier_view.dart';
