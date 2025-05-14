@@ -42,7 +42,10 @@ class ProductRepository {
       }
       var response = await dioInstance.get('/products/$userId/$category');
       print(response.data.toString());
-      if (response.statusCode != 200) {
+      if (response.statusCode == 200) {
+        print('berhasil ambil data');
+      } else {
+        log.e('gagal ambil data');
         throw Exception('Failed to load products');
       }
 
