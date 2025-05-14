@@ -17,7 +17,7 @@ class DioService extends GetxService {
     return dioService;
   }
 
-  static const Duration timeoutInMiliSeconds = Duration(seconds: 20000);
+  static const Duration timeoutInMiliSeconds = Duration(seconds: 200);
 
   static Dio dioCall({
     Duration timeout = timeoutInMiliSeconds,

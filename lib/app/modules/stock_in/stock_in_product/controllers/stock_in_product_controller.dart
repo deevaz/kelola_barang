@@ -5,7 +5,7 @@ import 'package:kelola_barang/app/modules/product/controllers/product_controller
 import 'package:kelola_barang/app/modules/stock_in/controllers/stock_in_controller.dart';
 import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 import '../views/widgets/stock_in_modal_bottom.dart';
@@ -92,12 +92,9 @@ class StockInProductController extends GetxController {
 
       if (barang != null) {
         print("Barang ditemukan: ${barang['nama_barang']}");
-        Get.snackbar(
+        SnackbarService.success(
           'product-found'.tr,
           'Name: ${barang['nama_barang']}',
-          backgroundColor: ColorStyle.success,
-          colorText: ColorStyle.white,
-          duration: const Duration(seconds: 5),
         );
 
         Get.bottomSheet(
@@ -113,13 +110,7 @@ class StockInProductController extends GetxController {
         );
       } else {
         print("Barang tidak ditemukan.");
-        Get.snackbar(
-          'Barang tidak ditemukan',
-          'Kode: $kode',
-          backgroundColor: ColorStyle.warning,
-          colorText: ColorStyle.white,
-          duration: const Duration(seconds: 4),
-        );
+        SnackbarService.warning('product-not-found', 'code: $kode');
       }
     } catch (e) {
       print("🧑‍💻Terjadi kesalahan saat mencari barang: $e");

@@ -45,7 +45,7 @@ class StockInCard extends StatelessWidget {
                           child: Text(
                             DateFormat(
                               'dd MMM yyyy – HH:mm',
-                            ).format(item.tanggal),
+                            ).format(item.tanggalMasuk!),
                             style: TextStyle(color: ColorStyle.grey),
                           ),
                         ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
+import 'package:logger/logger.dart';
 
 import '../controllers/product_controller.dart';
 import '../models/product_response.dart';
@@ -11,17 +12,18 @@ class ProductRepository {
   ProductRepository();
 
   final dio.Dio dioInstance = DioService.dioCall();
+  Logger log = Logger();
 
   final userId = BaseController.to.userId.value;
 
   Future<List<ProductResponse>> fetchAllProducts() async {
     try {
-      var response = await dioInstance.request(
-        '/products/$userId',
-        options: dio.Options(method: 'GET'),
-      );
+      var response = await dioInstance.get('/products/$userId');
       print(response.data.toString());
-      if (response.statusCode != 200) {
+      if (response.statusCode == 200) {
+        print('berhasil ambil data');
+      } else {
+        log.e('gagal ambil data');
         throw Exception('Failed to load products');
       }
 
@@ -38,10 +40,7 @@ class ProductRepository {
       if (category == 'Semua Kategori') {
         category = '';
       }
-      var response = await dioInstance.request(
-        '/products/$userId/$category',
-        options: dio.Options(method: 'GET'),
-      );
+      var response = await dioInstance.get('/products/$userId/$category');
       print(response.data.toString());
       if (response.statusCode != 200) {
         throw Exception('Failed to load products');
@@ -58,10 +57,7 @@ class ProductRepository {
   Future<void> deleteProduct(String id) async {
     final pc = Get.find<ProductController>();
 
-    var response = await dioInstance.request(
-      '/products/$userId/$id',
-      options: dio.Options(method: 'DELETE'),
-    );
+    var response = await dioInstance.delete('/products/$userId/$id');
 
     if (response.statusCode == 200) {
       SnackbarService.success('succes'.tr, 'delete-product-success'.tr);
