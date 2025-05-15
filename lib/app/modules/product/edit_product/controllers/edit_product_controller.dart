@@ -120,16 +120,28 @@ class EditProductController extends GetxController {
   }
 
   Future<void> prepareDownloadedImage(String imageUrl) async {
-    final dir = await getTemporaryDirectory();
-    final filename = imageUrl.split('/').last;
-    final filePath = '${dir.path}/$filename';
+    final uri = Uri.tryParse(imageUrl);
+    if (imageUrl.isEmpty ||
+        uri == null ||
+        !uri.hasAbsolutePath ||
+        uri.host.isEmpty) {
+      print('Invalid imageUrl: $imageUrl');
+      return;
+    }
+    try {
+      final dir = await getTemporaryDirectory();
+      final filename = imageUrl.split('/').last;
+      final filePath = '${dir.path}/$filename';
 
-    final response = await Dio().download(imageUrl, filePath);
-    if (response.statusCode == 200) {
-      selectedImage.value = XFile(filePath);
-      print('Gambar berhasil diunduh: $filePath');
-    } else {
-      print('Gagal download gambar');
+      final response = await Dio().download(imageUrl, filePath);
+      if (response.statusCode == 200) {
+        selectedImage.value = XFile(filePath);
+        print('Gambar berhasil diunduh: $filePath');
+      } else {
+        print('Gagal download gambar');
+      }
+    } catch (e) {
+      print('Exception saat download gambar: $e');
     }
   }
 

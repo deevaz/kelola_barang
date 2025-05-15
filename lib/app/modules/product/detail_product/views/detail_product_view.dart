@@ -166,35 +166,38 @@ class DetailProductView extends GetView<DetailProductController> {
                     ),
                     const Spacer(),
                     InkWell(
-                      onTap: () {
-                        Get.defaultDialog(
-                          title: 'deskripsi'.tr,
-                          titleStyle: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          titlePadding: EdgeInsets.only(
-                            top: 20.h,
-                            left: 20.w,
-                            right: 20.w,
-                          ),
-                          content: Column(
-                            children: [
-                              const Divider(),
-                              SizedBox(height: 10.h),
-                              Text(
-                                items.deskripsi!,
-                                style: TextStyle(fontSize: 16.sp),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                      onTap:
+                          (items.deskripsi == null || items.deskripsi!.isEmpty)
+                              ? null
+                              : () {
+                                Get.defaultDialog(
+                                  title: 'deskripsi'.tr,
+                                  titleStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  titlePadding: EdgeInsets.only(
+                                    top: 20.h,
+                                    left: 20.w,
+                                    right: 20.w,
+                                  ),
+                                  content: Column(
+                                    children: [
+                                      const Divider(),
+                                      SizedBox(height: 10.h),
+                                      Text(
+                                        items.deskripsi!,
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            '${(items.deskripsi!).split(' ').first}..',
+                            '${(items.deskripsi ?? '....').split(' ').first}..',
                             style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.bold,

@@ -21,7 +21,7 @@ class AddProductController extends GetxController {
 
   final kodeBarangC = TextEditingController();
   final namaBarangC = TextEditingController();
-  final stokAwalC = TextEditingController();
+  final stokC = TextEditingController();
   final hargaBeliC = TextEditingController();
   final hargaJualC = TextEditingController();
   final hargaGrosirC = TextEditingController();
@@ -71,7 +71,7 @@ class AddProductController extends GetxController {
   void addProduct(bool again) async {
     if (namaBarangC.text.isEmpty ||
         (barcode.value.isEmpty && kodeBarangC.text.isEmpty) ||
-        stokAwalC.text.isEmpty ||
+        stokC.text.isEmpty ||
         hargaBeliC.text.isEmpty ||
         hargaJualC.text.isEmpty ||
         selectedCategory.value.isEmpty) {
@@ -80,6 +80,7 @@ class AddProductController extends GetxController {
     }
 
     print('Adding Product');
+    print('Stok: ${stokC.text}');
 
     final file = <XFile>[];
     if (selectedImage.value != null) {
@@ -89,7 +90,7 @@ class AddProductController extends GetxController {
       image: file,
       namaBarang: namaBarangC.text,
       kodeBarang: barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
-      stok: int.tryParse(stokAwalC.text) ?? 0,
+      stok: int.tryParse(stokC.text) ?? 0,
       hargaBeli: int.tryParse(hargaBeliC.text) ?? 0,
       hargaJual: int.tryParse(hargaJualC.text) ?? 0,
       deskripsi: deskripsiC.text,
@@ -159,7 +160,7 @@ class AddProductController extends GetxController {
   void resetForm() {
     kodeBarangC.clear();
     namaBarangC.clear();
-    stokAwalC.clear();
+    stokC.clear();
     hargaBeliC.clear();
     hargaJualC.clear();
     hargaGrosirC.clear();

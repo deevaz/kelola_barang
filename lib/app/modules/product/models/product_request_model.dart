@@ -34,7 +34,7 @@ class ProductRequestModel {
       'gambar': multipartFiles.isNotEmpty ? multipartFiles.first : null,
       'kode_barang': kodeBarang,
       'nama_barang': namaBarang,
-      'stok_awal': stok.toString(),
+      'stok': stok.toString(),
       'harga_beli': hargaBeli.toString(),
       'harga_jual': hargaJual.toString(),
       'kadaluarsa': kadaluarsa,
