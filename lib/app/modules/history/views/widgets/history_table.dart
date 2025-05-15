@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:kelola_barang/app/modules/history/models/history_model.dart';
+import 'package:kelola_barang/app/modules/history/models/history_response_model.dart';
 
 class HistoryTable extends StatelessWidget {
-  final HistoryModel item;
+  final HistoryResponseModel item;
   const HistoryTable({super.key, required this.item});
 
   @override
@@ -52,10 +52,13 @@ class HistoryTable extends StatelessWidget {
             ),
           ],
         ),
-        ...item.barang.map<TableRow>((barang) {
+        ...item.barang!.map<TableRow>((barang) {
           return TableRow(
             children: [
-              Padding(padding: EdgeInsets.all(8), child: Text(barang.nama)),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(barang.nama ?? ''),
+              ),
               Padding(
                 padding: EdgeInsets.all(8),
                 child: Text(
@@ -75,7 +78,7 @@ class HistoryTable extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(8.sp),
-                child: Text('${barang.totalStok}'),
+                child: Text('${barang.jumlahStokMasuk}'),
               ),
             ],
           );

@@ -129,7 +129,7 @@ class DetailProductView extends GetView<DetailProductController> {
                   ),
                   const Spacer(),
                   Text(
-                    '${items.totalStok} STOK',
+                    '${items.stok} STOK',
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,

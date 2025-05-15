@@ -69,7 +69,7 @@ class StockInController extends GetxController {
         );
         Get.offAllNamed('/base');
         HomeController.to.selectedChart.value = 'in';
-        HistoryController.to.getHistory();
+        HistoryController.to.loadHistory();
       } else {
         print('Gagal: ${response.statusMessage}');
       }

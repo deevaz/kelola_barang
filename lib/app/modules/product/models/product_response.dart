@@ -4,14 +4,13 @@ class ProductResponse {
   int? id;
   String? kodeBarang;
   String? namaBarang;
-  int? stokAwal;
+  int? stok;
   int? hargaBeli;
   int? hargaJual;
   DateTime? kadaluarsa;
   String? deskripsi;
   String? gambar;
   String? kategori;
-  int? totalStok;
   int? userId;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -20,14 +19,13 @@ class ProductResponse {
     this.id,
     this.kodeBarang,
     this.namaBarang,
-    this.stokAwal,
+    this.stok,
     this.hargaBeli,
     this.hargaJual,
     this.kadaluarsa,
     this.deskripsi,
     this.gambar,
     this.kategori,
-    this.totalStok,
     this.userId,
     this.createdAt,
     this.updatedAt,
@@ -37,14 +35,13 @@ class ProductResponse {
     int? id,
     String? kodeBarang,
     String? namaBarang,
-    int? stokAwal,
+    int? stok,
     int? hargaBeli,
     int? hargaJual,
     DateTime? kadaluarsa,
     String? deskripsi,
     String? gambar,
     String? kategori,
-    int? totalStok,
     int? userId,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -52,14 +49,13 @@ class ProductResponse {
     id: id ?? this.id,
     kodeBarang: kodeBarang ?? this.kodeBarang,
     namaBarang: namaBarang ?? this.namaBarang,
-    stokAwal: stokAwal ?? this.stokAwal,
+    stok: stok ?? this.stok,
     hargaBeli: hargaBeli ?? this.hargaBeli,
     hargaJual: hargaJual ?? this.hargaJual,
     kadaluarsa: kadaluarsa ?? this.kadaluarsa,
     deskripsi: deskripsi ?? this.deskripsi,
     gambar: gambar ?? this.gambar,
     kategori: kategori ?? this.kategori,
-    totalStok: totalStok ?? this.totalStok,
     userId: userId ?? this.userId,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
@@ -76,7 +72,7 @@ class ProductResponse {
     id: json["id"],
     kodeBarang: json["kode_barang"],
     namaBarang: json["nama_barang"],
-    stokAwal: json["stok_awal"],
+    stok: json["stok"],
     hargaBeli: json["harga_beli"],
     hargaJual: json["harga_jual"],
     kadaluarsa:
@@ -84,7 +80,6 @@ class ProductResponse {
     deskripsi: json["deskripsi"],
     gambar: json["gambar"],
     kategori: json["kategori"],
-    totalStok: json["total_stok"],
     userId: json["user_id"],
     createdAt:
         json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
@@ -96,14 +91,13 @@ class ProductResponse {
     "id": id,
     "kode_barang": kodeBarang,
     "nama_barang": namaBarang,
-    "stok_awal": stokAwal,
+    "stok": stok,
     "harga_beli": hargaBeli,
     "harga_jual": hargaJual,
     "kadaluarsa": kadaluarsa?.toIso8601String(),
     "deskripsi": deskripsi,
     "gambar": gambar,
     "kategori": kategori,
-    "total_stok": totalStok,
     "user_id": userId,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
@@ -113,7 +107,7 @@ class ProductResponse {
     id: map["id"],
     kodeBarang: map["kode_barang"],
     namaBarang: map["nama_barang"],
-    stokAwal: map["stok_awal"],
+    stok: map["stok"],
     hargaBeli: map["harga_beli"],
     hargaJual: map["harga_jual"],
     kadaluarsa:
@@ -121,7 +115,6 @@ class ProductResponse {
     deskripsi: map["deskripsi"],
     gambar: map["gambar"],
     kategori: map["kategori"],
-    totalStok: map["total_stok"],
     userId: map["user_id"],
     createdAt:
         map["created_at"] == null ? null : DateTime.parse(map["created_at"]),
@@ -133,14 +126,13 @@ class ProductResponse {
     "id": id,
     "kode_barang": kodeBarang,
     "nama_barang": namaBarang,
-    "stok_awal": stokAwal,
+    "stok": stok,
     "harga_beli": hargaBeli,
     "harga_jual": hargaJual,
     "kadaluarsa": kadaluarsa?.toIso8601String(),
     "deskripsi": deskripsi,
     "gambar": gambar,
     "kategori": kategori,
-    "total_stok": totalStok,
     "user_id": userId,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),

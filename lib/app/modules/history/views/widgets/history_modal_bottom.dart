@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:kelola_barang/app/modules/history/models/history_model.dart';
+import 'package:kelola_barang/app/modules/history/models/history_response_model.dart';
 import 'package:kelola_barang/app/modules/history/views/widgets/history_table.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart'
     show ColorStyle;
 
 class HistoryModalBottom extends StatelessWidget {
-  final HistoryModel item;
+  final HistoryResponseModel item;
   HistoryModalBottom({super.key, required this.item});
 
   String formatTanggal(DateTime input) {
@@ -92,7 +92,7 @@ class HistoryModalBottom extends StatelessWidget {
               ),
             ),
             Text(
-              item.catatan,
+              item.catatan ?? '-',
               style: TextStyle(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,

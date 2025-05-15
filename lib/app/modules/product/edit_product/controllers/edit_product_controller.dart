@@ -19,7 +19,7 @@ class EditProductController extends GetxController {
   final barcodeC = Get.put(BarcodeController());
   final kodeBarangC = TextEditingController();
   final namaBarangC = TextEditingController();
-  final stokAwalC = TextEditingController();
+  final stok = TextEditingController();
   final hargaBeliC = TextEditingController();
   final hargaJualC = TextEditingController();
   final hargaGrosirC = TextEditingController();
@@ -59,7 +59,7 @@ class EditProductController extends GetxController {
     prepareDownloadedImage(imageUrl.value ?? '');
     kodeBarangC.text = product.kodeBarang ?? '';
     namaBarangC.text = product.namaBarang ?? '';
-    stokAwalC.text = product.stokAwal.toString();
+    stok.text = product.stok.toString();
     hargaBeliC.text = product.hargaBeli?.toString() ?? '';
     hargaJualC.text = product.hargaJual?.toString() ?? '';
     selectedCategory.value = product.kategori ?? '';
@@ -97,8 +97,7 @@ class EditProductController extends GetxController {
       image: file,
       namaBarang: namaBarangC.text,
       kodeBarang: barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
-      stokAwal: int.tryParse(stokAwalC.text) ?? 0,
-      totalStok: int.tryParse(stokAwalC.text) ?? 0,
+      stok: int.tryParse(stok.text) ?? 0,
       hargaBeli: int.tryParse(hargaBeliC.text) ?? 0,
       hargaJual: int.tryParse(hargaJualC.text) ?? 0,
       deskripsi: deskripsiC.text,

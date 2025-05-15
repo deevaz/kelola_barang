@@ -72,7 +72,7 @@ class StockOutController extends GetxController {
         );
         Get.offAllNamed('/home');
         HomeController.to.selectedChart.value = 'out';
-        HistoryController.to.getHistory();
+        HistoryController.to.loadHistory();
       } else {
         print('Gagal kirim stock out: ${response.statusCode}');
         print('Detail error: ${response.data}');

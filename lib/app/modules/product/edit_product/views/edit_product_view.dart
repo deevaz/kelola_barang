@@ -64,7 +64,7 @@ class EditProductView extends GetView<EditProductController> {
                 ),
                 CustomTextField(
                   title: 'initial-stock'.tr,
-                  controller: controller.stokAwalC,
+                  controller: controller.stok,
                   inputType: TextInputType.number,
                 ),
                 CustomTextField(

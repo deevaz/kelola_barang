@@ -23,7 +23,7 @@ class HistoryView extends GetView<HistoryController> {
               children: [
                 GestureDetector(
                   onDoubleTap: () {
-                    controller.loadStockIn();
+                    controller.loadHistory();
                   },
                   child: Text(
                     'history'.tr,
@@ -73,8 +73,8 @@ class HistoryView extends GetView<HistoryController> {
                     onPressed: () {
                       // controller.printDocument();
                       print('Print pdf');
-                      print(controller.stokMasuk);
-                      print(controller.stokKeluar);
+                      print(controller.history);
+                      controller.loadHistory();
                     },
                     icon: const Icon(Icons.print),
                   ),
@@ -84,7 +84,7 @@ class HistoryView extends GetView<HistoryController> {
             SizedBox(height: 10.h),
             Expanded(
               child: Obx(() {
-                final riwayatList = controller.semuaRiwayat;
+                final riwayatList = controller.history;
                 return ListView.builder(
                   itemCount: riwayatList.length,
                   itemBuilder: (context, index) {

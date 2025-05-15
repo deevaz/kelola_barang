@@ -175,7 +175,7 @@ class ProductCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${item.totalStok} Stok',
+                          '${item.stok} Stok',
                           style: TextStyle(fontSize: 14.sp),
                         ),
                         SizedBox(height: 10.h),

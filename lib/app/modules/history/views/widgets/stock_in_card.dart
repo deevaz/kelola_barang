@@ -5,14 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:intl/intl.dart';
-import 'package:kelola_barang/app/modules/history/models/history_model.dart';
+import 'package:kelola_barang/app/modules/history/models/history_response_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import 'history_modal_bottom.dart';
 
 class StockInCard extends StatelessWidget {
-  final HistoryModel item;
+  final HistoryResponseModel item;
   StockInCard({super.key, required this.item});
 
   @override
@@ -66,18 +66,18 @@ class StockInCard extends StatelessWidget {
                             ),
                             SizedBox(width: 5.w),
                             Text(
-                              '(${item.barang.length} ${'product'.tr})',
+                              '(${item.barang!.length} ${'product'.tr})',
                               style: TextStyle(color: ColorStyle.grey),
                             ),
                           ],
                         ),
                         SizedBox(height: 30.h),
-                        ...item.barang.map((barang) {
+                        ...item.barang!.map((barang) {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                barang.nama,
+                                barang.nama ?? '',
                                 style: TextStyle(
                                   color: ColorStyle.grey,
                                   fontSize: 14.sp,

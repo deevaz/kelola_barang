@@ -33,146 +33,149 @@ class OtherView extends GetView<OtherController> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ProfileInfoCard(),
-            SizedBox(height: 20.h),
-            Text(
-              'setting'.tr,
-              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10.h),
-            MaterialRounded(
-              child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    OtherInfoRow(
-                      title: 'edit-profile'.tr,
-                      info: 'edit-profile-desc'.tr,
-                      icon: Ionicons.person,
-                      suffixIcon: Ionicons.chevron_forward,
-                      onTap: () {
-                        Get.toNamed('/other/edit-profile');
-                      },
-                    ),
-                    const Divider(),
-                    OtherInfoRow(
-                      title: 'change-password'.tr,
-                      info: 'desc-password'.tr,
-                      icon: Ionicons.lock_closed,
-                      suffixIcon: Ionicons.chevron_forward,
-                      onTap: () {
-                        Get.toNamed('/other/change-password');
-                      },
-                    ),
-                    const Divider(),
-                    OtherInfoRow(
-                      title: 'delete-account'.tr,
-                      info: 'desc-delete'.tr,
-                      icon: Ionicons.trash,
-                      suffixIcon: Ionicons.chevron_forward,
-                      onTap: () {
-                        print('delete account');
-                        Get.to(DeleteAccountView());
-                      },
-                    ),
-                    const Divider(),
-                    OtherInfoRow(
-                      title: 'change-language'.tr,
-                      info: 'manage-language'.tr,
-                      icon: Ionicons.language,
-                      suffixIcon: Ionicons.chevron_forward,
-                      onTap: () {
-                        Get.bottomSheet(
-                          ChangeLangBottomSheet(
-                            title: 'change-language'.tr,
-                            onTap: (value) {
-                              baseController.changeLang(value);
-                              Get.back();
-                            },
-                            selectedLang: baseController.lang.value,
-                          ),
-                        );
-                      },
-                    ),
-                    const Divider(),
-                    OtherInfoRow(
-                      title: 'licenses'.tr,
-                      info: 'licenses-desc'.tr,
-                      suffixIcon: Ionicons.chevron_forward,
-                      icon: Ionicons.shield_checkmark,
-                      onTap:
-                          () => showDialog(
-                            context: context,
-                            builder:
-                                (BuildContext context) => AboutDialog(
-                                  applicationIcon: const Icon(Icons.code),
-                                  applicationLegalese:
-                                      '© ${DateTime.now().year} Deevaz',
-                                  applicationName: 'Kelola Barang',
-                                  applicationVersion: '1.0',
-                                ),
-                          ),
-                    ),
-                  ],
-                ),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(bottom: 25.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ProfileInfoCard(),
+              SizedBox(height: 20.h),
+              Text(
+                'setting'.tr,
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
               ),
-            ),
-            SizedBox(height: 20.h),
-            SizedBox(
-              width: double.infinity,
-              height: 50.h,
-              child: ElevatedButton(
-                style: EvelatedButtonStyle.danger,
-                onPressed: () {
-                  Get.defaultDialog(
-                    title: 'logout'.tr,
-                    middleText: 'confirm-logout'.tr,
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Get.back();
+              SizedBox(height: 10.h),
+              MaterialRounded(
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      OtherInfoRow(
+                        title: 'edit-profile'.tr,
+                        info: 'edit-profile-desc'.tr,
+                        icon: Ionicons.person,
+                        suffixIcon: Ionicons.chevron_forward,
+                        onTap: () {
+                          Get.toNamed('/other/edit-profile');
                         },
-                        child: Text(
-                          'cancel'.tr,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: ColorStyle.primary,
-                          ),
-                        ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          loginC.logout();
+                      const Divider(),
+                      OtherInfoRow(
+                        title: 'change-password'.tr,
+                        info: 'desc-password'.tr,
+                        icon: Ionicons.lock_closed,
+                        suffixIcon: Ionicons.chevron_forward,
+                        onTap: () {
+                          Get.toNamed('/other/change-password');
                         },
-                        child: Text(
-                          'yes'.tr,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            color: ColorStyle.danger,
-                          ),
-                        ),
+                      ),
+                      const Divider(),
+                      OtherInfoRow(
+                        title: 'delete-account'.tr,
+                        info: 'desc-delete'.tr,
+                        icon: Ionicons.trash,
+                        suffixIcon: Ionicons.chevron_forward,
+                        onTap: () {
+                          print('delete account');
+                          Get.to(DeleteAccountView());
+                        },
+                      ),
+                      const Divider(),
+                      OtherInfoRow(
+                        title: 'change-language'.tr,
+                        info: 'manage-language'.tr,
+                        icon: Ionicons.language,
+                        suffixIcon: Ionicons.chevron_forward,
+                        onTap: () {
+                          Get.bottomSheet(
+                            ChangeLangBottomSheet(
+                              title: 'change-language'.tr,
+                              onTap: (value) {
+                                baseController.changeLang(value);
+                                Get.back();
+                              },
+                              selectedLang: baseController.lang.value,
+                            ),
+                          );
+                        },
+                      ),
+                      const Divider(),
+                      OtherInfoRow(
+                        title: 'licenses'.tr,
+                        info: 'licenses-desc'.tr,
+                        suffixIcon: Ionicons.chevron_forward,
+                        icon: Ionicons.shield_checkmark,
+                        onTap:
+                            () => showDialog(
+                              context: context,
+                              builder:
+                                  (BuildContext context) => AboutDialog(
+                                    applicationIcon: const Icon(Icons.code),
+                                    applicationLegalese:
+                                        '© ${DateTime.now().year} Deevaz',
+                                    applicationName: 'Kelola Barang',
+                                    applicationVersion: '1.0',
+                                  ),
+                            ),
                       ),
                     ],
-                  );
-                },
-                child: Text(
-                  'logout'.tr,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: ColorStyle.white,
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 20.h),
+              SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  style: EvelatedButtonStyle.danger,
+                  onPressed: () {
+                    Get.defaultDialog(
+                      title: 'logout'.tr,
+                      middleText: 'confirm-logout'.tr,
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text(
+                            'cancel'.tr,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color: ColorStyle.primary,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            loginC.logout();
+                          },
+                          child: Text(
+                            'yes'.tr,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color: ColorStyle.danger,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                  child: Text(
+                    'logout'.tr,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      color: ColorStyle.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

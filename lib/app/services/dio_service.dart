@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
@@ -55,18 +55,27 @@ class DioService extends GetxService {
       onRequest: (reqOptions, handler) {
         log('${reqOptions.uri}', name: 'REQUEST URL');
         log('${reqOptions.headers}', name: 'HEADER');
-
         return handler.next(reqOptions);
       },
       onError: (error, handler) async {
         log(error.message.toString(), name: 'ERROR MESSAGE');
         log('${error.response}', name: 'RESPONSE');
 
+        if (error.response?.statusCode == 401) {
+          // Tangani 401 sebagai response biasa
+          return handler.resolve(
+            Response(
+              requestOptions: error.requestOptions,
+              statusCode: 401,
+              data: {'message': 'Unauthorized', 'code': 401, 'status': false},
+            ),
+          );
+        }
+
         return handler.next(error);
       },
       onResponse: (response, handler) async {
         log('${response.data}', name: 'RESPONSE');
-
         return handler.resolve(response);
       },
     );
