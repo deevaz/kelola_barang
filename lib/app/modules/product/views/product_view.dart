@@ -38,7 +38,7 @@ class ProductView extends GetView<ProductController> {
                       color: ColorStyle.dark,
                     ),
                     onPressed: () {
-                      controller.loadProducts();
+                      // controller.loadProducts();
                       print('🪳panjang produk ${controller.products.length}');
                       Get.bottomSheet(
                         CategoryBottomSheet(controller: controller),

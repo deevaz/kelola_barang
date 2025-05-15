@@ -21,7 +21,7 @@ class CategoryBottomSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text('Semua Kategori'),
+              title: Text('all-category'.tr),
               onTap: () {
                 controller.filterByCategory('');
                 Get.back();

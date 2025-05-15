@@ -37,6 +37,10 @@ class ProductController extends GetxController {
   }
 
   void filterByCategory(String category) async {
+    if (category == 'all-category') {
+      filteredProducts.assignAll(products);
+      return;
+    }
     try {
       final data = await _repo.fetchProductbyCategory(category);
       filteredProducts.assignAll(data);
