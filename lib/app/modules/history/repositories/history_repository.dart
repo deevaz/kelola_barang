@@ -15,7 +15,7 @@ class HistoryRepository {
   Future<List<HistoryResponseModel>> fetchHistory() async {
     try {
       logger.i('Fetching stock in data for user: $userId');
-      var response = await dioInstance.get('/stockin/$userId');
+      var response = await dioInstance.get('/history/$userId');
       logger.d('Response data: ${response.data.toString()}');
       if (response.statusCode == 200) {
         logger.i('History data fetched successfully');
@@ -28,6 +28,35 @@ class HistoryRepository {
       }
     } catch (e) {
       logger.e('Error fetching History data: $e');
+      return [];
+    }
+  }
+
+  Future<List<HistoryResponseModel>> fetchFilteredHistory(
+    String startDate,
+    String endDate,
+  ) async {
+    try {
+      logger.i('Fetching filtered stock in data for user: $userId');
+      var response = await dioInstance.get(
+        '/history/by-date-range/$userId',
+        queryParameters: {'start_date': startDate, 'end_date': endDate},
+      );
+      logger.d('Response data: ${response.data.toString()}');
+      if (response.statusCode == 200) {
+        logger.i('Filtered History data fetched successfully');
+        print('Filtered History data: ${response.data.toString()}');
+        return (response.data as List)
+            .map((item) => HistoryResponseModel.fromJson(item))
+            .toList();
+      } else {
+        logger.e(
+          'Failed to fetch filtered History data: ${response.statusMessage}',
+        );
+        return [];
+      }
+    } catch (e) {
+      logger.e('Error fetching filtered History data: $e');
       return [];
     }
   }

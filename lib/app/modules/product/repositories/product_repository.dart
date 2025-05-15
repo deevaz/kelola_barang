@@ -23,8 +23,7 @@ class ProductRepository {
       if (response.statusCode == 200) {
         print('berhasil ambil data');
       } else {
-        log.e('gagal ambil data');
-        throw Exception('Failed to load products');
+        log.e('gagal ambil data', error: response.data);
       }
 
       final List data = response.data['data'];
@@ -45,8 +44,7 @@ class ProductRepository {
       if (response.statusCode == 200) {
         print('berhasil ambil data');
       } else {
-        log.e('gagal ambil data');
-        throw Exception('Failed to load products');
+        log.e('gagal ambil data', error: response.data);
       }
 
       final List data = response.data['data'];

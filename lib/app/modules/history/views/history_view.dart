@@ -6,8 +6,7 @@ import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import '../controllers/history_controller.dart';
-import 'widgets/stock_out_card.dart';
-import 'widgets/stock_in_card.dart';
+import 'widgets/history_card.dart';
 
 class HistoryView extends GetView<HistoryController> {
   const HistoryView({super.key});
@@ -23,7 +22,8 @@ class HistoryView extends GetView<HistoryController> {
               children: [
                 GestureDetector(
                   onDoubleTap: () {
-                    controller.loadHistory();
+                    print('Panjang history ${controller.history.length}');
+                    // controller.loadHistory();
                   },
                   child: Text(
                     'history'.tr,
@@ -84,16 +84,12 @@ class HistoryView extends GetView<HistoryController> {
             SizedBox(height: 10.h),
             Expanded(
               child: Obx(() {
-                final riwayatList = controller.history;
+                final history = controller.history;
                 return ListView.builder(
-                  itemCount: riwayatList.length,
+                  itemCount: history.length,
                   itemBuilder: (context, index) {
-                    final riwayat = riwayatList[index];
-                    if (riwayat.tipe == 'masuk') {
-                      return StockInCard(item: riwayat);
-                    } else {
-                      return StockOutCard(item: riwayat);
-                    }
+                    final riwayat = history[index];
+                    return HistoryCard(item: riwayat);
                   },
                 );
               }),

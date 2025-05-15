@@ -54,19 +54,16 @@ class HistoryController extends GetxController {
       final formattedStartDate = DateFormat('yyyy-MM-dd').format(picked.start);
       final formattedEndDate = DateFormat('yyyy-MM-dd').format(picked.end);
 
-      // await loadFilteredStockData(formattedStartDate, formattedEndDate);
+      await loadFilteredHistory(formattedStartDate, formattedEndDate);
     }
   }
 
   Future<void> loadHistory() async {
     try {
-      final result = await _repo.fetchHistory();
-      print('Hasil: $result');
-
+      final data = await _repo.fetchHistory();
       history.clear();
-      history.addAll(result);
+      history.assignAll(data);
       print('History: $history');
-
       logger.i('History loaded successfully');
     } catch (e) {
       logger.e('Error loading history: $e');
@@ -75,7 +72,17 @@ class HistoryController extends GetxController {
     }
   }
 
-  Future<void> loadFilteredHistory() async {}
+  Future<void> loadFilteredHistory(String start, String end) async {
+    try {
+      final data = await _repo.fetchFilteredHistory(start, end);
+      history.clear();
+      history.assignAll(data);
+      print('Filtered History: $history');
+      logger.i('Filtered history loaded successfully $start - $end ');
+    } catch (e) {
+      logger.e('Error loading filtered history: $e');
+    }
+  }
 
   @override
   void onInit() {

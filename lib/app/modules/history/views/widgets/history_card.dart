@@ -11,9 +11,9 @@ import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
 import 'history_modal_bottom.dart';
 
-class StockInCard extends StatelessWidget {
+class HistoryCard extends StatelessWidget {
   final HistoryResponseModel item;
-  StockInCard({super.key, required this.item});
+  HistoryCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,11 @@ class StockInCard extends StatelessWidget {
                       children: [
                         SizedBox(
                           child: Text(
-                            DateFormat(
-                              'dd MMM yyyy – HH:mm',
-                            ).format(item.tanggalMasuk!),
+                            DateFormat('dd MMM yyyy – HH:mm').format(
+                              item.tipe == 'masuk'
+                                  ? (item.tanggalMasuk ?? DateTime.now())
+                                  : (item.tanggalKeluar ?? DateTime.now()),
+                            ),
                             style: TextStyle(color: ColorStyle.grey),
                           ),
                         ),
@@ -53,14 +55,25 @@ class StockInCard extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Ionicons.archive_outline,
-                              color: ColorStyle.success,
+                              item.tipe == 'masuk'
+                                  ? Ionicons.archive_outline
+                                  : Ionicons.log_out_outline,
+                              color:
+                                  item.tipe == 'masuk'
+                                      ? ColorStyle.success
+                                      : ColorStyle.danger,
+                              size: 20.sp,
                             ),
                             SizedBox(width: 5.w),
                             Text(
-                              'stock-in'.tr,
+                              item.tipe == 'masuk'
+                                  ? 'stock-in'.tr
+                                  : 'stock-out'.tr,
                               style: TextStyle(
-                                color: ColorStyle.success,
+                                color:
+                                    item.tipe == 'masuk'
+                                        ? ColorStyle.success
+                                        : ColorStyle.danger,
                                 fontSize: 14.sp,
                               ),
                             ),
@@ -84,7 +97,9 @@ class StockInCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '- ${barang.jumlahStokMasuk ?? 0} ${'product'.tr}',
+                                item.tipe == 'masuk'
+                                    ? '- ${barang.jumlahStokMasuk ?? 0} ${'product'.tr}'
+                                    : '- ${barang.jumlahStokKeluar ?? 0} ${'product'.tr}',
                                 style: TextStyle(
                                   color: ColorStyle.grey,
                                   fontSize: 14.sp,
@@ -97,9 +112,14 @@ class StockInCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '+ ${item.totalMasuk}',
+                    item.tipe == 'masuk'
+                        ? '+ ${item.totalMasuk ?? 0}'
+                        : '- ${item.totalKeluar ?? 0}',
                     style: TextStyle(
-                      color: ColorStyle.success,
+                      color:
+                          item.tipe == 'masuk'
+                              ? ColorStyle.success
+                              : ColorStyle.danger,
                       fontSize: 35.sp,
                       fontWeight: FontWeight.bold,
                     ),

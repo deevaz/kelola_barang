@@ -65,7 +65,7 @@ class HistoryTable extends StatelessWidget {
                   NumberFormat.currency(
                     locale: 'id',
                     symbol: 'Rp ',
-                  ).format(double.parse((barang.harga as String?) ?? '0')),
+                  ).format(double.parse(barang.harga ?? '0')),
                 ),
               ),
               Padding(
@@ -78,7 +78,11 @@ class HistoryTable extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(8.sp),
-                child: Text('${barang.jumlahStokMasuk}'),
+                child: Text(
+                  item.tipe == 'masuk'
+                      ? (barang.jumlahStokMasuk ?? 0).toString()
+                      : (barang.jumlahStokKeluar ?? 0).toString(),
+                ),
               ),
             ],
           );

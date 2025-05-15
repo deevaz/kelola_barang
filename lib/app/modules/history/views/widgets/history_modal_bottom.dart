@@ -45,11 +45,16 @@ class HistoryModalBottom extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  formatTanggal(
-                    item.tipe == 'masuk'
-                        ? item.tanggalMasuk!
-                        : item.tanggalKeluar!,
-                  ),
+                  (item.tipe == 'masuk'
+                              ? item.tanggalMasuk
+                              : item.tanggalKeluar) !=
+                          null
+                      ? formatTanggal(
+                        item.tipe == 'masuk'
+                            ? item.tanggalMasuk!
+                            : item.tanggalKeluar!,
+                      )
+                      : '-',
                   style: TextStyle(fontSize: 16.sp),
                 ),
               ],
