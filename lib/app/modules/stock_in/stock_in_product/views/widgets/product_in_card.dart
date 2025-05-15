@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../controllers/stock_in_product_controller.dart';
 
-class SelectProductCard extends StatelessWidget {
-  final dynamic items;
+class ProductInCard extends StatelessWidget {
+  final ProductResponse items;
+
   final Function()? onTap;
-  const SelectProductCard({super.key, this.items, this.onTap});
+  const ProductInCard({super.key, required this.items, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,8 @@ class SelectProductCard extends StatelessWidget {
                       ),
 
                       Image.network(
-                        items['gambar'] ?? '',
+                        items.gambar ??
+                            'https://kelolabarang.com/assets/images/img_placeholder.png',
                         width: 130.w,
                         height: 120.h,
                         fit: BoxFit.cover,
@@ -59,7 +62,7 @@ class SelectProductCard extends StatelessWidget {
                           return Image.asset(
                             'assets/images/img_placeholder.png',
                             width: 130.w,
-                            height: 100.h,
+                            height: 120.h,
                             fit: BoxFit.cover,
                           );
                         },
@@ -74,7 +77,7 @@ class SelectProductCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        items['nama_barang'] ?? '',
+                        items.namaBarang ?? '',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -83,7 +86,7 @@ class SelectProductCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Rp ${items['harga_jual']}',
+                        'Rp ${items.hargaBeli}',
                         style: TextStyle(fontSize: 14.sp),
                       ),
                       SizedBox(height: 10.h),
@@ -96,7 +99,7 @@ class SelectProductCard extends StatelessWidget {
                           ),
                           SizedBox(width: 5.w),
                           Text(
-                            items['kode_barang'] ?? '',
+                            items.kodeBarang ?? '',
                             style: TextStyle(color: ColorStyle.grey),
                           ),
                         ],
@@ -111,25 +114,26 @@ class SelectProductCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        items['total_stok'].toString(),
+                        items.stok.toString(),
                         style: TextStyle(
                           fontSize: 32.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Obx(() {
-                        final stokMasuk = stockInP.getStokMasuk(
-                          items['id']!.toString(),
-                        );
+                        final productIn = stockInP.selectedProducts
+                            .firstWhereOrNull(
+                              (p) => p.id == items.id.toString(),
+                            );
+
                         return Text(
-                          '+ ${stokMasuk.toString()}',
+                          '+ ${productIn?.jumlahstokMasuk ?? 0}',
                           style: TextStyle(
                             color: ColorStyle.success,
                             fontSize: 22.sp,
                           ),
                         );
                       }),
-                      // }),
                     ],
                   ),
                 ),

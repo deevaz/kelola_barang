@@ -50,7 +50,7 @@ class StockInView extends GetView<StockInController> {
                 child: ElevatedButton(
                   style: EvelatedButtonStyle.rounded15,
                   onPressed: () {
-                    controller.postStockIn();
+                    controller.addStockIn();
                   },
                   child: Text('save'.tr, style: TextStyle(fontSize: 16.sp)),
                 ),

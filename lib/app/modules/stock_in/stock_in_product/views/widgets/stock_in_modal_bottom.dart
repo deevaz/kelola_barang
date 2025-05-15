@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/modules/stock_in/stock_in_product/controllers/stock_in_product_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 
 class StockInModalBottom extends StatelessWidget {
-  final Function? onDecrease;
-  final Function? onIncrease;
   final VoidCallback? onClose;
-  final dynamic items;
+  final ProductResponse items;
 
-  const StockInModalBottom({
-    Key? key,
-    this.onDecrease,
-    this.onIncrease,
-    this.onClose,
-    required this.items,
-  }) : super(key: key);
+  const StockInModalBottom({Key? key, this.onClose, required this.items})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +49,7 @@ class StockInModalBottom extends StatelessWidget {
               style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
             ),
             Text(
-              items['nama_barang'],
+              items.namaBarang!,
               style: TextStyle(color: ColorStyle.grey, fontSize: 16.sp),
             ),
             SizedBox(height: 30.h),
@@ -69,15 +63,16 @@ class StockInModalBottom extends StatelessWidget {
                     color: ColorStyle.primary,
                   ),
                   onPressed:
-                      () => stokMasukBC.kurangStokSementara(
-                        items['id'].toString(),
-                      ),
+                      () => stokMasukBC.decreaseStock(items.id.toString()),
                 ),
                 SizedBox(width: 10.w),
                 Obx(() {
                   final stok =
-                      stokMasukBC.tempStockChanges[items['id'].toString()] ??
-                      stokMasukBC.getStokMasuk(items['id'].toString());
+                      stokMasukBC.tempStockChanges[items.id.toString()] ??
+                      stokMasukBC.selectedProducts
+                          .firstWhereOrNull((p) => p.id == items.id.toString())
+                          ?.jumlahstokMasuk ??
+                      0;
                   return Text(
                     stok.toString(),
                     style: TextStyle(fontSize: 50.sp, color: ColorStyle.grey),
@@ -91,9 +86,7 @@ class StockInModalBottom extends StatelessWidget {
                     color: ColorStyle.primary,
                   ),
                   onPressed:
-                      () => stokMasukBC.tambahStokSementara(
-                        items['id'].toString(),
-                      ),
+                      () => stokMasukBC.increaseStock(items.id.toString()),
                 ),
               ],
             ),
@@ -106,9 +99,7 @@ class StockInModalBottom extends StatelessWidget {
                   height: 50.h,
                   child: ElevatedButton(
                     onPressed: () {
-                      stokMasukBC.tempStockChanges.remove(
-                        items['id'].toString(),
-                      );
+                      stokMasukBC.tempStockChanges.remove(items.id.toString());
                       if (onClose != null) onClose!();
                       Get.back();
                     },
@@ -132,7 +123,7 @@ class StockInModalBottom extends StatelessWidget {
                   height: 50.h,
                   child: ElevatedButton(
                     onPressed: () {
-                      stokMasukBC.simpanStok(items['id'].toString());
+                      stokMasukBC.saveProduct(items.id.toString());
                       Get.back();
                     },
                     style: EvelatedButtonStyle.rounded15,

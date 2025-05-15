@@ -60,7 +60,7 @@ class SelectedProductsCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Barang yang dipilih',
+                        'selected-product'.tr,
                         style: TextStyle(
                           fontSize: 16.sp,
                           color: ColorStyle.dark,
@@ -74,7 +74,7 @@ class SelectedProductsCard extends StatelessWidget {
                           namaBarang: selectedProduct[index].namaBarang,
                           gambar: selectedProduct[index].gambar,
                           harga: selectedProduct[index].harga,
-                          stokMasuk: selectedProduct[index].stokMasuk,
+                          stokMasuk: selectedProduct[index].jumlahstokMasuk,
                         );
                       },
                       itemCount: selectedProduct.length,

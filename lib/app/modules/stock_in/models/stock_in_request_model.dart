@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class StockInRequestModel {
   final String pemasok;
   final String catatan;
@@ -41,4 +43,28 @@ class Barang {
     "jumlah_stok_masuk": jumlahStokMasuk,
     "total_stok": totalStok,
   };
+}
+
+extension StockInRequestModelFormData on StockInRequestModel {
+  FormData toFormData() {
+    final data = <String, dynamic>{
+      'pemasok': pemasok,
+      'catatan': catatan,
+      'tanggal_masuk': tanggalMasuk,
+      'total_harga': totalHarga.toString(),
+    };
+
+    // Tambahkan list barang sebagai array
+    for (int i = 0; i < barang.length; i++) {
+      final item = barang[i];
+      data.addAll({
+        'barang[$i][nama]': item.nama,
+        'barang[$i][harga]': item.harga.toString(),
+        'barang[$i][jumlah_stok_masuk]': item.jumlahStokMasuk.toString(),
+        'barang[$i][total_stok]': item.totalStok.toString(),
+      });
+    }
+
+    return FormData.fromMap(data);
+  }
 }

@@ -1,37 +1,23 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
-import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
-
 import '../models/stock_in_request_model.dart';
+import '../repositories/stock_in_repository.dart';
 
 class StockInController extends GetxController {
   static StockInController get to => Get.find();
-
+  final StockInRepository _repo = StockInRepository();
   final catatanC = TextEditingController();
   final RxString selectedSupplier = ''.obs;
   final RxInt totalPrice = 0.obs;
   final Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
   final RxList<ProductInModel> stockInData = <ProductInModel>[].obs;
 
-  final dio = Dio();
-  final userId = BaseController.to.userId.value;
-  String token = BaseController.to.token.value;
-
-  var apiConstant = ApiConstant();
-
   void setSelectedDate(DateTime? date) {
     selectedDate.value = date;
   }
 
-  Future<void> postStockIn() async {
+  Future<void> addStockIn() async {
     final stockData = StockInRequestModel(
       pemasok: selectedSupplier.value,
       catatan: catatanC.text,
@@ -42,40 +28,12 @@ class StockInController extends GetxController {
             return Barang(
               nama: item.namaBarang,
               harga: item.harga,
-              jumlahStokMasuk: item.stokMasuk,
+              jumlahStokMasuk: item.jumlahstokMasuk,
               totalStok: item.stok,
             );
           }).toList(),
     );
-    try {
-      final headers = {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      };
-
-      final response = await dio.post(
-        '${apiConstant.BASE_URL}/stockin/$userId',
-        data: json.encode(stockData.toJson()),
-        options: Options(headers: headers),
-      );
-
-      if (response.statusCode == 201) {
-        print('Berhasil kirim: ${response.data}');
-        Get.snackbar(
-          'success'.tr,
-          'stock-in-success'.tr,
-          backgroundColor: ColorStyle.success,
-          colorText: Colors.white,
-        );
-        Get.offAllNamed('/base');
-        HomeController.to.selectedChart.value = 'in';
-        HistoryController.to.loadHistory();
-      } else {
-        print('Gagal: ${response.statusMessage}');
-      }
-    } catch (e) {
-      print('Error kirim stock in: $e');
-    }
+    _repo.postStockIn(stockData);
   }
 
   void pickDate(BuildContext context) async {
