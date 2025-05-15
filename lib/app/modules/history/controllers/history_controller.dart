@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/history/models/history_response_model.dart';
-import 'package:kelola_barang/app/modules/history/models/stock_in_response_model.dart'
-    as stockin;
-import 'package:kelola_barang/app/modules/history/models/stock_out_response_model.dart'
-    as stockout;
 import 'package:kelola_barang/app/modules/history/repositories/history_repository.dart';
 import 'package:kelola_barang/app/modules/history/services/pdf_service.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:printing/printing.dart';
 import 'package:logger/logger.dart';
 
@@ -22,18 +17,15 @@ class HistoryController extends GetxController {
   var logger = Logger();
 
   final isLoading = false.obs;
-  // void printDocument() async {
-  //   try {
-  //     final pdf = await _pdfService.generatePdf(
-  //       stokMasuk: stokMasuk,
-  //       stokKeluar: stokKeluar,
-  //     );
+  void printDocument() async {
+    try {
+      final pdf = await _pdfService.generatePdf(history: history);
 
-  //     await Printing.layoutPdf(onLayout: (format) async => pdf.save());
-  //   } catch (e) {
-  //     print("Error saat print: $e");
-  //   }
-  // }
+      await Printing.layoutPdf(onLayout: (format) async => pdf.save());
+    } catch (e) {
+      print("Error saat print: $e");
+    }
+  }
 
   void clearFilter() {
     selectedRange.value = null;

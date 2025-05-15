@@ -1,18 +1,19 @@
 import 'package:intl/intl.dart';
-import 'package:kelola_barang/app/modules/history/models/stock_in_response_model.dart';
-import 'package:kelola_barang/app/modules/history/models/stock_out_response_model.dart';
+import 'package:kelola_barang/app/modules/history/models/history_response_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:pdf/widgets.dart';
 
 class PdfService {
   Future<pw.Document> generatePdf({
-    required List<StockInResponseModel> stokMasuk,
-    required List<StockOutResponseModel> stokKeluar,
+    required List<HistoryResponseModel> history,
   }) async {
     final pdf = pw.Document();
     final now = DateTime.now();
     final dateFormat = DateFormat('dd MMMM yyyy HH:mm');
+
+    // Memisahkan data masuk dan keluar
+    final stokMasuk = history.where((item) => item.tipe == 'masuk').toList();
+    final stokKeluar = history.where((item) => item.tipe == 'keluar').toList();
 
     pdf.addPage(
       pw.MultiPage(
@@ -51,52 +52,12 @@ class PdfService {
                   ],
                 ),
               ),
-              pw.SizedBox(height: 10),
-              pw.Text(
-                'Laporan Stok Masuk',
-                style: pw.TextStyle(
-                  fontSize: 16,
-                  fontWeight: pw.FontWeight.bold,
-                  color: PdfColors.green800,
-                ),
-              ),
-              pw.SizedBox(height: 8),
-              _buildTable(
-                stokMasuk.map((item) => item.toJson()).toList(),
-                isStockIn: true,
-              ),
-              // pw.SizedBox(height: 10),
-              // pw.Text(
-              //   'Total Harga Barang : Rp ${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(stokMasuk.fold<double>(0, (sum, item) => sum + (item['barang'] as List<dynamic>? ?? []).fold<double>(0, (subSum, barang) => subSum + (double.tryParse(barang['harga']?.toString() ?? '0') ?? 0) * (double.tryParse(barang['jumlah_stok_masuk']?.toString() ?? '0') ?? 0))))}',
-              //   style: pw.TextStyle(
-              //     fontSize: 14,
-              //     fontWeight: pw.FontWeight.bold,
-              //     color: PdfColors.green800,
-              //   ),
-              // ),
               pw.SizedBox(height: 20),
-              pw.Text(
-                'Laporan Stok Keluar',
-                style: pw.TextStyle(
-                  fontSize: 16,
-                  fontWeight: pw.FontWeight.bold,
-                  color: PdfColors.red800,
-                ),
-              ),
-              pw.SizedBox(height: 8),
-              _buildTable(
-                stokKeluar.map((item) => item.toJson()).toList(),
-                isStockIn: false,
-              ),
-              // pw.SizedBox(height: 10),
-              // pw.Text(
-              //   'Rp. 20',
-              //   style: pw.TextStyle(
-              //     fontSize: 14,
-              //     fontWeight: pw.FontWeight.bold,
-              //     color: PdfColors.red800,
-              //   ),
-              // ),
+              _buildSectionTitle('Laporan Stok Masuk', PdfColors.green800),
+              _buildTable(stokMasuk, isStockIn: true),
+              pw.SizedBox(height: 20),
+              _buildSectionTitle('Laporan Stok Keluar', PdfColors.red800),
+              _buildTable(stokKeluar, isStockIn: false),
             ],
       ),
     );
@@ -104,37 +65,53 @@ class PdfService {
     return pdf;
   }
 
+  pw.Widget _buildSectionTitle(String title, PdfColor color) {
+    return pw.Column(
+      children: [
+        pw.Text(
+          title,
+          style: pw.TextStyle(
+            fontSize: 16,
+            fontWeight: pw.FontWeight.bold,
+            color: color,
+          ),
+        ),
+        pw.SizedBox(height: 8),
+      ],
+    );
+  }
+
   pw.Widget _buildTable(
-    List<Map<String, dynamic>> data, {
+    List<HistoryResponseModel> data, {
     required bool isStockIn,
   }) {
     final rows = <List<String>>[];
+    final dateFormat = DateFormat('dd MMMM yyyy HH:mm');
 
     for (final item in data) {
-      final tanggal =
-          (isStockIn ? item['tanggal_masuk'] : item['tanggal_keluar']) ?? '';
-      final barangList = item['barang'] as List<dynamic>? ?? [];
+      final tanggal = isStockIn ? item.tanggalMasuk : item.tanggalKeluar;
+      final formattedDate = tanggal != null ? dateFormat.format(tanggal) : '';
 
-      for (final barang in barangList) {
-        final namaBarang = barang['nama'] ?? '';
+      for (final barang in item.barang ?? []) {
         final jumlah =
             isStockIn
-                ? barang['jumlah_stok_masuk']?.toString() ?? ''
-                : barang['jumlah_stok_keluar']?.toString() ?? '';
+                ? barang.jumlahStokMasuk?.toString() ?? '0'
+                : barang.jumlahStokKeluar?.toString() ?? '0';
 
         final harga =
-            barang['harga'] != null
+            barang.harga != null
                 ? NumberFormat.currency(
                   locale: 'id',
                   symbol: 'Rp',
                   decimalDigits: 0,
-                ).format(double.tryParse(barang['harga'].toString()) ?? 0)
-                : '';
-        rows.add([tanggal, namaBarang, jumlah, harga]);
+                ).format(double.tryParse(barang.harga!) ?? 0)
+                : 'Rp 0';
+
+        rows.add([formattedDate, barang.nama ?? '', jumlah, harga]);
       }
     }
 
-    return TableHelper.fromTextArray(
+    return pw.TableHelper.fromTextArray(
       headers: ['Tanggal', 'Nama Barang', 'Jumlah', 'Harga'],
       data: rows,
       headerStyle: pw.TextStyle(
@@ -153,7 +130,6 @@ class PdfService {
         color: PdfColors.grey100,
       ),
       oddRowDecoration: const pw.BoxDecoration(color: PdfColors.white),
-      border: null,
     );
   }
 }

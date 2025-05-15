@@ -71,10 +71,8 @@ class HistoryView extends GetView<HistoryController> {
                 MaterialRounded(
                   child: IconButton(
                     onPressed: () {
-                      // controller.printDocument();
                       print('Print pdf');
-                      print(controller.history);
-                      controller.loadHistory();
+                      controller.printDocument();
                     },
                     icon: const Icon(Icons.print),
                   ),
