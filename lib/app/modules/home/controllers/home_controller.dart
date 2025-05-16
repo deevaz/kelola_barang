@@ -24,7 +24,6 @@ class HomeController extends GetxController {
     super.onReady();
     fetchStockIn();
     fetchStockOut();
-    loadProfit();
   }
 
   void clearFilter() {
@@ -50,31 +49,7 @@ class HomeController extends GetxController {
       final formattedStartDate = DateFormat('yyyy-MM-dd').format(picked.start);
       final formattedEndDate = DateFormat('yyyy-MM-dd').format(picked.end);
 
-      // await loadFilteredProfit(formattedStartDate, formattedEndDate);
       await loadFilteredStockData(formattedStartDate, formattedEndDate);
-    }
-  }
-
-  Future<void> loadProfit() async {
-    try {
-      final profitData = await _repo.fetchProfit();
-
-      profit.value = profitData;
-      print('Profit loaded: ${profit.value}');
-    } catch (e, stack) {
-      print('❌ Error loading profit: $e');
-      print(stack);
-    }
-  }
-
-  Future<void> loadFilteredProfit(String startDate, String endDate) async {
-    try {
-      final profitData = await _repo.fetchFilteredProfit(startDate, endDate);
-      profit.value = profitData;
-      print('Filtered Profit loaded: ${profit.value}');
-    } catch (e, stack) {
-      print('❌ Error loading filtered profit: $e');
-      print(stack);
     }
   }
 
@@ -95,9 +70,9 @@ class HomeController extends GetxController {
 
       print('Filtered Stock In loaded: ${stockInData.length}');
       print('Filtered Stock Out loaded: ${stockOutData.length}');
-    } catch (e) {
-      log.e('Error loading filtered stock data: $e');
+    } catch (e, stack) {
       print('❌ Error loading filtered stock data: $e');
+      print(stack);
     }
   }
 

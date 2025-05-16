@@ -12,33 +12,6 @@ class HomeRepository {
   final userId = BaseController.to.userId;
   Logger log = Logger();
 
-  Future<int> fetchProfit() async {
-    final response = await dioInstance.get('/profit/$userId');
-    if (response.statusCode == 200) {
-      print('Profit: ${response.data}');
-      return response.data['total_profit'];
-    } else {
-      throw Exception(
-        'Failed to fetch string from API: ${response.statusMessage}',
-      );
-    }
-  }
-
-  Future<int> fetchFilteredProfit(String startDate, String endDate) async {
-    final response = await dioInstance.get(
-      '/profit/$userId',
-      queryParameters: {'start_date': startDate, 'end_date': endDate},
-    );
-    if (response.statusCode == 200) {
-      print('Filter profit: ${response.data}');
-      return response.data['total_profit'];
-    } else {
-      throw Exception(
-        'Failed to fetch string from API: ${response.statusMessage}',
-      );
-    }
-  }
-
   Future<List<ChartDataIn>> fetchFilteredStockIn(
     String startDate,
     String endDate,
@@ -49,8 +22,7 @@ class HomeRepository {
     );
 
     if (response.statusCode == 200) {
-      final responseData = response.data as Map<String, dynamic>;
-      final List data = responseData['data'];
+      final List<dynamic> data = response.data;
       return data.map((e) => ChartDataIn.fromJson(e)).toList();
     } else if (response.statusCode == 204) {
       return [];
@@ -69,8 +41,7 @@ class HomeRepository {
     );
 
     if (response.statusCode == 200) {
-      final responseData = response.data as Map<String, dynamic>;
-      final List data = responseData['data'];
+      final List<dynamic> data = response.data;
       return data.map((e) => ChartDataOut.fromJson(e)).toList();
     } else if (response.statusCode == 204) {
       return [];
