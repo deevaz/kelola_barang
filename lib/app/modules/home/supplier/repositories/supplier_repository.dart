@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
@@ -7,7 +6,7 @@ import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:logger/logger.dart';
 
-import '../models/suppliers_model.dart';
+import '../models/supplier_model.dart';
 
 class SupplierRepository {
   SupplierRepository();
@@ -20,6 +19,7 @@ class SupplierRepository {
   Future<void> addSupplier(SuppliersModel supplier) async {
     var response = await dioInstance.post('/suppliers/$userId', data: supplier);
     if (response.statusCode == 201) {
+      SupplierController.to.getAllSuppliers();
       Get.back();
       SnackbarService.success('success'.tr, 'add-supplier-success'.tr);
     } else {
@@ -43,17 +43,14 @@ class SupplierRepository {
     }
   }
 
-  // !PASANG MODEL GBLOK
-  Future<Iterable<Map<String, dynamic>>> fetchAllSuppliers() async {
+  Future<List<SuppliersModel>> fetchAllSuppliers() async {
     try {
-      var dio = Dio();
       var response = await dioInstance.get('/suppliers/$userId');
       print(response.data.toString());
       if (response.statusCode == 200) {
         print('Berhasil ambil data');
-        return (response.data['data'] as List).map(
-          (item) => item as Map<String, dynamic>,
-        );
+        final List data = response.data['data'];
+        return data.map((item) => SuppliersModel.fromJson(item)).toList();
       } else {
         print('Gagal ambil data');
         return [];

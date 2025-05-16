@@ -1,40 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:logger/logger.dart';
 
-import 'package:kelola_barang/constants/api_constant.dart';
-
-import '../models/suppliers_model.dart';
+import '../models/supplier_model.dart';
 import '../repositories/supplier_repository.dart';
 
 class SupplierController extends GetxController {
   static SupplierController get to => Get.find();
-  late final SupplierRepository repo;
-  final isLoading = false.obs;
+  final SupplierRepository repo = SupplierRepository();
 
-  final RxList<Map<String, dynamic>> pemasok = <Map<String, dynamic>>[].obs;
+  final RxList<SuppliersModel> supplier = <SuppliersModel>[].obs;
+  final RxList<SuppliersModel> allSuppliers = <SuppliersModel>[].obs;
   final namaPemasokC = TextEditingController();
   final teleponC = TextEditingController();
   final rekeningC = TextEditingController();
   final catatanC = TextEditingController();
-
-  var apiConstant = ApiConstant();
-
-  var searchText = ''.obs;
-
-  final RxList<Map<String, dynamic>> allSuppliers =
-      <Map<String, dynamic>>[].obs;
+  final searchText = ''.obs;
+  Logger log = Logger();
 
   void filterSupplier(String query) {
     final lowerQuery = query.toLowerCase();
     final filtered =
         allSuppliers
             .where(
-              (item) => (item["nama_supplier"]?.toString().toLowerCase() ?? "")
+              (item) => (item.namaSupplier?.toString().toLowerCase() ?? "")
                   .contains(lowerQuery),
             )
             .toList();
-    pemasok.assignAll(filtered);
+    supplier.assignAll(filtered);
   }
 
   void addSupplier() async {
@@ -84,24 +78,20 @@ class SupplierController extends GetxController {
   }
 
   Future<void> getAllSuppliers() async {
-    isLoading.value = true;
     try {
-      final fetchedpemasok = await repo.fetchAllSuppliers();
-      final listOfpemasok = List<Map<String, dynamic>>.from(fetchedpemasok);
-      pemasok.assignAll(listOfpemasok);
-      allSuppliers.assignAll(listOfpemasok);
-      print('Suppliers fetched ${pemasok.length}');
+      final data = await repo.fetchAllSuppliers();
+      supplier.assignAll(data);
+      allSuppliers.assignAll(data);
+      log.i('Panjang supplier: ${supplier.length}');
+      print('Suppliers fetched ${supplier.length}');
     } catch (e) {
       print("Error fetching suppliers: $e");
-    } finally {
-      isLoading.value = false;
     }
   }
 
   @override
   void onInit() {
     super.onInit();
-    repo = SupplierRepository();
     getAllSuppliers();
   }
 }

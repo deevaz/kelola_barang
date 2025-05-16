@@ -22,12 +22,12 @@ class ProductRepository {
       print(response.data.toString());
       if (response.statusCode == 200) {
         print('berhasil ambil data');
+        final List data = response.data['data'];
+        return data.map((item) => ProductResponse.fromJson(item)).toList();
       } else {
         log.e('gagal ambil data', error: response.data);
+        return [];
       }
-
-      final List data = response.data['data'];
-      return data.map((item) => ProductResponse.fromJson(item)).toList();
     } catch (e) {
       print('gagal ambil data $e');
       return [];
@@ -36,19 +36,16 @@ class ProductRepository {
 
   Future<List<ProductResponse>> fetchProductbyCategory(String category) async {
     try {
-      if (category == 'Semua Kategori') {
-        category = '';
-      }
       var response = await dioInstance.get('/products/$userId/$category');
       print(response.data.toString());
       if (response.statusCode == 200) {
         print('berhasil ambil data');
+        final List data = response.data['data'];
+        return data.map((item) => ProductResponse.fromJson(item)).toList();
       } else {
         log.e('gagal ambil data', error: response.data);
+        return [];
       }
-
-      final List data = response.data['data'];
-      return data.map((item) => ProductResponse.fromJson(item)).toList();
     } catch (e) {
       print('gagal ambil data $e');
       return [];

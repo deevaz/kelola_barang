@@ -18,7 +18,7 @@ class SupplierView extends GetView<SupplierController> {
   @override
   Widget build(BuildContext context) {
     final arguments = Get.arguments;
-    final pemasok = controller.pemasok;
+    final data = controller.supplier;
     final stockC = Get.put(StockInController());
     return Scaffold(
       appBar: CustomAppBar(title: 'supplier'.tr, lightBg: false),
@@ -33,9 +33,9 @@ class SupplierView extends GetView<SupplierController> {
           Expanded(
             child: Obx(
               () => ListView.builder(
-                itemCount: pemasok.length,
+                itemCount: data.length,
                 itemBuilder: (context, index) {
-                  final supplier = controller.pemasok[index];
+                  final supplier = controller.supplier[index];
                   return Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 15.w,
@@ -44,17 +44,13 @@ class SupplierView extends GetView<SupplierController> {
                     child: InkWell(
                       onTap: () {
                         if (arguments?['from'] == 'SelectedSupplierCard') {
-                          print(
-                            'Selected Supplier: ${supplier['nama_supplier']}',
-                          );
+                          print('Selected Supplier: ${supplier.namaSupplier}');
                           stockC.selectedSupplier.value =
-                              supplier['nama_supplier'];
+                              supplier.namaSupplier.toString();
 
                           Get.back();
                         } else if (arguments == null) {
-                          print(
-                            'Selected Supplier: ${supplier['nama_supplier']}',
-                          );
+                          print('Selected Supplier: ${supplier.namaSupplier}');
                           Get.bottomSheet(
                             Container(
                               padding: EdgeInsets.all(20.w),
@@ -70,7 +66,7 @@ class SupplierView extends GetView<SupplierController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'supplier-name: ${supplier['nama_supplier']}',
+                                    'supplier-name: ${supplier.namaSupplier}',
                                     style: TextStyle(
                                       fontSize: 18.sp,
                                       fontWeight: FontWeight.bold,
@@ -78,20 +74,19 @@ class SupplierView extends GetView<SupplierController> {
                                   ),
                                   SizedBox(height: 10.h),
                                   Text(
-                                    'supplier-name: ${supplier['nama_supplier']}',
+                                    'supplier-name: ${supplier.namaSupplier}',
                                     style: TextStyle(fontSize: 16.sp),
                                   ),
                                   Text(
-                                    'phone-number'.tr +
-                                        ': ${supplier['no_telp']}',
+                                    'phone-number'.tr + ': ${supplier.noTelp}',
                                     style: TextStyle(fontSize: 16.sp),
                                   ),
                                   Text(
-                                    'bank-account: ${supplier['no_rekening']}',
+                                    'bank-account: ${supplier.noRekening}',
                                     style: TextStyle(fontSize: 16.sp),
                                   ),
                                   Text(
-                                    'note'.tr + ': ${supplier['catatan']}',
+                                    'note'.tr + ': ${supplier.catatan}',
                                     style: TextStyle(fontSize: 16.sp),
                                   ),
                                   SizedBox(height: 20.h),
@@ -123,7 +118,7 @@ class SupplierView extends GetView<SupplierController> {
                             SlidableAction(
                               onPressed: (context) {
                                 controller.deleteSupplier(
-                                  supplier['id'].toString(),
+                                  supplier.id.toString(),
                                 );
                                 controller.getAllSuppliers();
                               },
@@ -136,16 +131,16 @@ class SupplierView extends GetView<SupplierController> {
                               onPressed: (context) {
                                 Get.toNamed(
                                   Routes.ADD_SUPPLIER,
-                                  arguments: supplier['id'].toString(),
+                                  arguments: supplier.id.toString(),
                                 );
                                 controller.namaPemasokC.text =
-                                    supplier['nama_supplier'];
+                                    supplier.namaSupplier.toString();
                                 controller.teleponC.text =
-                                    supplier['no_telp'].toString();
+                                    supplier.noTelp.toString();
                                 controller.rekeningC.text =
-                                    supplier['no_rekening'].toString();
+                                    supplier.noRekening.toString();
                                 controller.catatanC.text =
-                                    supplier['catatan'].toString();
+                                    supplier.catatan.toString();
                               },
                               backgroundColor: ColorStyle.warning,
                               foregroundColor: ColorStyle.white,
@@ -176,14 +171,14 @@ class SupplierView extends GetView<SupplierController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    supplier['nama_supplier'],
+                                    supplier.namaSupplier.toString(),
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    supplier['no_telp'].toString(),
+                                    supplier.noTelp.toString(),
                                     style: TextStyle(fontSize: 14.sp),
                                   ),
                                 ],
@@ -209,7 +204,7 @@ class SupplierView extends GetView<SupplierController> {
           Get.toNamed(Routes.ADD_SUPPLIER);
           controller.getAllSuppliers();
           print('Tambah Pemasok');
-          print(controller.pemasok.length);
+          print(controller.supplier.length);
         },
         child: Icon(Icons.add, color: ColorStyle.white),
       ),
