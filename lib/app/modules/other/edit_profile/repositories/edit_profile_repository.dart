@@ -6,6 +6,7 @@ import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart'
 import 'package:kelola_barang/app/modules/other/edit_profile/models/edit_user_model.dart';
 import 'package:kelola_barang/app/services/dialog_service.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
+import 'package:kelola_barang/app/services/hive_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
@@ -30,27 +31,30 @@ class EditProfileRepo {
       );
     }
 
-    final formData = FormData.fromMap(dataMap);
-    formData.fields.add(MapEntry('_method', 'PUT'));
+    final formData = await user.toFormDataForUpdate();
 
     final response = await dioInstance.post('/user/edit/$id', data: formData);
 
     if (response.statusCode == 200) {
       final userJson = response.data['user'] as Map<String, dynamic>;
-      SnackbarService.success('success'.tr, 'profile-updated-success'.tr);
       userBox.clear();
-      final userMap = response.data['user'] as Map<String, dynamic>;
-      final user = UserResponseModel.fromJson(userMap);
-      await userBox.put('user', user);
+      var data = await dioInstance.get('/user/$id');
+      if (data.statusCode == 200) {
+        print(data.data);
+        final userMap = data.data['user'] as Map<String, dynamic>;
+        final user = UserResponseModel.fromJson(userMap);
+        await HiveService.saveUser(user);
+        await HiveService.saveToken(data.data['token'] as String);
+      }
       DialogService.success(
-        message: 'update-profile-success'.tr,
+        message: 'profile-updated-success'.tr,
         onConfirm: () {
           Get.back();
-          Get.offAllNamed('/onboarding');
+          Get.offAllNamed('/base');
         },
       );
 
-      Get.toNamed('/splash-screen');
+      // Get.toNamed('/splash-screen');
       return EditUserModel.fromJson(userJson);
     }
 

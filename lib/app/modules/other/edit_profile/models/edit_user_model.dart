@@ -57,20 +57,29 @@ class EditUserModel {
       email: json['email'] as String,
     );
   }
-
   Future<FormData> toFormDataForUpdate() async {
-    final multipartFiles = await Future.wait(
-      files.map(
-        (file) => MultipartFile.fromFile(file.path, filename: file.name),
-      ),
-    );
+    final formData = FormData();
 
-    return FormData.fromMap({
-      'files': multipartFiles,
-      'name': name,
-      'username': username,
-      'email': email,
-      '_method': 'PUT',
-    });
+    if (files.isNotEmpty) {
+      formData.files.add(
+        MapEntry(
+          'profile_picture',
+          await MultipartFile.fromFile(
+            files.first.path,
+            filename: files.first.name,
+          ),
+        ),
+      );
+    }
+
+    // Tambahkan field lainnya
+    formData.fields.addAll([
+      MapEntry('name', name),
+      MapEntry('username', username),
+      MapEntry('email', email),
+      MapEntry('_method', 'PUT'),
+    ]);
+
+    return formData;
   }
 }

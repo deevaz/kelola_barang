@@ -195,19 +195,22 @@ class SupplierView extends GetView<SupplierController> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorStyle.primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        onPressed: () {
-          Get.toNamed(Routes.ADD_SUPPLIER);
-          controller.getAllSuppliers();
-          print('Tambah Pemasok');
-          print(controller.supplier.length);
-        },
-        child: Icon(Icons.add, color: ColorStyle.white),
-      ),
+      floatingActionButton:
+          (arguments?['from'] == 'SelectedSupplierCard')
+              ? null
+              : FloatingActionButton(
+                backgroundColor: ColorStyle.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                onPressed: () {
+                  Get.toNamed(Routes.ADD_SUPPLIER);
+                  controller.getAllSuppliers();
+                  print('Tambah Pemasok');
+                  print(controller.supplier.length);
+                },
+                child: Icon(Icons.add, color: ColorStyle.white),
+              ),
     );
   }
 }

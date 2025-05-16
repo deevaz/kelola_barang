@@ -27,10 +27,9 @@ class LoginRepository {
       return;
     }
 
-    final response = await dioInstance.request(
+    final response = await dioInstance.post(
       '/login',
       options: dio.Options(
-        method: 'POST',
         validateStatus: (status) => status != null && status < 500,
       ),
       data: {'username': username, 'password': password},

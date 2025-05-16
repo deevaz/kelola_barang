@@ -19,11 +19,7 @@ class RegisterRepository {
 
   Future<void> postUser(dio.FormData formData) async {
     try {
-      final response = await dioInstance.request(
-        '/register',
-        options: dio.Options(method: 'POST'),
-        data: formData,
-      );
+      final response = await dioInstance.post('/register', data: formData);
 
       if (response.statusCode == 201) {
         final userMap = response.data['user'] as Map<String, dynamic>;

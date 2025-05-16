@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/other/edit_profile/repositories/edit_profile_repo.dart';
+import 'package:kelola_barang/app/modules/other/edit_profile/repositories/edit_profile_repository.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -66,6 +67,11 @@ class EditProfileController extends GetxController {
       maxHeight: 800,
     );
     if (pickedFile != null) {
+      final fileSize = await pickedFile.length();
+      if (fileSize > 2 * 1024 * 1024) {
+        SnackbarService.error('File too large', 'Max size is 2MB');
+        return;
+      }
       selectedImage.value = pickedFile;
     }
   }

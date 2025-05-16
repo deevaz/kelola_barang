@@ -45,7 +45,7 @@ class EditPictureButton extends StatelessWidget {
                       size: 40.sp,
                       color:
                           c.selectedImage.value != null
-                              ? Colors.transparent
+                              ? ColorStyle.white.withOpacity(0.8)
                               : ColorStyle.dark,
                     ),
                     onPressed: () {

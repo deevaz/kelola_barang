@@ -4,6 +4,9 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'en': {
+      'add-supplier-success': 'Supplier added successfully',
+      'password-change-successfully':
+          'Password changed successfully, please login again',
       'empty': 'Empty',
       'all-category': 'All Category',
       'delete-account-success': 'Account deleted successfully',
@@ -280,6 +283,8 @@ class AppTranslations extends Translations {
       'list-product': 'Rincian Produk',
       'history-detail': 'Detail Riwayat',
       'confirm-password': 'Konfirmasi Kata Sandi',
+      'password-change-successfully':
+          'Kata sandi berhasil diubah, silakan masuk kembali',
       'confirm-password-not-match': 'Konfirmasi kata sandi tidak cocok',
       'input-rekening': 'Masukkan nomor rekening Anda',
       'rekening': 'Nomor Rekening',
@@ -306,6 +311,7 @@ class AppTranslations extends Translations {
       'total-data': 'Total Data',
       'all-category': 'Semua Kategori',
       'delete-account-failed': 'Gagal menghapus akun',
+      'add-supplier-success': 'Pemasok berhasil ditambahkan',
       'desc-delete':
           'Menghapus akun Anda akan menghapus semua data Anda dan tidak dapat dibatalkan',
     },
