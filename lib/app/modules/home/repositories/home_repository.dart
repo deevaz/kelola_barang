@@ -8,9 +8,7 @@ class HomeRepository {
   HomeRepository();
 
   final dio.Dio dioInstance = DioService.dioCall();
-
   final userId = BaseController.to.userId;
-  final String token = BaseController.to.token.value;
 
   Future<int> fetchProfit() async {
     final response = await dioInstance.get('/profit/$userId');
@@ -39,7 +37,7 @@ class HomeRepository {
     }
   }
 
-  Future<List<ChartDataIn>> loadFilteredStockIn(
+  Future<List<ChartDataIn>> fetchFilteredStockIn(
     String startDate,
     String endDate,
   ) async {
@@ -59,7 +57,7 @@ class HomeRepository {
     }
   }
 
-  Future<List<ChartDataOut>> loadFilteredStockOut(
+  Future<List<ChartDataOut>> fetchFilteredStockOut(
     String startDate,
     String endDate,
   ) async {
@@ -77,7 +75,7 @@ class HomeRepository {
     }
   }
 
-  Future<List<ChartDataIn>> getStockIn() async {
+  Future<List<ChartDataIn>> fetchStockIn() async {
     final response = await dioInstance.get('/stockin/$userId');
     if (response.statusCode == 200) {
       final List data = response.data;
@@ -87,7 +85,7 @@ class HomeRepository {
     }
   }
 
-  Future<List<ChartDataOut>> getStockOut() async {
+  Future<List<ChartDataOut>> fetchStockOut() async {
     final response = await dioInstance.get('/stockout/$userId');
     if (response.statusCode == 200) {
       final List data = response.data;

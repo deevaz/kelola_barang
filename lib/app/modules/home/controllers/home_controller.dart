@@ -80,8 +80,11 @@ class HomeController extends GetxController {
     print('Filtering stock data from $startDate to $endDate');
 
     try {
-      final stockInData = await _repo.loadFilteredStockIn(startDate, endDate);
-      final stockOutData = await _repo.loadFilteredStockOut(startDate, endDate);
+      final stockInData = await _repo.fetchFilteredStockIn(startDate, endDate);
+      final stockOutData = await _repo.fetchFilteredStockOut(
+        startDate,
+        endDate,
+      );
 
       chartDataIn.assignAll(stockInData);
       chartDataOut.assignAll(stockOutData);
@@ -108,7 +111,7 @@ class HomeController extends GetxController {
 
   void fetchStockIn() async {
     try {
-      final data = await _repo.getStockIn();
+      final data = await _repo.fetchStockIn();
       chartDataIn.assignAll(data);
       setStokMasuk();
     } catch (e) {
@@ -118,7 +121,7 @@ class HomeController extends GetxController {
 
   void fetchStockOut() async {
     try {
-      final data = await _repo.getStockOut();
+      final data = await _repo.fetchStockOut();
       chartDataOut.assignAll(data);
       setStokKeluar();
     } catch (e) {

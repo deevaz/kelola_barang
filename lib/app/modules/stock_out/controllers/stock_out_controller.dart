@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/history/controllers/history_controller.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:kelola_barang/app/modules/stock_out/repositories/stock_out_repository.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
 
 import '../models/product_out_model.dart';
@@ -14,6 +10,7 @@ import '../models/stock_out_model.dart';
 
 class StockOutController extends GetxController {
   static StockOutController get to => Get.find();
+  final StockOutRepository _repo = StockOutRepository();
   final noteC = TextEditingController();
   final buyerC = TextEditingController();
   final RxString selectedBuyer = ''.obs;
@@ -30,8 +27,8 @@ class StockOutController extends GetxController {
     selectedDate.value = date;
   }
 
-  Future<void> postStockOut() async {
-    final stockData = StockOutModel(
+  Future<void> addStockOut() async {
+    final stockData = StockOutRequestModel(
       pembeli: buyerC.text,
       catatan: noteC.text,
       tanggalKeluar: selectedDate.value?.toIso8601String() ?? '',
@@ -41,46 +38,13 @@ class StockOutController extends GetxController {
             return Barang(
               nama: item.namaBarang,
               harga: item.harga,
-              jumlahStokKeluar: item.stokKeluar,
+              jumlahStokKeluar: item.jumlahStokKeluar,
               totalStok: item.stok,
             );
           }).toList(),
     );
-    try {
-      var token = await BaseController.to.token.value;
-      final headers = {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json',
-      };
 
-      final response = await dio.post(
-        '${apiConstant.BASE_URL}/stockout/$userId',
-        data: json.encode(stockData.toJson()),
-        options: Options(
-          headers: headers,
-          validateStatus: (status) => status! < 500,
-        ),
-      );
-
-      if (response.statusCode == 201) {
-        print('Berhasil kirim: ${response.data}');
-        Get.snackbar(
-          'Berhasil',
-          'Stock Keluar berhasil disimpan',
-          backgroundColor: ColorStyle.success,
-          colorText: Colors.white,
-        );
-        Get.offAllNamed('/home');
-        HomeController.to.selectedChart.value = 'out';
-        HistoryController.to.loadHistory();
-      } else {
-        print('Gagal kirim stock out: ${response.statusCode}');
-        print('Detail error: ${response.data}');
-      }
-    } on DioError catch (e) {
-      print('DioError: ${e.response?.statusCode}');
-      print('DioError data: ${e.response?.data}');
-    }
+    _repo.postStockOut(stockData);
   }
 
   void pickDate(BuildContext context) async {

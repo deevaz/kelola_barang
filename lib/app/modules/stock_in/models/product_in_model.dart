@@ -21,7 +21,7 @@ class ProductInModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'namaBarang': namaBarang,
+      'nama_barang': namaBarang,
       'gambar': gambar,
       'jumlah_stok_masuk': jumlahstokMasuk,
       'harga': harga,

@@ -1,112 +1,63 @@
 import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/home/supplier/controllers/supplier_controller.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/services/dio_service.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
+import 'package:logger/logger.dart';
 
 import '../models/suppliers_model.dart';
 
 class SupplierRepository {
   SupplierRepository();
 
-  var apiConstant = ApiConstant();
+  final dio.Dio dioInstance = DioService.dioCall();
+  Logger log = Logger();
+
   final userId = BaseController.to.userId.value;
-  final dio = Dio();
-  String token = BaseController.to.token.value;
 
   Future<void> addSupplier(SuppliersModel supplier) async {
-    var headers = {'Authorization': 'Bearer $token'};
-    var dio = Dio();
-    var response = await dio.request(
-      '${apiConstant.BASE_URL}/suppliers/$userId',
-      options: Options(
-        method: 'POST',
-        headers: headers,
-        contentType: 'application/json',
-      ),
-      data: supplier,
-    );
+    var response = await dioInstance.post('/suppliers/$userId', data: supplier);
     if (response.statusCode == 201) {
-      Get.snackbar(
-        'success'.tr,
-        'supplier-added'.tr,
-        backgroundColor: ColorStyle.success,
-        colorText: ColorStyle.white,
-      );
+      Get.back();
+      SnackbarService.success('success'.tr, 'add-supplier-success'.tr);
     } else {
-      Get.snackbar(
-        'failed'.tr,
-        'failed-to-add-supplier'.tr,
-        backgroundColor: ColorStyle.danger,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.error('failed'.tr, 'failed-to-add-supplier'.tr);
+      print('Error: ${response.statusMessage}');
     }
   }
 
   Future<void> editSupplier(SuppliersModel supplier, String id) async {
-    var headers = {'Authorization': 'Bearer $token'};
-    var dio = Dio();
-    var response = await dio.request(
-      '${apiConstant.BASE_URL}/suppliers/$userId/$id',
-      options: Options(
-        method: 'PUT',
-        headers: headers,
-        contentType: 'application/json',
-      ),
+    var response = await dioInstance.put(
+      '/suppliers/$userId/$id',
       data: supplier,
     );
     if (response.statusCode == 201) {
       Get.back();
-
       SupplierController.to.getAllSuppliers();
-      Get.snackbar(
-        'success'.tr,
-        'change-supplier-success'.tr,
-        backgroundColor: ColorStyle.success,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.success('success'.tr, 'change-supplier-success'.tr);
     } else {
-      print('Error: ${response.statusCode}');
-      print('Error: ${response.data}');
       print('Error: ${response.statusMessage}');
-      Get.snackbar(
-        'failed'.tr,
-        'failed-to-edit-supplier'.tr,
-        backgroundColor: ColorStyle.danger,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.error('failed'.tr, 'failed-to-change-supplier'.tr);
     }
   }
 
+  // !PASANG MODEL GBLOK
   Future<Iterable<Map<String, dynamic>>> fetchAllSuppliers() async {
-    var headers = {'Authorization': 'Bearer $token'};
     try {
       var dio = Dio();
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/suppliers/$userId',
-        options: Options(method: 'GET', headers: headers),
-      );
+      var response = await dioInstance.get('/suppliers/$userId');
       print(response.data.toString());
-      if (response.statusCode != 200) {
-        print('Error: ${response.statusCode}');
-        Get.snackbar(
-          'failed'.tr,
-          'failed-to-fetch-data'.tr,
-          backgroundColor: ColorStyle.danger,
-          colorText: ColorStyle.white,
+      if (response.statusCode == 200) {
+        print('Berhasil ambil data');
+        return (response.data['data'] as List).map(
+          (item) => item as Map<String, dynamic>,
         );
-      } else if (response.data['data'] == null) {
-        Get.snackbar(
-          'failed'.tr,
-          'failed-to-fetch-data'.tr,
-          backgroundColor: ColorStyle.danger,
-          colorText: ColorStyle.white,
-        );
+      } else {
+        print('Gagal ambil data');
+        return [];
       }
-      return (response.data['data'] as List).map(
-        (item) => item as Map<String, dynamic>,
-      );
     } catch (e) {
       print('gagal ambil data $e');
       return [];
@@ -114,27 +65,14 @@ class SupplierRepository {
   }
 
   Future<void> deleteSupplier(String id) async {
-    var headers = {'Authorization': 'Bearer $token'};
-    var dio = Dio();
-    var response = await dio.request(
-      '${apiConstant.BASE_URL}/suppliers/$userId/$id',
-      options: Options(method: 'DELETE', headers: headers),
-    );
+    var response = await dioInstance.delete('/suppliers/$userId/$id');
     print('Supplier deleted successfully');
     if (response.statusCode == 200) {
-      Get.snackbar(
-        'Berhasil',
-        'Supplier berhasil dihapus',
-        backgroundColor: ColorStyle.success,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.success('success'.tr, 'delete-supplier-success'.tr);
+      SupplierController.to.getAllSuppliers();
     } else {
-      Get.snackbar(
-        'Gagal',
-        'Supplier gagal dihapus',
-        backgroundColor: ColorStyle.danger,
-        colorText: ColorStyle.white,
-      );
+      SnackbarService.error('failed'.tr, 'failed-to-delete-supplier'.tr);
+      print('Error: ${response.statusMessage}');
     }
   }
 }

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/stock_in/stock_in_product/controllers/stock_in_product_controller.dart';
+import 'package:kelola_barang/app/modules/stock_out/stock_out_product/controllers/stock_out_product_controller.dart';
 import 'package:kelola_barang/app/services/currency_service.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 
-class ProductInBottom extends StatelessWidget {
-  const ProductInBottom({super.key, required this.controller});
+class ProductOutBottom extends StatelessWidget {
+  ProductOutBottom({super.key, required this.controller});
 
-  final StockInProductController controller;
+  final StockOutProductController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +18,13 @@ class ProductInBottom extends StatelessWidget {
       height: 100.h,
       decoration: BoxDecoration(
         color: ColorStyle.white,
-        boxShadow: [
-          BoxShadow(
-            color: ColorStyle.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: Offset(0, -1),
-          ),
-        ],
+
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20.r),
           topRight: Radius.circular(20.r),
         ),
       ),
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-
       child: Row(
         children: [
           Column(
@@ -42,7 +33,7 @@ class ProductInBottom extends StatelessWidget {
             children: [
               Obx(
                 () => Text(
-                  controller.getProductIn().toString(),
+                  controller.getProductOut().toString(),
                   style: TextStyle(
                     fontSize: 30.sp,
                     color: ColorStyle.dark,
@@ -68,6 +59,7 @@ class ProductInBottom extends StatelessWidget {
                   ),
                 ),
               ),
+
               Text('total-price'.tr, style: TextStyle(fontSize: 18.sp)),
             ],
           ),
@@ -77,7 +69,7 @@ class ProductInBottom extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.saveProductIn();
+                  controller.saveProductOut();
                   controller.getTotalHarga();
                   Get.back();
                 },

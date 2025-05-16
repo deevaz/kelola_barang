@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
-
 import 'package:kelola_barang/app/shared/widgets/barcode_button.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
-
 import 'package:kelola_barang/app/shared/widgets/search_widget.dart';
-
 import '../controllers/stock_out_product_controller.dart';
+import 'widgets/product_out_bottom.dart';
 import 'widgets/select_product_card.dart';
 import 'widgets/stock_out_modal_bottom.dart';
 
@@ -41,27 +37,16 @@ class StockOutProductView extends GetView<StockOutProductController> {
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.only(bottom: 120.h),
-                itemCount: controller.listProducts.length,
+                itemCount: controller.filteredProducts.length,
                 itemBuilder: (context, index) {
-                  final product = controller.listProducts;
+                  final product = controller.filteredProducts;
                   return SelectProductCard(
                     items: product[index],
                     onTap: () {
                       Get.bottomSheet(
-                        StockOutModalBottom(
-                          items: product[index],
-                          onIncrease: () {
-                            controller.stockOut.value++;
-                            print('Stok Keluar ${controller.stockOut.value}');
-                          },
-                          onDecrease: () {
-                            if (controller.stockOut.value > 0) {
-                              controller.stockOut.value--;
-                            }
-                          },
-                        ),
+                        StockOutModalBottom(items: product[index]),
                       );
-                      print('Pilih Barang ${product[index]['id']}');
+                      print('Pilih Barang ${product[index].id}');
                     },
                   );
                 },
@@ -70,87 +55,7 @@ class StockOutProductView extends GetView<StockOutProductController> {
           ],
         ),
       ),
-      bottomSheet: Container(
-        height: 100.h,
-        decoration: BoxDecoration(
-          color: ColorStyle.white,
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: ColorStyle.grey,
-          //     spreadRadius: 1,
-          //     blurRadius: 1,
-          //     offset: Offset(0, -1),
-          //   ),
-          // ],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.r),
-            topRight: Radius.circular(20.r),
-          ),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Obx(
-                  () => Text(
-                    controller.getTotalBarang().toString(),
-                    style: TextStyle(
-                      fontSize: 30.sp,
-                      color: ColorStyle.dark,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Text('product'.tr, style: TextStyle(fontSize: 18.sp)),
-              ],
-            ),
-            SizedBox(width: 20.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Obx(
-                  () => Text(
-                    'RP. ${controller.getTotalHarga()}',
-                    style: TextStyle(
-                      fontSize: 25.sp,
-                      color: ColorStyle.dark,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-
-                Text('total-price'.tr, style: TextStyle(fontSize: 18.sp)),
-              ],
-            ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    controller.savestockOut();
-                    controller.getTotalHarga();
-                    Get.back();
-                  },
-                  style: EvelatedButtonStyle.rounded15,
-                  child: Text(
-                    'save'.tr,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                      color: ColorStyle.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomSheet: ProductOutBottom(controller: controller),
     );
   }
 }

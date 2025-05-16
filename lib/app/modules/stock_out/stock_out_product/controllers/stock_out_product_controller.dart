@@ -1,10 +1,11 @@
-import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/product/controllers/product_controller.dart';
+import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/services/dialog_service.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
+import 'package:logger/logger.dart';
 
 import '../../controllers/stock_out_controller.dart';
 import '../../models/product_out_model.dart';
@@ -13,105 +14,108 @@ import '../views/widgets/stock_out_modal_bottom.dart';
 class StockOutProductController extends GetxController {
   static StockOutProductController get to => Get.find();
   RxString barcode = ''.obs;
-  final RxList selectedProduct = [].obs;
-  final RxList listProducts = [].obs;
-  final RxList<Map<String, dynamic>> filteredProducts =
-      <Map<String, dynamic>>[].obs;
+  final RxList<ProductOutModel> selectedProducts = <ProductOutModel>[].obs;
+  final RxList<ProductResponse> filteredProducts = <ProductResponse>[].obs;
+  final RxList<ProductResponse> products = <ProductResponse>[].obs;
   RxString searchText = ''.obs;
-  var apiConstant = ApiConstant();
   RxInt stockOut = 0.obs;
   RxInt price = 0.obs;
+  Logger logger = Logger();
+  final RxMap<String, int> tempStockChanges = <String, int>{}.obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadStokDariProduk();
+    loadProduct();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  int getTotalBarang() {
-    return selectedProduct.length;
-  }
-
-  int getStokKeluar(String idBarang) {
-    final barang = selectedProduct.firstWhereOrNull(
-      (b) => b['id'].toString() == idBarang,
-    );
-
-    if (barang != null && (barang['jumlah_stok_keluar'] ?? 0) > 0) {
-      return barang['jumlah_stok_keluar'];
-    }
-
-    return 0;
-  }
+  int getProductOut() => selectedProducts.length;
 
   int getTotalHarga() {
-    print("Total harga: ${selectedProduct.length}");
-    return selectedProduct.isNotEmpty
-        ? selectedProduct.fold(
-          0,
-          (total, item) =>
-              total + ((item['harga'] * item['jumlah_stok_keluar']) as int),
-        )
-        : 0;
+    return selectedProducts.fold(
+      0,
+      (total, item) => total + (item.harga * (item.jumlahStokKeluar)).toInt(),
+    );
   }
 
-  void searchBarangByBarcode() {
-    try {
-      final kode = barcode.value;
-      if (kode.isEmpty) {
-        print("Barcode kosong.");
-        return;
+  void increaseStock(String id) {
+    print('tambah stok out $id');
+    tempStockChanges[id] = (tempStockChanges[id] ?? 0) + 1;
+    update();
+  }
+
+  void decreaseStock(String id) {
+    print('kurang stok out $id');
+    if ((tempStockChanges[id] ?? 0) > 0) {
+      tempStockChanges[id] = tempStockChanges[id]! - 1;
+    }
+    update();
+  }
+
+  void openProductModal(String productId) {
+    final existingProduct = selectedProducts.firstWhereOrNull(
+      (p) => p.id == productId,
+    );
+
+    if (existingProduct != null) {
+      tempStockChanges[productId] = existingProduct.jumlahStokKeluar;
+    } else {
+      tempStockChanges[productId] = 0;
+    }
+
+    update();
+  }
+
+  void saveProduct(String id) {
+    logger.d('save product out $id');
+    final jumlah = tempStockChanges[id] ?? 0;
+
+    final product = products.firstWhereOrNull((p) => p.id.toString() == id);
+    if (product == null) return;
+
+    final existingIndex = selectedProducts.indexWhere((p) => p.id == id);
+
+    if (existingIndex != -1) {
+      selectedProducts[existingIndex] = selectedProducts[existingIndex]
+          .copyWith(jumlahStokKeluar: jumlah);
+
+      if (jumlah <= 0) {
+        selectedProducts.removeAt(existingIndex);
       }
-      print("Mencari barang dengan barcode: $kode");
-
-      final barang = listProducts.firstWhereOrNull(
-        (b) => b['kode_barang'] == kode,
-      );
-
-      if (barang != null) {
-        print("Barang ditemukan: ${barang['nama_barang']}");
-        Get.snackbar(
-          'Barang ditemukan',
-          'Nama: ${barang['nama_barang']}',
-          backgroundColor: ColorStyle.success,
-          colorText: ColorStyle.white,
-          duration: const Duration(seconds: 5),
-        );
-
-        Get.bottomSheet(
-          StockOutModalBottom(
-            items: barang,
-            onIncrease: () {
-              tambahStok(barang['id']);
-            },
-            onDecrease: () {
-              kurangStok(barang['id']);
-            },
+    } else {
+      if (jumlah > 0) {
+        selectedProducts.add(
+          ProductOutModel(
+            id: id,
+            namaBarang: product.namaBarang ?? 'Unknown Product',
+            gambar: product.gambar ?? 'https://placehold.co/600x400/png',
+            harga: int.tryParse(product.hargaJual?.toString() ?? '0') ?? 0,
+            jumlahStokKeluar: jumlah,
+            stok: int.tryParse(product.stok?.toString() ?? '0') ?? 0,
           ),
         );
-      } else {
-        print("Barang tidak ditemukan.");
-        Get.snackbar(
-          'Barang tidak ditemukan',
-          'Kode: $kode',
-          backgroundColor: ColorStyle.warning,
-          colorText: ColorStyle.white,
-          duration: const Duration(seconds: 4),
-        );
+        print('selected products: ${selectedProducts.length}');
       }
-    } catch (e) {
-      print("🧑‍💻Terjadi kesalahan saat mencari barang: $e");
     }
+
+    if (jumlah > 0) {
+      tempStockChanges[id] = jumlah;
+    } else {
+      tempStockChanges.remove(id);
+    }
+
+    update();
+  }
+
+  void saveProductOut() {
+    print('save product out');
+    final stockOutData = StockOutController.to.stockOutData;
+    stockOutData
+      ..clear()
+      ..addAll(selectedProducts);
+
+    StockOutController.to.totalPrice.value = getTotalHarga();
+    ProductController.to.loadProducts();
   }
 
   Future<void> scanBarcode() async {
@@ -128,157 +132,59 @@ class StockOutProductController extends GetxController {
     }
   }
 
-  void loadStokDariProduk() async {
-    var token = BaseController.to.token;
-    var headers = {'Authorization': 'Bearer $token'};
-    var dio = Dio();
+  void loadProduct() async {
+    RxList<ProductResponse> data = ProductController.to.products;
+    if (data.isNotEmpty) {
+      filteredProducts.assignAll(data);
+      products.assignAll(data);
+    } else {
+      DialogService.error(title: 'empty'.tr, message: 'product-not-found'.tr);
+      print("Tidak ada produk yang ditemukan.");
+    }
+  }
+
+  void searchProduct(String query) {
+    searchText.value = query;
+    final lowerQuery = query.toLowerCase();
+
+    filteredProducts.assignAll(
+      query.isEmpty
+          ? products
+          : products.where((item) {
+            final name = item.namaBarang?.toLowerCase() ?? '';
+            return name.contains(lowerQuery);
+          }).toList(),
+    );
+  }
+
+  void searchBarangByBarcode() {
     try {
-      var response = await dio.request(
-        '${apiConstant.BASE_URL}/products/${BaseController.to.userId}',
-        options: Options(method: 'GET', headers: headers),
+      final kode = barcode.value;
+      if (kode.isEmpty) return;
+
+      final barang = filteredProducts.firstWhereOrNull(
+        (b) => b.kodeBarang == kode,
       );
 
-      if (response.statusCode == 200) {
-        listProducts.clear();
-        listProducts.value = response.data['data'];
-        listProducts.refresh();
-        print("Data produk berhasil dimuat.");
-        print("Data produk: ${listProducts.length} barang.");
+      if (barang != null) {
+        SnackbarService.success(
+          'product-found'.tr,
+          'Name: ${barang.namaBarang}',
+        );
+        Get.bottomSheet(_buildStockInModal(barang));
       } else {
-        print("Gagal memuat data produk: ${response.statusMessage}");
+        SnackbarService.warning('product-not-found', 'code: $kode');
       }
     } catch (e) {
-      print("Terjadi kesalahan saat memuat data produk: $e");
+      print("Error searching product: $e");
     }
   }
 
-  void tambahStok(String idBarang) {
-    final barang = listProducts.firstWhereOrNull(
-      (b) => b['id']?.toString() == idBarang,
+  Widget _buildStockInModal(ProductResponse barang) {
+    return StockOutModalBottom(
+      items: barang,
+      // onIncrease: () => increaseStock(barang.id!),
+      // onDecrease: () => decreaseStock(),
     );
-    if (barang != null) {
-      int current =
-          barang['stok_keluar'] != null
-              ? int.tryParse(barang['stok_keluar'].toString()) ?? 0
-              : 0;
-      current++;
-      barang['stok_keluar'] = current;
-      listProducts.refresh();
-
-      final existing = selectedProduct.firstWhereOrNull(
-        (b) => b['id']?.toString() == idBarang,
-      );
-      if (existing != null) {
-        existing['jumlah_stok_keluar'] = current;
-      } else {
-        selectedProduct.add({
-          'id': barang['id'],
-          'gambar': barang['gambar'],
-          'nama': barang['nama_barang'],
-          'harga': barang['harga_jual'],
-          'jumlah_stok_keluar': current,
-          'totalStok': barang['total_stok'],
-        });
-      }
-      selectedProduct.refresh();
-      print(
-        "Stok ditambahkan: ${barang['nama_barang']} - Stok Sekarang: $current",
-      );
-    }
-  }
-
-  void kurangStok(String idBarang) {
-    final barang = listProducts.firstWhereOrNull(
-      (b) => b['id']?.toString() == idBarang,
-    );
-    if (barang != null) {
-      int current =
-          barang['stok_keluar'] != null
-              ? int.tryParse(barang['stok_keluar'].toString()) ?? 0
-              : 0;
-      if (current > 0) {
-        current--;
-        barang['stok_keluar'] = current;
-        listProducts.refresh();
-        final existing = selectedProduct.firstWhereOrNull(
-          (b) => b['id']?.toString() == idBarang,
-        );
-        if (existing != null) {
-          if (current == 0) {
-            selectedProduct.removeWhere((b) => b['id']?.toString() == idBarang);
-          } else {
-            existing['jumlah_stok_keluar'] = current;
-          }
-        }
-        selectedProduct.refresh();
-        print(
-          "Stok dikurangi: ${barang['nama_barang']} - Stok Sekarang: $current",
-        );
-      }
-    }
-  }
-
-  void simpanStok(String idBarang) {
-    final barang = listProducts.firstWhereOrNull(
-      (b) => b['id']?.toString() == idBarang,
-    );
-    if (barang != null) {
-      int current =
-          barang['stok_keluar'] != null
-              ? int.tryParse(barang['stok_keluar'].toString()) ?? 0
-              : 0;
-      if (current > 0) {
-        final existing = selectedProduct.firstWhereOrNull(
-          (b) => b['id']?.toString() == idBarang,
-        );
-        if (existing != null) {
-          existing['jumlah_stok_keluar'] = current;
-          if (current == 0) {
-            selectedProduct.removeWhere((b) => b['id']?.toString() == idBarang);
-          }
-        } else {
-          selectedProduct.add({
-            'id': barang['id'],
-            'nama': barang['nama_barang'],
-            'harga': barang['harga_jual'],
-            'jumlah_stok_keluar': current,
-            'totalStok': barang['total_stok'],
-          });
-        }
-        print(
-          "Stok disimpan: ${barang['nama_barang']} - $current x ${barang['harga_jual']}",
-        );
-        listProducts.refresh();
-        selectedProduct.refresh();
-      }
-    }
-  }
-
-  void savestockOut() {
-    final stockOutData = StockOutController.to.stockOutData;
-    stockOutData.clear();
-    for (var barang in selectedProduct) {
-      stockOutData.add(
-        ProductOutModel(
-          namaBarang: barang['nama'],
-          harga: barang['harga'],
-          stokKeluar: barang['jumlah_stok_keluar'],
-          stok: barang['totalStok'],
-          gambar: barang['gambar'] ?? 'https://placehold.co/600x400/png',
-        ),
-      );
-    }
-    stockOutData.refresh();
-    print("Semua barang disimpan: ${stockOutData.length} barang $stockOutData");
-
-    StockOutController.to.totalPrice.value = selectedProduct.fold(0, (
-      total,
-      item,
-    ) {
-      return total + ((item['harga'] * item['jumlah_stok_keluar']) as int);
-    });
-
-    Get.lazyPut(() => ProductController());
-    ProductController.to.loadProducts();
   }
 }

@@ -16,7 +16,6 @@ class StockInProductController extends GetxController {
   static StockInProductController get to => Get.find();
   RxString barcode = ''.obs;
   final RxList<ProductInModel> selectedProducts = <ProductInModel>[].obs;
-
   final RxList<ProductResponse> filteredProducts = <ProductResponse>[].obs;
   final RxList<ProductResponse> products = <ProductResponse>[].obs;
   RxString searchText = ''.obs;
@@ -92,7 +91,7 @@ class StockInProductController extends GetxController {
             id: id,
             namaBarang: product.namaBarang ?? 'Unknown Product',
             gambar: product.gambar ?? 'https://placehold.co/600x400/png',
-            harga: int.tryParse(product.hargaJual?.toString() ?? '0') ?? 0,
+            harga: int.tryParse(product.hargaBeli?.toString() ?? '0') ?? 0,
             jumlahstokMasuk: jumlah,
             stok: int.tryParse(product.stok?.toString() ?? '0') ?? 0,
           ),

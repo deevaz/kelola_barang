@@ -53,7 +53,7 @@ class StockOutView extends GetView<StockOutController> {
                 child: ElevatedButton(
                   style: EvelatedButtonStyle.rounded15,
                   onPressed: () {
-                    controller.postStockOut();
+                    controller.addStockOut();
                   },
                   child: Text('Simpan', style: TextStyle(fontSize: 16.sp)),
                 ),

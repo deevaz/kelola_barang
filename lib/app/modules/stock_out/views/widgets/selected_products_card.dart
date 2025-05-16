@@ -83,7 +83,7 @@ class SelectedProductsCard extends StatelessWidget {
                             namaBarang: selectedProduct[index].namaBarang,
                             gambar: selectedProduct[index].gambar,
                             harga: selectedProduct[index].harga,
-                            stokKeluar: selectedProduct[index].stokKeluar,
+                            stokKeluar: selectedProduct[index].jumlahStokKeluar,
                           );
                         },
                         itemCount: selectedProduct.length,

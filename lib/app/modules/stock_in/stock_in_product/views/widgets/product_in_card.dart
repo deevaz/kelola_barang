@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -13,8 +14,12 @@ class ProductInCard extends StatelessWidget {
   final ProductResponse items;
 
   final Function()? onTap;
-  const ProductInCard({super.key, required this.items, this.onTap});
-
+  ProductInCard({super.key, required this.items, this.onTap});
+  final currencyFormatter = NumberFormat.currency(
+    locale: 'id_ID',
+    symbol: 'Rp. ',
+    decimalDigits: 0,
+  );
   @override
   Widget build(BuildContext context) {
     final stockInP = StockInProductController.to;
@@ -86,7 +91,7 @@ class ProductInCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Rp ${items.hargaBeli}',
+                        currencyFormatter.format(items.hargaJual),
                         style: TextStyle(fontSize: 14.sp),
                       ),
                       SizedBox(height: 10.h),

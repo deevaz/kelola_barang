@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
@@ -8,22 +9,15 @@ import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import '../../controllers/stock_out_product_controller.dart';
 
 class StockOutModalBottom extends StatelessWidget {
-  final Function? onDecrease;
-  final Function? onIncrease;
   final VoidCallback? onClose;
-  final dynamic items;
+  final ProductResponse items;
 
-  const StockOutModalBottom({
-    Key? key,
-    this.onDecrease,
-    this.onIncrease,
-    this.onClose,
-    required this.items,
-  }) : super(key: key);
+  const StockOutModalBottom({Key? key, this.onClose, required this.items})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final stokMasukBC = StockOutProductController.to;
+    final stockOutPc = StockOutProductController.to;
     return WillPopScope(
       onWillPop: () async {
         if (onClose != null) {
@@ -69,7 +63,7 @@ class StockOutModalBottom extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    items['nama_barang'],
+                    items.namaBarang!,
                     style: TextStyle(color: ColorStyle.grey, fontSize: 16.sp),
                   ),
                   SizedBox(height: 30.h),
@@ -82,20 +76,22 @@ class StockOutModalBottom extends StatelessWidget {
                           color: ColorStyle.primary,
                           size: 50.r,
                         ),
-                        onPressed: () {
-                          if (items['id'] != null) {
-                            stokMasukBC.kurangStok(items['id']!.toString());
-                          }
-                        },
+                        onPressed:
+                            () => stockOutPc.decreaseStock(items.id.toString()),
                       ),
                       SizedBox(width: 10.w),
 
                       Obx(() {
-                        final stokMasuk = stokMasukBC.getStokKeluar(
-                          items['id']!.toString(),
-                        );
+                        final stok =
+                            stockOutPc.tempStockChanges[items.id.toString()] ??
+                            stockOutPc.selectedProducts
+                                .firstWhereOrNull(
+                                  (p) => p.id == items.id.toString(),
+                                )
+                                ?.jumlahStokKeluar ??
+                            0;
                         return Text(
-                          stokMasuk.toString(),
+                          stok.toString(),
                           style: TextStyle(
                             fontSize: 50.sp,
                             color: ColorStyle.grey,
@@ -111,9 +107,7 @@ class StockOutModalBottom extends StatelessWidget {
                           color: ColorStyle.primary,
                         ),
                         onPressed: () {
-                          if (items['id'] != null) {
-                            stokMasukBC.tambahStok(items['id']!.toString());
-                          }
+                          stockOutPc.increaseStock(items.id.toString());
                         },
                       ),
                     ],
@@ -156,12 +150,7 @@ class StockOutModalBottom extends StatelessWidget {
                         height: 50.h,
                         child: ElevatedButton(
                           onPressed: () {
-                            // print('${items.id}');
-                            // stokMasukBC.simpanStok(items.id!);
-                            // stokMasukBC.getTotalBarang();
-                            // stokMasukBC.getTotalHarga();
-
-                            // stokMasukBC.selectedProduct.refresh();
+                            stockOutPc.saveProduct(items.id.toString());
                             Get.back();
                           },
                           style: EvelatedButtonStyle.rounded15,
