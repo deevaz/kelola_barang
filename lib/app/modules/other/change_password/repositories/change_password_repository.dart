@@ -3,7 +3,6 @@ import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
 import 'package:logger/logger.dart';
 
 import '../models/change_password_model.dart';
@@ -14,16 +13,11 @@ class ChangePasswordRepository {
   final dio.Dio dioInstance = DioService.dioCall();
   Logger log = Logger();
 
-  Future<void> changePassword(String oldPassword, String newPassword) async {
+  Future<void> changePassword(ChangePasswordModel data) async {
     try {
       var response = await dioInstance.post(
         '/change-password',
-        data:
-            ChangePasswordModel(
-              currentPassword: oldPassword,
-              newPassword: newPassword,
-              newPasswordConfirmation: newPassword,
-            ).toJson(),
+        data: data.toJson(),
       );
 
       if (response.statusCode == 200) {

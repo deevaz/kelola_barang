@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/other/change_password/models/change_password_model.dart';
 import 'package:kelola_barang/app/modules/other/change_password/repositories/change_password_repository.dart';
 
 class ChangePasswordController extends GetxController {
@@ -60,6 +61,12 @@ class ChangePasswordController extends GetxController {
       return;
     }
 
-    _repo.changePassword(oldPassword, newPassword);
+    final data = ChangePasswordModel(
+      currentPassword: oldPassword,
+      newPassword: newPassword,
+      newPasswordConfirmation: confirmNewPassword,
+    );
+
+    _repo.changePassword(data);
   }
 }
