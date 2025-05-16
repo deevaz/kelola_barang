@@ -5,9 +5,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/other/edit_profile/repositories/edit_profile_repo.dart';
-import 'package:kelola_barang/app/shared/models/user_model.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../models/edit_user_model.dart';
 
 class EditProfileController extends GetxController {
   final nameController = TextEditingController();
@@ -44,7 +45,7 @@ class EditProfileController extends GetxController {
   }
 
   Future<void> updateUser() async {
-    final user = UserModel(
+    final user = EditUserModel(
       name: nameController.text,
       username: usernameController.text,
       email: emailController.text,

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/home/models/chart_data_in.dart';
 import 'package:kelola_barang/app/modules/home/models/chart_data_out.dart';
 import 'package:kelola_barang/app/modules/home/repositories/home_repository.dart';
+import 'package:logger/logger.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
@@ -16,6 +17,7 @@ class HomeController extends GetxController {
   RxList<ChartDataOut> chartDataOut = <ChartDataOut>[].obs;
   RxString selectedChart = 'out'.obs;
   Rxn<DateTimeRange> selectedRange = Rxn<DateTimeRange>();
+  Logger log = Logger();
 
   @override
   void onReady() {
@@ -48,7 +50,7 @@ class HomeController extends GetxController {
       final formattedStartDate = DateFormat('yyyy-MM-dd').format(picked.start);
       final formattedEndDate = DateFormat('yyyy-MM-dd').format(picked.end);
 
-      await loadFilteredProfit(formattedStartDate, formattedEndDate);
+      // await loadFilteredProfit(formattedStartDate, formattedEndDate);
       await loadFilteredStockData(formattedStartDate, formattedEndDate);
     }
   }
@@ -93,9 +95,9 @@ class HomeController extends GetxController {
 
       print('Filtered Stock In loaded: ${stockInData.length}');
       print('Filtered Stock Out loaded: ${stockOutData.length}');
-    } catch (e, stack) {
+    } catch (e) {
+      log.e('Error loading filtered stock data: $e');
       print('❌ Error loading filtered stock data: $e');
-      print(stack);
     }
   }
 

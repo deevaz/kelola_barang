@@ -29,7 +29,7 @@ class DeleteAccountView extends GetView {
                 onPressed: () {
                   c.deleteAccount();
                 },
-                child: Text('delete-password'.tr),
+                child: Text('delete-account'.tr),
               ),
             ),
           ],

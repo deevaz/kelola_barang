@@ -18,7 +18,7 @@ class InfoDataCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lc = Get.put(HomeController());
+    final hc = Get.put(HomeController());
 
     return MaterialRounded(
       child: Padding(
@@ -26,12 +26,17 @@ class InfoDataCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'data'.tr,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: ColorStyle.dark,
+            Obx(
+              () => Text(
+                // 'data '.tr,
+                hc.selectedRange.value != null
+                    ? 'Data ${DateFormat('dd/MM/yyyy').format(hc.selectedRange.value!.start)} - ${DateFormat('dd/MM/yyyy').format(hc.selectedRange.value!.end)}'
+                    : 'total-data'.tr,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: ColorStyle.dark,
+                ),
               ),
             ),
             const Divider(),
@@ -41,7 +46,7 @@ class InfoDataCard extends StatelessWidget {
                 children: [
                   InfoWidget(
                     title: 'stock-in'.tr,
-                    value: lc.stokMasuk.value.toString(),
+                    value: hc.stokMasuk.value.toString(),
                     textStyle: TextStyle(
                       fontSize: 35.sp,
                       color: ColorStyle.success,
@@ -49,7 +54,7 @@ class InfoDataCard extends StatelessWidget {
                   ),
                   InfoWidget(
                     title: 'stock-out'.tr,
-                    value: lc.stokKeluar.value.toString(),
+                    value: hc.stokKeluar.value.toString(),
                     textStyle: TextStyle(
                       fontSize: 35.sp,
                       color: ColorStyle.danger,
@@ -59,22 +64,22 @@ class InfoDataCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Obx(
-                  () => InfoWidget(
-                    title: 'profit'.tr,
-                    value: currencyFormatter.format(lc.profit.value),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Obx(
+            //       () => InfoWidget(
+            //         title: 'profit'.tr,
+            //         value: currencyFormatter.format(hc.profit.value),
 
-                    textStyle: TextStyle(
-                      fontSize: 22.sp,
-                      color: ColorStyle.dark,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            //         textStyle: TextStyle(
+            //           fontSize: 22.sp,
+            //           color: ColorStyle.dark,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

@@ -4,7 +4,12 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'en': {
-      'empty': 'Emppty',
+      'empty': 'Empty',
+      'all-category': 'All Category',
+      'delete-account-success': 'Account deleted successfully',
+      'delete-account-failed': 'Failed to delete account',
+      'delete-account': 'Delete Account',
+      'total-data': 'Total Data',
       'login': 'Login',
       'email': 'Email',
       'password': 'Password',
@@ -150,7 +155,6 @@ class AppTranslations extends Translations {
       'product-updated': 'Product updated successfully',
       'product-updated-failed': 'Failed to update product',
 
-      'delete-account': 'Delete Account',
       'desc-delete':
           'Deleting your account will remove all your data and cannot be undone',
     },
@@ -299,6 +303,9 @@ class AppTranslations extends Translations {
       'product-updated-failed': 'Gagal memperbarui produk',
       'delete-account': 'Hapus Akun',
       'delete-account-success': 'Akun berhasil dihapus',
+      'total-data': 'Total Data',
+      'all-category': 'Semua Kategori',
+      'delete-account-failed': 'Gagal menghapus akun',
       'desc-delete':
           'Menghapus akun Anda akan menghapus semua data Anda dan tidak dapat dibatalkan',
     },

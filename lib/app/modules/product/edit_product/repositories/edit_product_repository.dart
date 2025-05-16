@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
@@ -17,9 +16,8 @@ class EditProductRepo {
     final userId = BaseController.to.userId.value;
     var formData = await product.toFormData();
     formData.fields.add(MapEntry('_method', 'PUT'));
-    final response = await dioInstance.request(
+    final response = await dioInstance.post(
       '/products/$userId/$id',
-      options: Options(method: 'POST'),
       data: formData,
     );
 
