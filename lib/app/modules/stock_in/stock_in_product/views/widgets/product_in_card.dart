@@ -91,7 +91,7 @@ class ProductInCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        currencyFormatter.format(items.hargaJual),
+                        currencyFormatter.format(items.hargaBeli),
                         style: TextStyle(fontSize: 14.sp),
                       ),
                       SizedBox(height: 10.h),
