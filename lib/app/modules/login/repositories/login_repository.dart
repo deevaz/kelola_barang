@@ -8,13 +8,12 @@ import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/services/hive_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
 
 class LoginRepository {
   LoginRepository();
 
   final dio.Dio dioInstance = DioService.dioCall();
-  var apiConstant = ApiConstant();
+
   final userBox = Hive.box<UserResponseModel>('user');
   final Box<String> authBox = Hive.box<String>('auth');
 

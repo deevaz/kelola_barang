@@ -25,25 +25,38 @@ class HomeView extends GetView<HomeController> {
             children: [
               Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10.r),
-                    child: Obx(() {
-                      final image = BaseController.to.image.value;
-                      if (image.isNotEmpty) {
-                        return Image.network(
-                          image,
-                          width: 40.w,
-                          height: 40.h,
-                          fit: BoxFit.cover,
-                        );
-                      } else {
-                        return Icon(
-                          Icons.store,
-                          size: 40.w,
-                          color: ColorStyle.primary,
-                        );
-                      }
-                    }),
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.r),
+                        child: Obx(() {
+                          final image = BaseController.to.image.value;
+                          if (image.isNotEmpty) {
+                            return Image.network(
+                              image,
+                              width: 40.w,
+                              height: 40.h,
+                              fit: BoxFit.cover,
+                            );
+                          } else {
+                            return Icon(
+                              Icons.store,
+                              size: 40.w,
+                              color: ColorStyle.primary,
+                            );
+                          }
+                        }),
+                      ),
+                      SizedBox(width: 10.h),
+                      Text(
+                        BaseController.to.name.value,
+                        style: TextStyle(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.bold,
+                          color: ColorStyle.dark,
+                        ),
+                      ),
+                    ],
                   ),
                   Spacer(),
                   MaterialRounded(
@@ -81,15 +94,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
-              Text(
-                BaseController.to.name.value,
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.bold,
-                  color: ColorStyle.dark,
-                ),
-              ),
+
               SizedBox(height: 10.h),
               InfoDataCard(),
               SizedBox(height: 15.h),
