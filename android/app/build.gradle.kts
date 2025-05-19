@@ -1,5 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-import java.util.Properties 
 
 plugins {
     id("com.android.application")
@@ -7,40 +8,44 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        load(FileInputStream(keystorePropertiesFile))
+    } else {
+        throw GradleException("Keystore file not found: ${keystorePropertiesFile.absolutePath}")
+    }
+}
+
 android {
-    namespace = "com.example.kelola_barang"
-    compileSdk = flutter.compileSdkVersion.toInt()
-    ndkVersion = "27.0.12077973"
-
-    // ▼▼▼ Load keystore properties ▼▼▼
-    val keystoreProperties = Properties().apply {
-        load(rootProject.file("key.properties").inputStream())
-    }
-
-    signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties.getProperty("keyAlias")
-            keyPassword = keystoreProperties.getProperty("keyPassword")
-            storeFile = file(keystoreProperties.getProperty("storeFile"))
-            storePassword = keystoreProperties.getProperty("storePassword")
-        }
-    }
-
+    namespace = "com.deevaz.kelola_barang"
+    compileSdk = 35
+    
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "11"
     }
 
     defaultConfig {
-        applicationId = "com.example.kelola_barang"
-        minSdk = flutter.minSdkVersion.toInt()
-        targetSdk = flutter.targetSdkVersion.toInt()
-        versionCode = flutter.versionCode.toInt()
-        versionName = flutter.versionName
+        applicationId = "com.deevaz.kelola_barang"
+        minSdk = 21
+        targetSdk = 35
+        versionCode = 2
+        versionName = "2.0.0"
+        multiDexEnabled = true 
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storeFile = file(keystoreProperties.getProperty("storeFile")!!)
+            storePassword = keystoreProperties.getProperty("storePassword")
+        }
     }
 
     buildTypes {

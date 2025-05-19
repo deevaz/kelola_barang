@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kelola_barang/app/modules/product/detail_product/views/detail_product_image_view.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
@@ -32,42 +33,44 @@ class DetailProductView extends GetView<DetailProductController> {
         child: Column(
           children: [
             Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Stack(
-                  children: [
-                    Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: Container(
-                        width: 375.w,
-                        height: 220.h,
-                        color: Colors.white,
-                      ),
-                    ),
-
-                    Image.network(
-                      items.gambar.toString(),
-                      width: 375.w,
-                      height: 220.h,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return SizedBox(width: 130.w, height: 100.h);
-                        }
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.asset(
-                          'assets/images/img_placeholder.png',
+              child: InkWell(
+                onTap: () => Get.to(DetailProductImageView(), arguments: items),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.r),
+                  child: Stack(
+                    children: [
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
                           width: 375.w,
                           height: 220.h,
-                          fit: BoxFit.cover,
-                        );
-                      },
-                    ),
-                  ],
+                          color: Colors.white,
+                        ),
+                      ),
+                      Image.network(
+                        items.gambar.toString(),
+                        width: 375.w,
+                        height: 220.h,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return SizedBox(width: 130.w, height: 100.h);
+                          }
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/images/img_placeholder.png',
+                            width: 375.w,
+                            height: 220.h,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

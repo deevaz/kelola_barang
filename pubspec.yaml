@@ -1,5 +1,5 @@
 name: kelola_barang
-description: "A new Flutter project."
+description: "Sahabat Pengelolaan inventarismu."
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
@@ -29,6 +29,7 @@ dependencies:
   printing: ^5.14.2
   pull_to_refresh_flutter3: ^2.0.2
   shimmer: ^3.0.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   build_runner: ^2.4.6

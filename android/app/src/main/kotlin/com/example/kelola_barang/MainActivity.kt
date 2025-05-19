@@ -1,4 +1,4 @@
-package com.example.kelola_barang
+package com.deevaz.kelola_barang
 
 import io.flutter.embedding.android.FlutterActivity
 

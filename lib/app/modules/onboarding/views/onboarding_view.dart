@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../controllers/onboarding_controller.dart';
 
@@ -96,6 +97,10 @@ class OnboardingView extends GetView<OnboardingController> {
                       Text.rich(
                         TextSpan(
                           text: 'By continuing, you agree to',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: Colors.black,
+                          ),
                           children: <TextSpan>[
                             TextSpan(
                               text: ' Term of Service ',
@@ -103,6 +108,16 @@ class OnboardingView extends GetView<OnboardingController> {
                                 fontWeight: FontWeight.bold,
                                 color: ColorStyle.primary,
                               ),
+                              recognizer:
+                                  TapGestureRecognizer()
+                                    ..onTap = () {
+                                      launchUrl(
+                                        Uri.parse(
+                                          'https://docs.google.com/document/d/e/2PACX-1vRLPWwftxTnjpNDafXMWqDzhwt3vXkO75omDCo772m_IDz78RiH360rqDJBU0E6KMowpSoPhp-FrgH4/pub',
+                                        ),
+                                        mode: LaunchMode.externalApplication,
+                                      );
+                                    },
                             ),
                             TextSpan(
                               text: ' and ',
@@ -114,11 +129,20 @@ class OnboardingView extends GetView<OnboardingController> {
                                 fontWeight: FontWeight.bold,
                                 color: ColorStyle.primary,
                               ),
+                              recognizer:
+                                  TapGestureRecognizer()
+                                    ..onTap = () {
+                                      launchUrl(
+                                        Uri.parse(
+                                          'https://docs.google.com/document/d/e/2PACX-1vRLPWwftxTnjpNDafXMWqDzhwt3vXkO75omDCo772m_IDz78RiH360rqDJBU0E6KMowpSoPhp-FrgH4/pub',
+                                        ),
+                                        mode: LaunchMode.externalApplication,
+                                      );
+                                    },
                             ),
                           ],
                         ),
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12.sp, color: Colors.black),
                       ),
                     ],
                   ),
