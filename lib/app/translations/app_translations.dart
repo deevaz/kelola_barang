@@ -4,6 +4,7 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'en': {
+      'profile': 'Profile',
       'add-supplier-success': 'Supplier added successfully',
       'password-change-successfully':
           'Password changed successfully, please login again',
@@ -132,6 +133,7 @@ class AppTranslations extends Translations {
       'confirm-password-not-match': 'Confirm password does not match',
       'deskripsi-register': 'Please create an account to continue',
       'list-product': 'List Product',
+      'forgot-password?': 'Forgot Password?',
       'history-detail': 'History Detail',
       'input-rekening': 'Please input your bank account number',
       'rekening': 'Bank Account Number',
@@ -148,7 +150,10 @@ class AppTranslations extends Translations {
       'supplier-added': 'Supplier added successfully',
       'delete-supplier': 'Delete Supplier',
       'phone-number': 'Phone Number',
-
+      'forgot-password': 'Forgot Password',
+      'forgot-password-desc':
+          'If you forgot your password, please confirm your email to reset your password',
+      'reset-password': 'Reset Password',
       'close': 'Close',
       'delete': 'Delete',
       'no': 'No',
@@ -160,6 +165,11 @@ class AppTranslations extends Translations {
 
       'desc-delete':
           'Deleting your account will remove all your data and cannot be undone',
+      'confirm-token-desc': 'Please input the token you received in your email',
+      'confirm-token': 'Confirm Token',
+
+      'confirm-token-success': 'Token confirmed successfully',
+      'confirm-token-not-match': 'Token does not match',
     },
 
     'id': {
@@ -256,6 +266,12 @@ class AppTranslations extends Translations {
       'success': 'Berhasil',
       'password-not-match': 'Kata sandi tidak cocok',
       'login-success': 'Berhasil Masuk',
+      'profile': 'Profil',
+      'forgot-password': 'Lupa Kata Sandi',
+      'forgot-password?': 'Lupa Kata Sandi?',
+      'reset-password': 'Atur Ulang Kata Sandi',
+      'forgot-password-desc':
+          'Jika Anda lupa kata sandi, silakan konfirmasi email untuk mengatur ulang kata sandi Anda',
       'login-failed': 'Gagal Masuk',
       'user-updated-success': 'Data pengguna berhasil diperbarui',
       'item-saved': 'Barang berhasil disimpan!',
@@ -314,6 +330,11 @@ class AppTranslations extends Translations {
       'add-supplier-success': 'Pemasok berhasil ditambahkan',
       'desc-delete':
           'Menghapus akun Anda akan menghapus semua data Anda dan tidak dapat dibatalkan',
+      'confirm-token-desc':
+          'Silakan masukkan token yang Anda terima di email Anda',
+      'confirm-token': 'Konfirmasi Token',
+      'confirm-token-success': 'Token berhasil dikonfirmasi',
+      'confirm-token-not-match': 'Token tidak cocok',
     },
   };
 }

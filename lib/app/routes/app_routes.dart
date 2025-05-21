@@ -26,6 +26,8 @@ abstract class Routes {
   static const EDIT_PROFILE = _Paths.OTHER + _Paths.EDIT_PROFILE;
   static const CHANGE_PASSWORD = _Paths.OTHER + _Paths.CHANGE_PASSWORD;
   static const PRINT_PDF = _Paths.HISTORY + _Paths.PRINT_PDF;
+  static const FORGOT_PASSWORD =
+      _Paths.PRODUCT + _Paths.DETAIL_PRODUCT + _Paths.FORGOT_PASSWORD;
 }
 
 abstract class _Paths {
@@ -52,4 +54,5 @@ abstract class _Paths {
   static const EDIT_PROFILE = '/edit-profile';
   static const CHANGE_PASSWORD = '/change-password';
   static const PRINT_PDF = '/print-pdf';
+  static const FORGOT_PASSWORD = '/forgot-password';
 }

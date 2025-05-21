@@ -26,6 +26,8 @@ import '../modules/product/add_product/bindings/add_product_binding.dart';
 import '../modules/product/add_product/views/add_product_view.dart';
 import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/detail_product/bindings/detail_product_binding.dart';
+import '../modules/product/detail_product/forgot_password/bindings/forgot_password_binding.dart';
+import '../modules/product/detail_product/forgot_password/views/forgot_password_view.dart';
 import '../modules/product/detail_product/views/detail_product_view.dart';
 import '../modules/product/edit_product/bindings/edit_product_binding.dart';
 import '../modules/product/edit_product/views/edit_product_view.dart';
@@ -104,6 +106,13 @@ class AppPages {
           name: _Paths.DETAIL_PRODUCT,
           page: () => DetailProductView(),
           binding: DetailProductBinding(),
+          children: [
+            GetPage(
+              name: _Paths.FORGOT_PASSWORD,
+              page: () => const ForgotPasswordView(),
+              binding: ForgotPasswordBinding(),
+            ),
+          ],
         ),
         GetPage(
           name: _Paths.ADD_PRODUCT,

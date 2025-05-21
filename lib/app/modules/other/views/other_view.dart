@@ -6,6 +6,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/other/views/delete_account_view.dart';
 import 'package:kelola_barang/app/modules/other/views/widgets/profile_info_card.dart';
+import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
@@ -41,16 +42,17 @@ class OtherView extends GetView<OtherController> {
               ProfileInfoCard(),
               SizedBox(height: 20.h),
               Text(
-                'setting'.tr,
+                'profile'.tr,
                 style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10.h),
               MaterialRounded(
                 child: Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 20.sp,
+                    horizontal: 10.sp,
+                  ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       OtherInfoRow(
                         title: 'edit-profile'.tr,
@@ -83,6 +85,35 @@ class OtherView extends GetView<OtherController> {
                         },
                       ),
                       const Divider(),
+                      OtherInfoRow(
+                        title: 'forgot-password'.tr,
+                        info: 'forgot-password-desc'.tr,
+                        icon: Ionicons.lock_open,
+                        suffixIcon: Ionicons.chevron_forward,
+                        onTap: () {
+                          Get.toNamed(Routes.FORGOT_PASSWORD);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                'setting'.tr,
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10.h),
+              MaterialRounded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 20.sp,
+                    horizontal: 10.sp,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       OtherInfoRow(
                         title: 'change-language'.tr,
                         info: 'manage-language'.tr,

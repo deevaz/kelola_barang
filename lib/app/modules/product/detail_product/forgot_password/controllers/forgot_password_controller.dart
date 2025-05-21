@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/product/detail_product/forgot_password/models/reset_password_model.dart';
+import 'package:kelola_barang/app/modules/product/detail_product/forgot_password/repositories/reset_password_repository.dart';
+
+class ForgotPasswordController extends GetxController {
+  final emailC = TextEditingController();
+  final passwordC = TextEditingController();
+  final confirmPasswordC = TextEditingController();
+  final tokenC = TextEditingController();
+  final ResetPasswordRepository _repo = ResetPasswordRepository();
+
+  Future<void> forgotPassword() async {
+    _repo.forgotPassword(emailC.text);
+  }
+
+  Future<void> resetPassword() async {
+    final data = ResetPasswordModel(
+      email: emailC.text,
+      password: passwordC.text,
+      confirmPassword: confirmPasswordC.text,
+      token: tokenC.text,
+    );
+
+    await _repo.resetPassword(data);
+  }
+}
