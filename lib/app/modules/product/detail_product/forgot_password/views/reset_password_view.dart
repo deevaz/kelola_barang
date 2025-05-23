@@ -30,7 +30,6 @@ class ResetPasswordView extends GetView<ForgotPasswordController> {
                 title: 'confirm-password'.tr,
                 controller: controller.confirmPasswordC,
               ),
-
               SizedBox(height: 20.h),
               SizedBox(
                 width: double.infinity,

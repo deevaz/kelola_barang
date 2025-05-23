@@ -45,7 +45,6 @@ class LoginController extends GetxController {
   Future<void> login() async {
     String username = usernameController.text.trim();
     String password = passwordController.text;
-
     await _loginRepo.login(username, password);
   }
 }

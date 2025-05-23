@@ -167,9 +167,15 @@ class AppTranslations extends Translations {
           'Deleting your account will remove all your data and cannot be undone',
       'confirm-token-desc': 'Please input the token you received in your email',
       'confirm-token': 'Confirm Token',
-
+      'check-email': 'Please check your email to reset your password',
       'confirm-token-success': 'Token confirmed successfully',
       'confirm-token-not-match': 'Token does not match',
+      'error-connection': 'Connection Error',
+      'please-wait': 'Please wait',
+      'reset-password-success':
+          'Password reset successfully, please login again',
+      'email-not-found': 'Email not found',
+      'error': 'Error',
     },
 
     'id': {
@@ -335,6 +341,14 @@ class AppTranslations extends Translations {
       'confirm-token': 'Konfirmasi Token',
       'confirm-token-success': 'Token berhasil dikonfirmasi',
       'confirm-token-not-match': 'Token tidak cocok',
+      'check-email':
+          'Silakan periksa email Anda untuk mengatur ulang kata sandi',
+      'error-connection': 'Kesalahan Koneksi',
+      'please-wait': 'Silakan tunggu',
+      'reset-password-success':
+          'Kata sandi berhasil diatur ulang, silakan masuk kembali',
+      'email-not-found': 'Email tidak ditemukan',
+      'error': 'Kesalahan',
     },
   };
 }

@@ -14,14 +14,14 @@ class ResetPasswordModel {
   ResetPasswordModel.fromJson(Map<String, dynamic> json)
     : email = json['email'],
       password = json['password'],
-      confirmPassword = json['confirm_password'],
+      confirmPassword = json['password_confirmation'],
       token = json['token'];
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['email'] = email;
     data['password'] = password;
-    data['confirm_password'] = confirmPassword;
+    data['password_confirmation'] = confirmPassword;
     data['token'] = token;
     return data;
   }

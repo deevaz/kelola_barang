@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:logger/logger.dart'; // Tambahkan import ini
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
@@ -19,9 +18,10 @@ class DioService extends GetxService {
 
   static const Duration timeoutInMiliSeconds = Duration(seconds: 200);
 
+  static final Logger logger = Logger();
+
   static Dio dioCall({
     Duration timeout = timeoutInMiliSeconds,
-
     String? authorization,
   }) {
     String? token = BaseController.to.token.value;
@@ -53,16 +53,15 @@ class DioService extends GetxService {
   static Interceptor _authInterceptor() {
     return QueuedInterceptorsWrapper(
       onRequest: (reqOptions, handler) {
-        log('${reqOptions.uri}', name: 'REQUEST URL');
-        log('${reqOptions.headers}', name: 'HEADER');
+        logger.i('REQUEST URL: ${reqOptions.uri}');
+        logger.i('HEADER: ${reqOptions.headers}');
         return handler.next(reqOptions);
       },
       onError: (error, handler) async {
-        log(error.message.toString(), name: 'ERROR MESSAGE');
-        log('${error.response}', name: 'RESPONSE');
+        logger.e('ERROR MESSAGE: ${error.message}');
+        logger.e('RESPONSE: ${error.response}');
 
         if (error.response?.statusCode == 401) {
-          // Tangani 401 sebagai response biasa
           return handler.resolve(
             Response(
               requestOptions: error.requestOptions,
@@ -75,7 +74,7 @@ class DioService extends GetxService {
         return handler.next(error);
       },
       onResponse: (response, handler) async {
-        log('${response.data}', name: 'RESPONSE');
+        logger.i('RESPONSE: ${response.data}');
         return handler.resolve(response);
       },
     );

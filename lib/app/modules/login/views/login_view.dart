@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
 import 'package:kelola_barang/app/modules/login/views/widgets/password_text_field.dart';
@@ -48,6 +49,19 @@ class LoginView extends GetView<LoginController> {
                   suffixIcon: Icons.visibility,
                   obscureText: true,
                   controller: controller.passwordController,
+                ),
+                SizedBox(height: 10.h),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.FORGOT_PASSWORD);
+                    },
+                    child: Text(
+                      'forgot-password'.tr,
+                      style: TextStyle(fontSize: 14.sp, color: Colors.blue),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 30.h),
                 SizedBox(
