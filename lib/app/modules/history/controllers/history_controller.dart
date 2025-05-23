@@ -64,6 +64,16 @@ class HistoryController extends GetxController {
     }
   }
 
+  Future<void> deleteHistory(String id, String tipe) async {
+    try {
+      await _repo.deleteHistory(id, tipe);
+      loadHistory();
+      logger.i('History deleted successfully $id $tipe');
+    } catch (e) {
+      logger.e('Error deleting history: $e');
+    }
+  }
+
   Future<void> loadFilteredHistory(String start, String end) async {
     try {
       final data = await _repo.fetchFilteredHistory(start, end);

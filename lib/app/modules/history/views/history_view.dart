@@ -23,7 +23,7 @@ class HistoryView extends GetView<HistoryController> {
                 GestureDetector(
                   onDoubleTap: () {
                     print('Panjang history ${controller.history.length}');
-                    // controller.loadHistory();
+                    controller.loadHistory();
                   },
                   child: Text(
                     'history'.tr,

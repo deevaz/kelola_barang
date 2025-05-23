@@ -15,6 +15,7 @@ void main() async {
   Hive.registerAdapter(UserResponseModelAdapter());
   await Hive.openBox<UserResponseModel>('user');
   await Hive.openBox<String>('auth');
+  await Hive.openBox<String>('lang');
 
   runApp(
     ScreenUtilInit(

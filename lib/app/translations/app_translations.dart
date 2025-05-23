@@ -162,7 +162,7 @@ class AppTranslations extends Translations {
       'profile-updated-success': 'Profile updated successfully',
       'product-updated': 'Product updated successfully',
       'product-updated-failed': 'Failed to update product',
-
+      'delete-success': 'Delete Success',
       'desc-delete':
           'Deleting your account will remove all your data and cannot be undone',
       'confirm-token-desc': 'Please input the token you received in your email',
@@ -349,6 +349,7 @@ class AppTranslations extends Translations {
           'Kata sandi berhasil diatur ulang, silakan masuk kembali',
       'email-not-found': 'Email tidak ditemukan',
       'error': 'Kesalahan',
+      'delete-success': 'Berhasil Dihapus',
     },
   };
 }
