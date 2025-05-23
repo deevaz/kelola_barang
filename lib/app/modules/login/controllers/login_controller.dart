@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:kelola_barang/app/modules/login/repositories/login_repository.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
-
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
 
 class LoginController extends GetxController {
   final usernameController = TextEditingController();
@@ -32,13 +31,7 @@ class LoginController extends GetxController {
   void logout() {
     userBox.clear();
     authBox.clear();
-    Get.snackbar(
-      'logout-success'.tr,
-      'confirm-logout-success'.tr,
-      duration: const Duration(seconds: 2),
-      colorText: ColorStyle.white,
-      backgroundColor: ColorStyle.primary,
-    );
+    SnackbarService.success('logout-success'.tr, 'confirm-logout-success'.tr);
     Get.offAllNamed('/onboarding');
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/other/change_password/models/change_password_model.dart';
 import 'package:kelola_barang/app/modules/other/change_password/repositories/change_password_repository.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 
 class ChangePasswordController extends GetxController {
   final oldPasswordC = TextEditingController();
@@ -41,23 +42,11 @@ class ChangePasswordController extends GetxController {
     if (oldPassword.isEmpty ||
         newPassword.isEmpty ||
         confirmNewPassword.isEmpty) {
-      Get.snackbar(
-        'error'.tr,
-        'all-fields-required'.tr,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        duration: Duration(seconds: 2),
-      );
+      SnackbarService.error('error'.tr, 'all-fields-required'.tr);
       return;
     }
     if (newPassword != confirmNewPassword) {
-      Get.snackbar(
-        'error'.tr,
-        'passwords-do-not-match'.tr,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        duration: Duration(seconds: 2),
-      );
+      SnackbarService.error('error'.tr, 'passwords-do-not-match'.tr);
       return;
     }
 

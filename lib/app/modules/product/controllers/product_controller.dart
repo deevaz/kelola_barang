@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/modules/product/repositories/product_repository.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
@@ -47,7 +48,7 @@ class ProductController extends GetxController {
       print('Panjang produk: ${filteredProducts.length} $category');
     } catch (e) {
       print('Error loading products: $e');
-      Get.snackbar('Error', e.toString());
+      SnackbarService.error('Error', e.toString());
     }
   }
 
@@ -60,7 +61,8 @@ class ProductController extends GetxController {
       print('Panjang produk: ${filteredProducts.length}');
     } catch (e) {
       print('Error loading products: $e');
-      Get.snackbar('Error', e.toString());
+
+      SnackbarService.error('Error', e.toString());
     }
   }
 

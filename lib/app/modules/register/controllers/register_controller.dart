@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/register/repositories/register_repository.dart';
+import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
 
 import 'package:kelola_barang/constants/api_constant.dart';
@@ -45,24 +46,12 @@ class RegisterController extends GetxController {
     print('Sedang daftar');
 
     if (passwordController.text != cpasswordController.text) {
-      Get.snackbar(
-        'failed'.tr,
-        'password-not-match'.tr,
-        duration: const Duration(seconds: 2),
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-      );
+      SnackbarService.error('failed'.tr, 'password-not-match'.tr);
       return;
     }
 
     if (passwordController.text.length < 6) {
-      Get.snackbar(
-        'failed'.tr,
-        'minimum-6-character'.tr,
-        duration: const Duration(seconds: 2),
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-      );
+      SnackbarService.error('failed'.tr, 'minimum-6-character'.tr);
       return;
     }
 

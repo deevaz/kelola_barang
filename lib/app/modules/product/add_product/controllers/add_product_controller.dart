@@ -2,15 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/product/add_product/repositories/add_product_repository.dart';
-
 import 'package:kelola_barang/app/modules/product/models/product_request_model.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
-
 import 'package:kelola_barang/app/shared/controllers/barcode_controller.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/constants/api_constant.dart';
-
 import '../../repositories/product_repository.dart';
 
 class AddProductController extends GetxController {
@@ -49,21 +45,10 @@ class AddProductController extends GetxController {
         barcode.value = result;
         kodeBarangC.text = result;
       }
-      Get.snackbar(
-        'barcode-scanned'.tr,
-        'Kode: $result',
-        backgroundColor: ColorStyle.success,
-        colorText: Colors.white,
-        duration: const Duration(seconds: 2),
-      );
+
+      SnackbarService.success('barcode-scanned'.tr, 'Kode: $result');
     } catch (e) {
-      Get.snackbar(
-        'error'.tr,
-        'barcode-scan-failed'.tr,
-        backgroundColor: ColorStyle.danger,
-        colorText: Colors.white,
-        duration: const Duration(seconds: 2),
-      );
+      SnackbarService.error('error'.tr, 'barcode-scan-failed'.tr);
       print('Terjadi error saat scan barcode: $e');
     }
   }
@@ -145,13 +130,7 @@ class AddProductController extends GetxController {
   }
 
   void saveItem() {
-    Get.snackbar(
-      'success'.tr,
-      'item-saved'.tr,
-
-      colorText: Colors.white,
-      duration: const Duration(seconds: 2),
-    );
+    SnackbarService.success('success'.tr, 'item-saved'.tr);
   }
 
   void saveAndCreateAnother() {

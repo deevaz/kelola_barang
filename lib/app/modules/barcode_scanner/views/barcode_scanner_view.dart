@@ -24,13 +24,6 @@ class BarcodeScannerView extends GetView<BarcodeScannerController> {
                   Get.back(result: code);
                   print('Barcode found: $code');
                   controller.barcode.value = code;
-                  // Get.snackbar(
-                  //   'Barcode terdeteksi',
-                  //   'Kode: $code',
-                  //   backgroundColor: ColorStyle.success,
-                  //   colorText: Colors.white,
-                  //   duration: const Duration(seconds: 2),
-                  // );
                   break;
                 }
               }

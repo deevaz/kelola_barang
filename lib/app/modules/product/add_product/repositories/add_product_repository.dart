@@ -36,8 +36,8 @@ class AddProductRepository {
           onConfirm: () {
             Get.back();
             if (again) {
-              Get.back();
               ProductController.to.loadProducts();
+              Get.back();
             } else {
               Get.offAllNamed('/base');
             }
