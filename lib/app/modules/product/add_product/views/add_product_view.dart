@@ -59,7 +59,6 @@ class AddProductView extends GetView<AddProductController> {
                             ),
                             onPressed: () {
                               controller.scanBarcode();
-                              // Get.toNamed(Routes.BARCODE_SCANNER);
                             },
                           ),
                         ),
@@ -80,6 +79,7 @@ class AddProductView extends GetView<AddProductController> {
                   title: 'buy-price'.tr,
                   controller: controller.hargaBeliC,
                   inputType: TextInputType.number,
+                  isPrice: true,
                 ),
                 Row(
                   children: [
@@ -89,6 +89,7 @@ class AddProductView extends GetView<AddProductController> {
                           CustomTextField(
                             inputType: TextInputType.number,
                             title: 'selling-price'.tr,
+                            isPrice: true,
                             controller: controller.hargaJualC,
                           ),
                           SizedBox(height: 10.h),

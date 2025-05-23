@@ -86,13 +86,15 @@ class AddProductController extends GetxController {
     if (selectedImage.value != null) {
       file.add(selectedImage.value!);
     }
+    final buyPrice = int.tryParse(hargaBeliC.text.replaceAll('.', ''));
+    final sellPrice = int.tryParse(hargaJualC.text.replaceAll('.', ''));
     final product = ProductRequestModel.fromXfiles(
       image: file,
       namaBarang: namaBarangC.text,
       kodeBarang: barcode.value.isNotEmpty ? barcode.value : kodeBarangC.text,
       stok: int.tryParse(stokC.text) ?? 0,
-      hargaBeli: int.tryParse(hargaBeliC.text) ?? 0,
-      hargaJual: int.tryParse(hargaJualC.text) ?? 0,
+      hargaBeli: buyPrice ?? 0,
+      hargaJual: sellPrice ?? 0,
       deskripsi: deskripsiC.text,
       kategori: selectedCategory.value,
       kadaluarsa: selectedDate.value.toIso8601String(),

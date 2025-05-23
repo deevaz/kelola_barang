@@ -71,6 +71,7 @@ class EditProductView extends GetView<EditProductController> {
                   title: 'buy-price'.tr,
                   controller: controller.hargaBeliC,
                   inputType: TextInputType.number,
+                  isPrice: true,
                 ),
                 Row(
                   children: [
@@ -81,6 +82,7 @@ class EditProductView extends GetView<EditProductController> {
                             title: 'selling-price'.tr,
                             inputType: TextInputType.number,
                             controller: controller.hargaJualC,
+                            isPrice: true,
                           ),
                           SizedBox(height: 10.h),
                           EditProductCategoryD(c: EditProductController.to),
