@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/product/add_product/views/widgets/custom_text_form_field.dart';
 import 'package:kelola_barang/app/modules/stock_in/views/widgets/selected_products_card.dart';
 import 'package:kelola_barang/app/modules/stock_in/views/widgets/selected_supplier_card.dart';
@@ -32,7 +33,9 @@ class StockInView extends GetView<StockInController> {
                   title:
                       controller.selectedDate.value == null
                           ? 'select-date'.tr
-                          : controller.selectedDate.value.toString(),
+                          : DateFormat(
+                            'dd-MM-yyyy HH:mm',
+                          ).format(controller.selectedDate.value!),
                   onTap: () {
                     controller.pickDate(context);
                   },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/product/add_product/views/widgets/custom_text_form_field.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
@@ -35,7 +36,9 @@ class StockOutView extends GetView<StockOutController> {
                   title:
                       controller.selectedDate.value == null
                           ? 'select-date'.tr
-                          : controller.selectedDate.value.toString(),
+                          : DateFormat(
+                            'dd-MM-yyyy HH:mm',
+                          ).format(controller.selectedDate.value!),
                   onTap: () {
                     controller.pickDate(context);
                   },

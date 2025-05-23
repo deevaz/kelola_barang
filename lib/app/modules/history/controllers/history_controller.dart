@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/history/models/history_response_model.dart';
 import 'package:kelola_barang/app/modules/history/repositories/history_repository.dart';
 import 'package:kelola_barang/app/modules/history/services/pdf_service.dart';
+import 'package:kelola_barang/app/modules/home/controllers/home_controller.dart';
 import 'package:printing/printing.dart';
 import 'package:logger/logger.dart';
 
@@ -65,13 +66,10 @@ class HistoryController extends GetxController {
   }
 
   Future<void> deleteHistory(String id, String tipe) async {
-    try {
-      await _repo.deleteHistory(id, tipe);
-      loadHistory();
-      logger.i('History deleted successfully $id $tipe');
-    } catch (e) {
-      logger.e('Error deleting history: $e');
-    }
+    await _repo.deleteHistory(id, tipe);
+    loadHistory();
+    HomeController.to.fetchStockIn();
+    HomeController.to.fetchStockOut();
   }
 
   Future<void> loadFilteredHistory(String start, String end) async {

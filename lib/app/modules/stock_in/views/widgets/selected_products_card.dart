@@ -58,7 +58,7 @@ class SelectedProductsCard extends StatelessWidget {
                   children: [
                     const Divider(color: ColorStyle.dark, height: 0),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(10.r),
                       child: Text(
                         'selected-product'.tr,
                         style: TextStyle(
