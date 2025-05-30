@@ -30,7 +30,7 @@ class RegisterRepository {
         await HiveService.saveToken(response.data['token'] as String);
         print(json.encode(response.data));
         LoadingService.hide();
-        Get.offAllNamed('/base');
+        Get.offAllNamed('/base', arguments: {'showShowcase': true});
       } else if (response.statusCode == 422) {
         print('VALIDATION ERROR: ${response.data}');
         LoadingService.hide();

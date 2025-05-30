@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
@@ -16,6 +17,7 @@ void main() async {
   await Hive.openBox<UserResponseModel>('user');
   await Hive.openBox<String>('auth');
   await Hive.openBox<String>('lang');
+  await GetStorage.init();
 
   runApp(
     ScreenUtilInit(
@@ -26,7 +28,7 @@ void main() async {
         return GetMaterialApp(
           title: "Kelola Barang",
           translations: AppTranslations(),
-          locale: Locale('en'),
+          locale: Locale('id'),
           fallbackLocale: const Locale('id'),
           debugShowCheckedModeBanner: false,
           supportedLocales: const [Locale('en'), Locale('id')],

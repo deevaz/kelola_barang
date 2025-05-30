@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 import 'package:kelola_barang/app/modules/home/models/chart_data_in.dart';
@@ -18,6 +19,13 @@ class HomeController extends GetxController {
   RxString selectedChart = 'out'.obs;
   Rxn<DateTimeRange> selectedRange = Rxn<DateTimeRange>();
   Logger log = Logger();
+  final GlobalKey one = GlobalKey();
+  final GlobalKey two = GlobalKey();
+  final GlobalKey three = GlobalKey();
+  final GlobalKey four = GlobalKey();
+  final GlobalKey five = GlobalKey();
+  final GlobalKey six = GlobalKey();
+  final box = GetStorage();
 
   @override
   void onReady() {

@@ -176,6 +176,23 @@ class AppTranslations extends Translations {
           'Password reset successfully, please login again',
       'email-not-found': 'Email not found',
       'error': 'Error',
+
+      // ! SHOWCASE
+      "showcase-filter-title": "Date Filter",
+      "showcase-filter":
+          "Use the filter to display data based on a specific date range.",
+      "showcase-info-title": "Quick Info",
+      "showcase-info": "View summary of stock-in and stock-out",
+      "showcase-stock-in-title": "Stock In",
+      "showcase-stock-in":
+          "View and manage the list of goods entering the inventory.",
+      "showcase-stock-out-title": "Stock Out",
+      "showcase-stock-out":
+          "View and manage the list of goods exiting the inventory.",
+      "showcase-product-title": "Supplier",
+      "showcase-product": "Access and manage supplier data.",
+      "showcase-chart-title": "Stock Chart",
+      "showcase-chart": "View visual chart comparing stock-in and stock-out.",
     },
 
     'id': {
@@ -350,6 +367,24 @@ class AppTranslations extends Translations {
       'email-not-found': 'Email tidak ditemukan',
       'error': 'Kesalahan',
       'delete-success': 'Berhasil Dihapus',
+
+      // ! SHOWCASE
+      "showcase-filter-title": "Filter Tanggal",
+      "showcase-filter":
+          "Gunakan filter untuk menampilkan data berdasarkan rentang tanggal tertentu.",
+      "showcase-info-title": "Informasi Ringkas",
+      "showcase-info": "Lihat ringkasan stok masuk, dan stok keluar saat ini.",
+      "showcase-stock-in-title": "Stok Masuk",
+      "showcase-stock-in":
+          "Lihat dan kelola daftar stok barang yang masuk ke gudang.",
+      "showcase-stock-out-title": "Stok Keluar",
+      "showcase-stock-out":
+          "Lihat dan kelola daftar barang yang keluar dari gudang.",
+      "showcase-product-title": "Supplier",
+      "showcase-product": "Akses dan kelola data supplier yang bekerja sama.",
+      "showcase-chart-title": "Grafik Stok",
+      "showcase-chart":
+          "Lihat grafik visual untuk perbandingan stok masuk dan keluar.",
     },
   };
 }
