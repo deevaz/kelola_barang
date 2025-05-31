@@ -24,7 +24,7 @@ class AddProductController extends GetxController {
   final deskripsiC = TextEditingController();
   final RxString barcode = ''.obs;
 
-  final selectedDate = DateTime.now().obs;
+  final Rxn<DateTime> selectedDate = Rxn<DateTime>();
   final selectedCategory = ''.obs;
   var kategori = <Map<String, dynamic>>[].obs;
 
@@ -84,7 +84,10 @@ class AddProductController extends GetxController {
       hargaJual: sellPrice ?? 0,
       deskripsi: deskripsiC.text,
       kategori: selectedCategory.value,
-      kadaluarsa: selectedDate.value.toIso8601String(),
+      kadaluarsa:
+          selectedDate.value != null
+              ? selectedDate.value.toString()
+              : '2022-12-21',
     );
     _addProductRepo.postProduct(product, again);
   }

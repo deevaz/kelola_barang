@@ -104,9 +104,12 @@ class AddProductView extends GetView<AddProductController> {
                 SizedBox(height: 10.h),
                 Obx(
                   () => CustomFormTanggal(
-                    title: DateFormat(
-                      'dd MMMM yyyy, HH:mm',
-                    ).format(controller.selectedDate.value),
+                    title:
+                        controller.selectedDate.value == null
+                            ? 'Kadaluarsa(Opsional)'
+                            : DateFormat(
+                              'dd MMMM yyyy, HH:mm',
+                            ).format(controller.selectedDate.value!),
                     width: double.infinity,
                     selectedDate: controller.selectedDate.value,
                     onTap: () {

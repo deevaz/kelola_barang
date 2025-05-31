@@ -152,10 +152,12 @@ class DetailProductView extends GetView<DetailProductController> {
               ),
               InfoRow(title: 'Kategori', value: '${items.kategori}'),
               InfoRow(
+                // 2022-12-21 00:00:00
                 title: 'expired'.tr,
-                value: DateFormat(
-                  'dd MMM yyyy – HH:mm',
-                ).format(items.kadaluarsa!),
+                value:
+                    items.kadaluarsa.toString() != '2022-12-21 00:00:00.000'
+                        ? DateFormat('dd MMMM yyyy').format((items.kadaluarsa!))
+                        : 'Tidak ada',
               ),
               Padding(
                 padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
@@ -164,7 +166,6 @@ class DetailProductView extends GetView<DetailProductController> {
                   children: [
                     Text(
                       'deskripsi'.tr,
-
                       style: TextStyle(fontSize: 18.sp, color: ColorStyle.grey),
                     ),
                     const Spacer(),
