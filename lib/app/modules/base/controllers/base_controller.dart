@@ -15,6 +15,7 @@ class BaseController extends GetxController {
   final RxString userId = ''.obs;
   final Box<UserResponseModel> userBox = Hive.box<UserResponseModel>('user');
   final Box<String> authBox = Hive.box<String>('auth');
+  final Box<String> langBox = Hive.box<String>('lang');
 
   final RxString lang = ''.obs;
   final RxString email = ''.obs;
@@ -30,10 +31,20 @@ class BaseController extends GetxController {
   void onInit() {
     super.onInit();
     getUserData();
+    getLang();
+  }
+
+  void getLang() {
+    final storedLang = langBox.get('lang') ?? 'id';
+    lang.value = storedLang;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.updateLocale(Locale(storedLang));
+    });
   }
 
   void changeLang(String value) {
     lang.value = value;
+    langBox.put('lang', value);
     Get.updateLocale(Locale(value));
   }
 
