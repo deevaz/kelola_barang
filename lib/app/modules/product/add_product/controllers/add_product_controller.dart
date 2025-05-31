@@ -44,9 +44,11 @@ class AddProductController extends GetxController {
         print('Kode barcode diambil: $result');
         barcode.value = result;
         kodeBarangC.text = result;
+        SnackbarService.success('barcode-scanned'.tr, 'Kode: $result');
       }
-
-      SnackbarService.success('barcode-scanned'.tr, 'Kode: $result');
+      if (barcode.value.isEmpty) {
+        SnackbarService.error('error'.tr, 'barcode-not-found'.tr);
+      }
     } catch (e) {
       SnackbarService.error('error'.tr, 'barcode-scan-failed'.tr);
       print('Terjadi error saat scan barcode: $e');
