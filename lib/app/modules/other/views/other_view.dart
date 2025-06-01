@@ -147,7 +147,16 @@ class OtherView extends GetView<OtherController> {
                                     applicationLegalese:
                                         '© ${DateTime.now().year} Deevaz',
                                     applicationName: 'Kelola Barang',
-                                    applicationVersion: '1.0',
+                                    applicationVersion: '2.1.4',
+                                    children: [
+                                      Text(
+                                        'Some images are sourced from Freepik.',
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: ColorStyle.dark,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                             ),
                       ),

@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:kelola_barang/app/shared/controllers/admob_controller.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../controllers/onboarding_controller.dart';
 
 class OnboardingView extends GetView<OnboardingController> {
-  const OnboardingView({super.key});
+  OnboardingView({super.key});
+  final AdmobController admobController = Get.find();
+
   @override
   Widget build(BuildContext context) {
+    if (admobController.bannerAd.value == null) {
+      admobController.loadBannerAd();
+    }
+
     return Scaffold(
       body: Container(
         child: Stack(
@@ -144,6 +152,26 @@ class OnboardingView extends GetView<OnboardingController> {
                         ),
                         textAlign: TextAlign.center,
                       ),
+                      SizedBox(height: 40.h),
+                      Obx(() {
+                        if (admobController.isBannerAdLoaded.value &&
+                            admobController.bannerAd.value != null) {
+                          return Container(
+                            width:
+                                admobController.bannerAd.value!.size.width
+                                    .toDouble(),
+                            height:
+                                admobController.bannerAd.value!.size.height
+                                    .toDouble(),
+                            child: AdWidget(
+                              ad: admobController.bannerAd.value!,
+                            ),
+                          );
+                        } else {
+                          return SizedBox.shrink();
+                        }
+                      }),
+                      // Text('Versi 2.1.3',style: TextStyle(fontSize: 12.sp,color: ColorStyle.dark,), ),
                     ],
                   ),
                 ),

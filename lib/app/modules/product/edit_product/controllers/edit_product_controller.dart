@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/product/edit_product/repositories/edit_product_repository.dart';
 import 'package:kelola_barang/app/modules/product/models/product_request_model.dart';
 import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/modules/product/repositories/product_repository.dart';
 import 'package:kelola_barang/app/routes/app_pages.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/shared/constants/ad_constants.dart';
+import 'package:kelola_barang/app/shared/constants/api_constant.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../../../shared/controllers/barcode_controller.dart';
 
@@ -26,6 +30,24 @@ class EditProductController extends GetxController {
   final deskripsiC = TextEditingController();
 
   final RxString barcode = ''.obs;
+
+  late final BannerAd bannerAd = BannerAd(
+    adUnitId:
+        Platform.isAndroid
+            ? AdConstants.bannerId
+            : 'ca-app-pub-3940256099942544/2934735716',
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        print('Ad loaded.');
+      },
+      onAdFailedToLoad: (ad, error) {
+        print('Ad failed to load: $error');
+        ad.dispose();
+      },
+    ),
+  )..load();
 
   final selectedDate = DateTime.now().obs;
   final selectedCategory = 'Olahraga'.obs;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/home/views/widgets/chart_in_widget.dart';
 import 'package:kelola_barang/app/modules/home/views/widgets/chart_out_widget.dart';
@@ -232,6 +233,12 @@ class HomeView extends GetView<HomeController> {
                         ],
                       ),
                     ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Container(
+                    width: controller.bannerAd.size.width.toDouble(),
+                    height: controller.bannerAd.size.height.toDouble(),
+                    child: AdWidget(ad: controller.bannerAd),
                   ),
                 ],
               ),

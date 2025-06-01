@@ -2,7 +2,7 @@ import 'package:logger/logger.dart'; // Tambahkan import ini
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/shared/constants/api_constant.dart';
 
 class DioService extends GetxService {
   DioService._();

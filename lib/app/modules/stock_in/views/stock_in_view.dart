@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:kelola_barang/app/modules/product/add_product/views/widgets/custom_text_form_field.dart';
 import 'package:kelola_barang/app/modules/stock_in/views/widgets/selected_products_card.dart';
@@ -57,6 +58,12 @@ class StockInView extends GetView<StockInController> {
                   },
                   child: Text('save'.tr, style: TextStyle(fontSize: 16.sp)),
                 ),
+              ),
+              SizedBox(height: 310.h),
+              Container(
+                width: controller.bannerAd.size.width.toDouble(),
+                height: controller.bannerAd.size.height.toDouble(),
+                child: AdWidget(ad: controller.bannerAd),
               ),
             ],
           ),

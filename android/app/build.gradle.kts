@@ -32,10 +32,10 @@ android {
 
     defaultConfig {
         applicationId = "com.deevaz.kelola_barang"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 35
-        versionCode = 6
-        versionName = "2.1.2"
+        versionCode = 8
+        versionName = "2.1.4"
         multiDexEnabled = true 
     }
 

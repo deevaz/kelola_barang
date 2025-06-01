@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/stock_out/repositories/stock_out_repository.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/shared/constants/ad_constants.dart';
 
 import '../models/product_out_model.dart';
 import '../models/stock_out_model.dart';
@@ -21,7 +24,23 @@ class StockOutController extends GetxController {
   final dio = Dio();
   final userId = BaseController.to.userId.value;
 
-  var apiConstant = ApiConstant();
+  late final BannerAd bannerAd = BannerAd(
+    adUnitId:
+        Platform.isAndroid
+            ? AdConstants.bannerId
+            : 'ca-app-pub-3940256099942544/2934735716',
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        print('Ad loaded.');
+      },
+      onAdFailedToLoad: (ad, error) {
+        print('Ad failed to load: $error');
+        ad.dispose();
+      },
+    ),
+  )..load();
 
   void setSelectedDate(DateTime? date) {
     selectedDate.value = date;

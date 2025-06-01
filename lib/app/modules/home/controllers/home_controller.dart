@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 
 import 'package:kelola_barang/app/modules/home/models/chart_data_in.dart';
 import 'package:kelola_barang/app/modules/home/models/chart_data_out.dart';
 import 'package:kelola_barang/app/modules/home/repositories/home_repository.dart';
+import 'package:kelola_barang/app/shared/constants/ad_constants.dart';
 import 'package:logger/logger.dart';
 
 class HomeController extends GetxController {
@@ -33,6 +37,24 @@ class HomeController extends GetxController {
     fetchStockIn();
     fetchStockOut();
   }
+
+  late final BannerAd bannerAd = BannerAd(
+    adUnitId:
+        Platform.isAndroid
+            ? AdConstants.bannerId
+            : 'ca-app-pub-3940256099942544/2934735716',
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        print('Ad loaded.');
+      },
+      onAdFailedToLoad: (ad, error) {
+        print('Ad failed to load: $error');
+        ad.dispose();
+      },
+    ),
+  )..load();
 
   void clearFilter() {
     selectedRange.value = null;

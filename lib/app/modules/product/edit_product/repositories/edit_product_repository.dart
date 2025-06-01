@@ -5,7 +5,7 @@ import 'package:kelola_barang/app/modules/product/controllers/product_controller
 import 'package:kelola_barang/app/modules/product/models/product_request_model.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/shared/constants/api_constant.dart';
 
 class EditProductRepo {
   EditProductRepo();

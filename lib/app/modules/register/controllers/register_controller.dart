@@ -5,7 +5,7 @@ import 'package:kelola_barang/app/modules/register/repositories/register_reposit
 import 'package:kelola_barang/app/services/snackbar_service.dart';
 import 'package:kelola_barang/app/shared/models/user_model.dart';
 
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/shared/constants/api_constant.dart';
 
 class RegisterController extends GetxController {
   final usernameC = TextEditingController();

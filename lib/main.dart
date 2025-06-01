@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kelola_barang/app/shared/controllers/admob_controller.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/translations/app_translations.dart';
@@ -17,7 +19,9 @@ void main() async {
   await Hive.openBox<UserResponseModel>('user');
   await Hive.openBox<String>('auth');
   await Hive.openBox<String>('lang');
+  await MobileAds.instance.initialize();
   await GetStorage.init();
+  Get.put(AdmobController());
 
   runApp(
     ScreenUtilInit(

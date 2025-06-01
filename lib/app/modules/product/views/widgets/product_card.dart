@@ -6,7 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/product/models/product_response.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/shared/constants/api_constant.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 

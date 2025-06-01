@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kelola_barang/app/modules/barcode_scanner/controllers/barcode_scanner_controller.dart';
@@ -171,6 +172,12 @@ class AddProductView extends GetView<AddProductController> {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(height: 40.h),
+                Container(
+                  width: controller.bannerAd.size.width.toDouble(),
+                  height: controller.bannerAd.size.height.toDouble(),
+                  child: AdWidget(ad: controller.bannerAd),
                 ),
               ],
             ),

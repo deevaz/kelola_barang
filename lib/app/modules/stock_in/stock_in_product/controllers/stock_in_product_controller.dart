@@ -7,7 +7,7 @@ import 'package:kelola_barang/app/modules/stock_in/models/product_in_model.dart'
 import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/services/dialog_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
-import 'package:kelola_barang/constants/api_constant.dart';
+import 'package:kelola_barang/app/shared/constants/api_constant.dart';
 import 'package:logger/web.dart';
 
 import '../views/widgets/stock_in_modal_bottom.dart';
