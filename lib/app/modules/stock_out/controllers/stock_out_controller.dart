@@ -74,23 +74,21 @@ class StockOutController extends GetxController {
       lastDate: DateTime(2041),
     );
 
-    if (pickedDate != null) {
-      TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
+    TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (pickedTime != null) {
+      final combinedDateTime = DateTime(
+        pickedDate!.year,
+        pickedDate.month,
+        pickedDate.day,
+        pickedTime.hour,
+        pickedTime.minute,
       );
 
-      if (pickedTime != null) {
-        final combinedDateTime = DateTime(
-          pickedDate.year,
-          pickedDate.month,
-          pickedDate.day,
-          pickedTime.hour,
-          pickedTime.minute,
-        );
-
-        selectedDate.value = combinedDateTime;
-      }
+      selectedDate.value = combinedDateTime;
     }
   }
 

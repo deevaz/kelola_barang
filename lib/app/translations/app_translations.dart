@@ -178,6 +178,9 @@ class AppTranslations extends Translations {
           'Password reset successfully, please login again',
       'email-not-found': 'Email not found',
       'error': 'Error',
+      'total-stock': 'Total Stock',
+      'reward-earned': 'Reward earned successfully',
+      'ads-loading': 'Ads are loading, please wait',
 
       // ! SHOWCASE
       "showcase-filter-title": "Date Filter",
@@ -198,6 +201,7 @@ class AppTranslations extends Translations {
     },
 
     'id': {
+      'total-stock': 'Total Stok',
       'login': 'Masuk',
       'email': 'Email',
       'password': 'Kata Sandi',
@@ -371,6 +375,8 @@ class AppTranslations extends Translations {
       'email-not-found': 'Email tidak ditemukan',
       'error': 'Kesalahan',
       'delete-success': 'Berhasil Dihapus',
+      'reward-earned': 'Hadiah berhasil diterima',
+      'ads-loading': 'Iklan sedang dimuat, silakan tunggu',
 
       // ! SHOWCASE
       "showcase-filter-title": "Filter Tanggal",

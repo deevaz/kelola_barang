@@ -138,8 +138,8 @@ class EditProductController extends GetxController {
       firstDate: DateTime.now(),
       lastDate: DateTime(2041),
     );
-    if (pickedDate != null && pickedDate != selectedDate.value) {
-      selectedDate.value = pickedDate;
+    if (pickedDate != selectedDate.value) {
+      selectedDate.value = pickedDate ?? DateTime.now();
     }
   }
 
