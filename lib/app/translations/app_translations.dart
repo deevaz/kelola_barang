@@ -181,6 +181,7 @@ class AppTranslations extends Translations {
       'total-stock': 'Total Stock',
       'reward-earned': 'Reward earned successfully',
       'ads-loading': 'Ads are loading, please wait',
+      'print-history-reward': 'Watch Ads to Print History',
 
       // ! SHOWCASE
       "showcase-filter-title": "Date Filter",
@@ -377,6 +378,7 @@ class AppTranslations extends Translations {
       'delete-success': 'Berhasil Dihapus',
       'reward-earned': 'Hadiah berhasil diterima',
       'ads-loading': 'Iklan sedang dimuat, silakan tunggu',
+      'print-history-reward': 'Tonton Iklan untuk Mencetak Riwayat',
 
       // ! SHOWCASE
       "showcase-filter-title": "Filter Tanggal",

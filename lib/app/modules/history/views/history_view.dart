@@ -72,11 +72,27 @@ class HistoryView extends GetView<HistoryController> {
                   child: IconButton(
                     onPressed: () {
                       print('Print pdf');
-                      // controller.printDocument();
-                      controller.showRewardedAd(
-                        func: () {
-                          controller.printDocument();
-                        },
+                      Get.defaultDialog(
+                        title: 'print'.tr,
+                        content: Text('print-history-reward'.tr),
+                        confirm: TextButton(
+                          onPressed: () {
+                            controller.showRewardedAd(
+                              func: () {
+                                controller.printDocument();
+                              },
+                            );
+                            Get.back();
+                          },
+                          child: Text(
+                            'yes'.tr,
+                            style: TextStyle(color: ColorStyle.primary),
+                          ),
+                        ),
+                        cancel: TextButton(
+                          onPressed: () => Get.back(),
+                          child: Text('no'.tr),
+                        ),
                       );
                     },
                     icon: const Icon(Icons.print),

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:kelola_barang/app/modules/product/detail_product/forgot_password/models/reset_password_model.dart';
+import 'package:kelola_barang/app/modules/other/forgot_password/models/reset_password_model.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
 import 'package:kelola_barang/app/services/loading_service.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
