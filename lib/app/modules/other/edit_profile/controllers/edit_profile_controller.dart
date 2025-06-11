@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kelola_barang/app/modules/base/controllers/base_controller.dart';
 import 'package:kelola_barang/app/modules/other/edit_profile/repositories/edit_profile_repository.dart';
 import 'package:kelola_barang/app/services/snackbar_service.dart';
+import 'package:kelola_barang/app/shared/constants/ad_constants.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -21,6 +25,22 @@ class EditProfileController extends GetxController {
   final _repo = EditProfileRepo();
   final userId = BaseController.to.userId.value;
   final token = BaseController.to.token.value;
+
+  late final BannerAd bannerAd = BannerAd(
+    adUnitId:
+        Platform.isAndroid ? AdConstants.bannerId : AdConstants.iOSBannerId,
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        print('Ad loaded.');
+      },
+      onAdFailedToLoad: (ad, error) {
+        print('Ad failed to load: $error');
+        ad.dispose();
+      },
+    ),
+  )..load();
 
   @override
   void onInit() {

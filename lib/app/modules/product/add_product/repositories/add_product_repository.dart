@@ -6,7 +6,6 @@ import 'package:kelola_barang/app/modules/product/controllers/product_controller
 import 'package:kelola_barang/app/modules/product/models/product_request_model.dart';
 import 'package:kelola_barang/app/services/dialog_service.dart';
 import 'package:kelola_barang/app/services/dio_service.dart';
-import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:logger/logger.dart';
 
 class AddProductRepository {
@@ -29,10 +28,9 @@ class AddProductRepository {
       print('Status Code: ${response.statusCode}');
       if (response.statusCode == 201) {
         print('Success ${response.data}');
-        Get.defaultDialog(
+        DialogService.confirmation(
           title: 'success'.tr,
-          backgroundColor: ColorStyle.white,
-          middleText: 'product-saved'.tr,
+          message: 'product-saved'.tr,
           onConfirm: () {
             Get.back();
             if (again) {

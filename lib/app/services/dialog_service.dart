@@ -27,4 +27,25 @@ class DialogService {
       onConfirm: onConfirm ?? () => Get.back(),
     );
   }
+
+  static void confirmation({
+    required String title,
+    required String message,
+    required VoidCallback onConfirm,
+    VoidCallback? onCancel,
+  }) {
+    Get.defaultDialog(
+      title: title,
+      middleText: message,
+      backgroundColor: ColorStyle.white,
+      confirm: TextButton(
+        onPressed: onConfirm,
+        child: Text('yes'.tr, style: TextStyle(color: ColorStyle.success)),
+      ),
+      cancel: TextButton(
+        onPressed: onCancel ?? () => Get.back(),
+        child: Text('no'.tr, style: TextStyle(color: ColorStyle.danger)),
+      ),
+    );
+  }
 }

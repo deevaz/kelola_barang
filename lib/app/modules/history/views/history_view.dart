@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/services/dialog_service.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/widgets/material_rounded.dart';
 
@@ -72,27 +73,15 @@ class HistoryView extends GetView<HistoryController> {
                   child: IconButton(
                     onPressed: () {
                       print('Print pdf');
-                      Get.defaultDialog(
-                        title: 'print'.tr,
-                        content: Text('print-history-reward'.tr),
-                        confirm: TextButton(
-                          onPressed: () {
-                            controller.showRewardedAd(
-                              func: () {
-                                controller.printDocument();
-                              },
-                            );
-                            Get.back();
-                          },
-                          child: Text(
-                            'yes'.tr,
-                            style: TextStyle(color: ColorStyle.primary),
-                          ),
-                        ),
-                        cancel: TextButton(
-                          onPressed: () => Get.back(),
-                          child: Text('no'.tr),
-                        ),
+                      DialogService.confirmation(
+                        title: 'print-pdf'.tr,
+                        message: 'print-history-reward'.tr,
+                        onConfirm: () {
+                          controller.showRewardedAd(
+                            func: () => controller.printDocument(),
+                          );
+                          Get.back();
+                        },
                       );
                     },
                     icon: const Icon(Icons.print),

@@ -181,7 +181,9 @@ class AppTranslations extends Translations {
       'total-stock': 'Total Stock',
       'reward-earned': 'Reward earned successfully',
       'ads-loading': 'Ads are loading, please wait',
-      'print-history-reward': 'Watch Ads to Print History',
+      'print-history-reward': 'Watch Ads to Print PDF',
+      'password-minimum': 'Password must be at least 6 characters',
+      'print-pdf': 'Print PDF',
 
       // ! SHOWCASE
       "showcase-filter-title": "Date Filter",
@@ -378,7 +380,10 @@ class AppTranslations extends Translations {
       'delete-success': 'Berhasil Dihapus',
       'reward-earned': 'Hadiah berhasil diterima',
       'ads-loading': 'Iklan sedang dimuat, silakan tunggu',
-      'print-history-reward': 'Tonton Iklan untuk Mencetak Riwayat',
+      'print-history-reward': 'Tonton Iklan untuk Mencetak PDF',
+      'password-minimum': 'Kata sandi harus minimal 6 karakter',
+      'no': 'Tidak',
+      'print-pdf': 'Cetak PDF',
 
       // ! SHOWCASE
       "showcase-filter-title": "Filter Tanggal",

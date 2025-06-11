@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:kelola_barang/app/modules/other/forgot_password/views/components/password_text_field.dart';
 import 'package:kelola_barang/app/shared/styles/color_style.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
-import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
 
 import '../controllers/forgot_password_controller.dart';
 
@@ -22,13 +22,18 @@ class ResetPasswordView extends GetView<ForgotPasswordController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomTextField(
+              PasswordTextField(
                 title: 'password'.tr,
                 controller: controller.passwordC,
+                suffixIcon: Icons.visibility,
+                obscureText: true,
               ),
-              CustomTextField(
+              SizedBox(height: 10.h),
+              PasswordTextField(
                 title: 'confirm-password'.tr,
                 controller: controller.confirmPasswordC,
+                suffixIcon: Icons.visibility,
+                obscureText: true,
               ),
               SizedBox(height: 20.h),
               SizedBox(

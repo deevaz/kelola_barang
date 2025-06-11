@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kelola_barang/app/modules/other/edit_profile/views/widgets/edit_profile_picture.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
@@ -46,6 +47,12 @@ class EditProfileView extends GetView<EditProfileController> {
                   },
                   child: Text('save'.tr),
                 ),
+              ),
+              SizedBox(height: 300.h),
+              Container(
+                width: controller.bannerAd.size.width.toDouble(),
+                height: controller.bannerAd.size.height.toDouble(),
+                child: AdWidget(ad: controller.bannerAd),
               ),
             ],
           ),
