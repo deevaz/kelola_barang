@@ -9,8 +9,8 @@ class BaseBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(BaseController());
-    Get.put(ProductController());
-    Get.put(HistoryController());
+    Get.lazyPut<ProductController>(() => ProductController());
+    Get.lazyPut<HistoryController>(() => HistoryController());
     Get.put(HomeController());
   }
 }

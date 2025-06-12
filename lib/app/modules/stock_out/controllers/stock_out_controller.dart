@@ -70,7 +70,7 @@ class StockOutController extends GetxController {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: DateTime(2020),
       lastDate: DateTime(2041),
     );
 

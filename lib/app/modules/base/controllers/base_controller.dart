@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:kelola_barang/app/services/dialog_service.dart';
 import 'package:kelola_barang/app/shared/models/user_response_model.dart';
 
 class BaseController extends GetxController {
@@ -30,6 +32,19 @@ class BaseController extends GetxController {
     super.onInit();
     getUserData();
     getLang();
+
+    ever(token, (_) async {
+      try {
+        final response = await Dio().get('https://abdaziz.my.id');
+        if (response.statusCode != 200) throw Exception();
+      } catch (e) {
+        DialogService.error(
+          title: 'error-connection'.tr,
+          message: 'error-connection-message'.tr,
+          onConfirm: () => Get.back(),
+        );
+      }
+    });
   }
 
   void getLang() {

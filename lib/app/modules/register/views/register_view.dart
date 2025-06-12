@@ -9,9 +9,9 @@ import 'package:kelola_barang/app/modules/register/views/widget/add_profile_imag
 import 'package:kelola_barang/app/shared/constants/ad_constants.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
+import 'package:kelola_barang/app/shared/widgets/password_textfield.dart';
 
 import '../controllers/register_controller.dart';
-import 'widget/password_text_field.dart';
 
 class RegisterView extends GetView<RegisterController> {
   RegisterView({super.key});
@@ -70,13 +70,13 @@ class RegisterView extends GetView<RegisterController> {
                 controller: controller.emailController,
               ),
               SizedBox(height: 10.h),
-              RPasswordTextField(
+              PasswordTextField(
                 title: 'password'.tr,
                 hintText: 'input-password'.tr,
                 controller: controller.passwordController,
               ),
               SizedBox(height: 10.h),
-              RPasswordTextField(
+              PasswordTextField(
                 title: 'confirm-password'.tr,
                 hintText: 'input-password'.tr,
                 controller: controller.cpasswordController,
@@ -92,7 +92,7 @@ class RegisterView extends GetView<RegisterController> {
                   child: Text('Daftar'),
                 ),
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 20.h),
               Container(
                 width: _bannerAd.size.width.toDouble(),
                 height: _bannerAd.size.height.toDouble(),

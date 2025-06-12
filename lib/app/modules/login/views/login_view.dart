@@ -8,8 +8,8 @@ import 'package:kelola_barang/app/routes/app_pages.dart';
 import 'package:kelola_barang/app/shared/constants/ad_constants.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_text_field.dart';
-import 'package:kelola_barang/app/modules/login/views/widgets/password_text_field.dart';
 
+import '../../../shared/widgets/password_textfield.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -67,8 +67,6 @@ class LoginView extends GetView<LoginController> {
                 PasswordTextField(
                   title: 'Password',
                   hintText: 'input-password'.tr,
-                  suffixIcon: Icons.visibility,
-                  obscureText: true,
                   controller: controller.passwordController,
                 ),
                 SizedBox(height: 10.h),
@@ -84,7 +82,7 @@ class LoginView extends GetView<LoginController> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 20.h),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -95,7 +93,7 @@ class LoginView extends GetView<LoginController> {
                     child: Text('login'.tr),
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 370.h),
                 Container(
                   width: _bannerAd.size.width.toDouble(),
                   height: _bannerAd.size.height.toDouble(),

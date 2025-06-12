@@ -34,8 +34,8 @@ android {
         applicationId = "com.deevaz.kelola_barang"
         minSdk = 23
         targetSdk = 35
-        versionCode = 11
-        versionName = "2.1.6"
+        versionCode = 15
+        versionName = "2.3.0"
         multiDexEnabled = true 
     }
 

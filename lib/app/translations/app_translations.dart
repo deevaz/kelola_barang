@@ -173,6 +173,8 @@ class AppTranslations extends Translations {
       'confirm-token-success': 'Token confirmed successfully',
       'confirm-token-not-match': 'Token does not match',
       'error-connection': 'Connection Error',
+      'error-connection-message':
+          'An error occurred while trying to connect to the server. Please check your internet connection.',
       'please-wait': 'Please wait',
       'reset-password-success':
           'Password reset successfully, please login again',
@@ -372,6 +374,8 @@ class AppTranslations extends Translations {
       'check-email':
           'Silakan periksa email Anda untuk mengatur ulang kata sandi',
       'error-connection': 'Kesalahan Koneksi',
+      'error-connection-message':
+          'Terjadi kesalahan saat mencoba terhubung ke server. Silakan periksa koneksi internet Anda.',
       'please-wait': 'Silakan tunggu',
       'reset-password-success':
           'Kata sandi berhasil diatur ulang, silakan masuk kembali',

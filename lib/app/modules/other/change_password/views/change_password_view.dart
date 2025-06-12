@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:kelola_barang/app/shared/styles/elevated_button_style.dart';
 import 'package:kelola_barang/app/shared/widgets/custom_app_bar.dart';
+import 'package:kelola_barang/app/shared/widgets/password_textfield.dart';
 
 import '../controllers/change_password_controller.dart';
-import 'widgets/cpassword_text_field.dart';
 
 class ChangePasswordView extends GetView<ChangePasswordController> {
   const ChangePasswordView({super.key});
@@ -19,30 +19,27 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CPasswordTextField(
+            PasswordTextField(
+              title: 'old-password'.tr,
               hintText: 'old-password'.tr,
               controller: controller.oldPasswordC,
-              suffixIcon: Icons.visibility,
-              obscureText: true,
             ),
             SizedBox(height: 10.h),
-            CPasswordTextField(
+            PasswordTextField(
+              title: 'new-password'.tr,
               hintText: 'new-password'.tr,
               controller: controller.newPasswordC,
-              suffixIcon: Icons.visibility,
-              obscureText: true,
             ),
             SizedBox(height: 10.h),
-            CPasswordTextField(
+            PasswordTextField(
+              title: 'confirm-password'.tr,
               hintText: 'confirm-password'.tr,
               controller: controller.confirmNewPasswordC,
-              suffixIcon: Icons.visibility,
-              obscureText: true,
             ),
             SizedBox(height: 20.h),
             SizedBox(
               width: double.infinity,
-
+              height: 50.h,
               child: ElevatedButton(
                 style: EvelatedButtonStyle.rounded15,
                 onPressed: () {
