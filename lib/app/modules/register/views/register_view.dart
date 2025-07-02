@@ -15,23 +15,7 @@ import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
   RegisterView({super.key});
-  late final BannerAd _bannerAd = BannerAd(
-    adUnitId:
-        Platform.isAndroid
-            ? AdConstants.bannerId
-            : 'ca-app-pub-3940256099942544/2934735716',
-    size: AdSize.banner,
-    request: AdRequest(),
-    listener: BannerAdListener(
-      onAdLoaded: (ad) {
-        print('Ad loaded.');
-      },
-      onAdFailedToLoad: (ad, error) {
-        print('Ad failed to load: $error');
-        ad.dispose();
-      },
-    ),
-  )..load();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,12 +75,6 @@ class RegisterView extends GetView<RegisterController> {
                   },
                   child: Text('Daftar'),
                 ),
-              ),
-              SizedBox(height: 20.h),
-              Container(
-                width: _bannerAd.size.width.toDouble(),
-                height: _bannerAd.size.height.toDouble(),
-                child: AdWidget(ad: _bannerAd),
               ),
             ],
           ),

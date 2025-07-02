@@ -152,26 +152,6 @@ class OnboardingView extends GetView<OnboardingController> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 40.h),
-                      Obx(() {
-                        if (admobController.isBannerAdLoaded.value &&
-                            admobController.bannerAd.value != null) {
-                          return Container(
-                            width:
-                                admobController.bannerAd.value!.size.width
-                                    .toDouble(),
-                            height:
-                                admobController.bannerAd.value!.size.height
-                                    .toDouble(),
-                            child: AdWidget(
-                              ad: admobController.bannerAd.value!,
-                            ),
-                          );
-                        } else {
-                          return SizedBox.shrink();
-                        }
-                      }),
-                      // Text('Versi 2.1.3',style: TextStyle(fontSize: 12.sp,color: ColorStyle.dark,), ),
                     ],
                   ),
                 ),
